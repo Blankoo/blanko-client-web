@@ -1,5 +1,11 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/tmp
     docker:
-      - image: .
+      - image: circle/node:7.10
+    steps:
+      - checkout
+      - npm install
+      - npm run build
+      - npm start
