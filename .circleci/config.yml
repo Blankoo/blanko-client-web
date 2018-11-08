@@ -3,11 +3,15 @@ jobs:
   build:
     working_directory: ./
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:4.8.2
     steps:
+      - checkout
       - run:
-        name: install-npm
-        command: npm install
+          name: update-npm 
+          command: 'sudo npm install -g npm@latest'
       - run:
-        name: build
-        command: npm run build
+          name: npm-install
+          command: npm install
+      - run:
+          name: npm-build
+          command: npm run build
