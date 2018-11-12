@@ -20,8 +20,9 @@ jobs:
       enabled: true
     steps:
       - run:
-        name: Login in via SSH
-        command: ssh $USER@$HOST echo 'vanuit circle ci deploy'
+          name: Login in via SSH
+          command: | 
+            ssh $USER@$HOST echo 'vanuit circle ci deploy' >> test.txt
 
 workflows:
   version: 2
