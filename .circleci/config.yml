@@ -23,14 +23,14 @@ jobs:
         name: Login in via SSH
         command: ssh $USER@$HOST echo 'vanuit circle ci deploy'
 
-  workflows:
-    version: 2
-    build_and_test:
-      jobs:
-        - build
-        - deploy:
-            requires:
-              - build
-            filters:
-              branches:
-                only: master
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
