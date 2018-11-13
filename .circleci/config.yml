@@ -29,6 +29,9 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - add_ssh_keys:
+          fingerprints:
+            - "08:ca:ec:21:65:8a:d4:f4:83:23:ae:9a:1e:50:36:85"
       - deploy:
           requires:
             - build
