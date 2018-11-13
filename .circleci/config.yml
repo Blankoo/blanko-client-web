@@ -21,7 +21,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "08:ca:ec:21:65:8a:d4:f4:83:23:ae:9a:1e:50:36:85"
+            - "fa:4d:41:98:b5:74:ec:f7:67:29:0f:d3:b6:69:15:ad"
       - run:
           name: Login in via SSH
           command: | 
