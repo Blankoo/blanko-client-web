@@ -18,9 +18,6 @@ jobs:
   deploy:
     machine:
       enabled: true
-    branches:
-      only:
-        - master
     steps:
       - add_ssh_keys:
           fingerprints:
