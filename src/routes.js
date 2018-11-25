@@ -2,10 +2,12 @@ import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
 import App from './containers/App'
-import Home from './components/Home'
+import Home from './pages/Home'
+import Login from './pages/Login'
 
 export default (
-  <Route path="/" component={App}>
+	<Route path="/" component={App}>
     <IndexRoute component={Home} />
+		<Route path="/login" component={Login}></Route>
   </Route>
 )
