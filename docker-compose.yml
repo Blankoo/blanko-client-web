@@ -1,0 +1,17 @@
+version: '3'
+services:
+  node:
+    build: .
+    volumes:
+      - build-volume:/usr/src/app/build
+  nginx:
+    image: nginx:latest
+    volumes:
+      - "build-volume:/usr/share/nginx/html"
+    ports:
+      - "80:80"
+    links:
+      - node:server
+
+volumes:
+  build-volume:
