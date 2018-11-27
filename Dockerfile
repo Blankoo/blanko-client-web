@@ -1,7 +1,6 @@
-FROM node as node-build
+FROM node:8 as build
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY . /usr/src/app
 RUN npm install
 COPY . ./
 RUN npm run build 
-
