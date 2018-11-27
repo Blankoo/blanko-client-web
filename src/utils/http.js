@@ -1,5 +1,4 @@
 import axios from 'axios'
-import conf from './config'
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(config => {

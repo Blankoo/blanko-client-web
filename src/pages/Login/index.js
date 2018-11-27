@@ -5,8 +5,6 @@ import { Link, browserHistory } from 'react-router'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './login-style.scss'
-const http = {}
-const config = {}
 // import add from '../utils/add'
 
 class Login extends React.Component {
