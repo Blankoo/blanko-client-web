@@ -5,14 +5,11 @@ services:
     volumes:
       - "build-volume:/usr/src/app/build"
   blankoclient:
+    ports:
+      - "80:80"
     image: nginx:latest
     volumes:
       - "build-volume:/usr/share/nginx/html"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=blankoclient"
-      - "traefik.port=80"
-      - "traefik.frontend.rule=Host:client.blankoapp.com"
     depends_on:
       - "blankoclientbuild"
     restart: always
