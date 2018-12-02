@@ -1,2 +1,2 @@
-// action types here as contstants e.g.
+export const AUTHENTICATE = 'AUTHENTICATE'
 export const LOGIN = 'LOGIN'

@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux';
+
 import http from '../../utils/http'
 import config from '../../utils/config'
-import { Link, browserHistory } from 'react-router'
+// import { /withRouter } from 'react-router'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './login-style.scss'
@@ -13,7 +15,7 @@ class Login extends React.Component {
 
 		this.state = {
 			username: '',
-			password: '',
+			password: ''
 			message: null,
 			success: true,
 			forgotPassword: false,
@@ -37,10 +39,10 @@ class Login extends React.Component {
 					localStorage.setItem('USER_TOK', token)
 					localStorage.setItem('USER_ID', id)
 					this.setState({
-						skeletonLeft: 0
+						skeletonLeft: 40
 					}, () => {
 						setTimeout(() => {
-							browserHistory.push('/')
+							// browserHistory.push('/')
 						}, 420)
 					})
 			} else {
@@ -75,7 +77,9 @@ class Login extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('hoi dit is login', this.context.router)
+		console.log('_________LOGIN__________')
+		setTimeout(e => console.log(this), 1000)
+		console.log('_________END LOGIN__________')
 	}
 
 	render() {
@@ -93,15 +97,15 @@ class Login extends React.Component {
 						<ReactCSSTransitionGroup {...transitionOptions}>
 						{ !this.state.forgotPassword  ?
 						<div className="input-fields" key={1}>
-							<input type="text" onChange={this.onType} name="username" placeholder="Username" autoFocus={true}
+							<input type="text" onChange={this.onType} name="username" value={this.state.username} placeholder="Username" autoFocus={true}
 								className={this.state.success ? '' : 'error'}/>
 
-							<input type="password" onChange={this.onType} name="password" placeholder="Password"
+							<input type="password" onChange={this.onType} value={this.state.password} name="password" placeholder="Password"
 								className={this.state.success ? '' : 'error'}/>
 							<button onClick={this.login} className="login-button">Login</button>
 
 							<span className="links">
-								<Link to="/" className="link small">Sign up</Link>
+								<a href="https://noudadrichem.com" className="link small">Sign up</a>
 								<button className="link small" onClick={this.toggleForgotPassword}>Forgot password</button>
 							</span>
 						</div>
@@ -124,4 +128,13 @@ class Login extends React.Component {
 	}
 }
 
-export default Login
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    counter: state.counter
+  };
+};
+
+const mapDispatchToProps = {  };
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
