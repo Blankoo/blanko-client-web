@@ -1,4 +1,6 @@
 // initial state tree here:
 export default {
-	authenticated: false
+	authenticated: false,
+	userId: '',
+	user: ''
 }

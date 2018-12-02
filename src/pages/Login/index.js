@@ -5,21 +5,23 @@ import http from '../../utils/http'
 import config from '../../utils/config'
 // import { /withRouter } from 'react-router'
 
+import { login } from '../../actions/'
+
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './login-style.scss'
 // import add from '../utils/add'
 
 class Login extends React.Component {
 	constructor(props) {
-		super()
+		super(props)
 
 		this.state = {
-			username: '',
-			password: ''
+			username: 'info@noudadrichem.com',
+			password: 'test1234',
 			message: null,
 			success: true,
 			forgotPassword: false,
-			skeletonLeft: 40
+			skeletonLeft: 80
 		}
 
 		this.onType = this.onType.bind(this)
@@ -30,27 +32,11 @@ class Login extends React.Component {
 	}
 
 	async login() {
-		try {
-			const { data: { message, success, user, token, id }} = await http.post(`${config.apiUrl}/account/login`, this.state)
-			this.setState({ success })
-
-			if(success) {
-					localStorage.setItem('USER', user)
-					localStorage.setItem('USER_TOK', token)
-					localStorage.setItem('USER_ID', id)
-					this.setState({
-						skeletonLeft: 40
-					}, () => {
-						setTimeout(() => {
-							// browserHistory.push('/')
-						}, 420)
-					})
-			} else {
-				this.setState({ message })
-			}
-		} catch(err) {
-			console.error(err)
-		}
+		const { username, password} = this.state
+		this.props.login({
+			username,
+			password
+		})
 	}
 
 	onEnter(e) {
@@ -74,12 +60,6 @@ class Login extends React.Component {
 		// 	.then(res => {
 		// 		console.log('forgot email: ', res)
 		// 	})
-	}
-
-	componentDidMount() {
-		console.log('_________LOGIN__________')
-		setTimeout(e => console.log(this), 1000)
-		console.log('_________END LOGIN__________')
 	}
 
 	render() {
@@ -128,13 +108,13 @@ class Login extends React.Component {
 	}
 }
 
-const mapStateToProps = (state /*, ownProps*/) => {
+const mapStateToProps = (state) => {
   return {
-    counter: state.counter
+
   };
 };
 
 const mapDispatchToProps = {  };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(null, { login })(Login)
