@@ -1,8 +1,11 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+
+import Sidebar from '../components/Sidebar'
 
 const Home = () => (
-  <div>
-		<h1>Blanko Homee</h1>
-  </div>
+  <>
+		<Sidebar/>
+  </>
 )
-export default Home
+export default withRouter(Home)

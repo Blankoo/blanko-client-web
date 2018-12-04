@@ -16,9 +16,11 @@ const auto = false
 STORE.subscribe(e => console.log(STORE.getState()))
 console.log(STORE.getState())
 
+
+// STORE.getState().authenticationReducer.authenticated
 const GuardedRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    auto
+  <Route exact {...rest} render={(props) => (
+		true
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />
@@ -26,11 +28,10 @@ const GuardedRoute = ({ component: Component, ...rest }) => (
 
 ReactDOM.render(
   <Provider store={STORE}>
-    <BrowserRouter >
+    <BrowserRouter>
 			<>
-				<GuardedRoute exact path="/" component={Home} />
-				<Route path="/login" component={Login}/>
-				<Route component={Error}/>
+				<GuardedRoute path="/" component={Home} />
+				<Route exact path="/login" component={Login}/>
 			</>
 		</BrowserRouter>
   </Provider>,

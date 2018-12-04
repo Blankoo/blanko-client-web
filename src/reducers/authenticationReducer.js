@@ -14,7 +14,7 @@ export default function authenticationReducer(state=initialState, action) {
 		case types.LOGIN_ERROR:
 			return {
 				...state,
-				authenticated: success,
+				authenticated: action.payload.success,
 			}
     default:
       return state;

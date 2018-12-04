@@ -7,12 +7,12 @@ export const login = userInfo => {
 		.then(resolved => {
 			console.log('resolved', resolved)
 			if (resolved.data.success) {
-				dispatch({
+				return dispatch({
 					type: types.LOGIN_SUCCESS,
 					payload: resolved.data
 				})
 			} else {
-				dispatch({
+				return dispatch({
 					type: types.LOGIN_ERROR,
 					payload: resolved.data
 				})
