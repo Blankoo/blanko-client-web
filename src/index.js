@@ -2,9 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { applyMiddlewarl, createStore } from 'redux';
-
-import rootReducer from './reducers/'
 
 import configureStore from './store/configureStore'
 import './master.scss'
@@ -13,12 +10,10 @@ import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
 
-import { login, authenticate } from './actions'
-
-const STORE = createStore(rootReducer)
+const STORE = configureStore()
 const auto = false
 
-STORE.subscribe(() => console.log(STORE.getState()))
+STORE.subscribe(e => console.log(STORE.getState()))
 console.log(STORE.getState())
 
 const GuardedRoute = ({ component: Component, ...rest }) => (

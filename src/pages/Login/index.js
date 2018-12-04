@@ -1,15 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
-
-import http from '../../utils/http'
-import config from '../../utils/config'
-// import { /withRouter } from 'react-router'
-
-import { login } from '../../actions/'
-
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './login-style.scss'
-// import add from '../utils/add'
+
+import { login } from '../../actions/'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -31,7 +25,12 @@ class Login extends React.Component {
 		this.sendForgotUsernameMail = this.sendForgotUsernameMail.bind(this)
 	}
 
-	async login() {
+	static getDerivedStateFromProps(props, state) {
+		console.log({ loginProps: props })
+		console.log({ loginState: state })
+	}
+
+	login() {
 		const { username, password} = this.state
 		this.props.login({
 			username,
@@ -63,6 +62,7 @@ class Login extends React.Component {
 	}
 
 	render() {
+		const { authenticated } = this.props
 		const transitionOptions = {
       transitionName: 'fade',
 			transitionEnterTimeout: 0,
@@ -110,11 +110,9 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+		authenticated: state.authenticationReducer.authenticated
+  }
+}
+const mapActionsToProps = { login }
 
-  };
-};
-
-const mapDispatchToProps = {  };
-
-
-export default connect(null, { login })(Login)
+export default connect(mapStateToProps, mapActionsToProps)(Login)
