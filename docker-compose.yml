@@ -1,17 +1,18 @@
 version: '3'
 services:
-  node:
+  blankoclientbuild:
     build: .
     volumes:
-      - build-volume:/usr/src/app/build
-  nginx:
+      - "build-volume:/usr/src/app/build"
+  blankoclient:
+    ports:
+      - "80:80"
     image: nginx:latest
     volumes:
       - "build-volume:/usr/share/nginx/html"
-    ports:
-      - "80:80"
-    links:
-      - node:server
+    depends_on:
+      - "blankoclientbuild"
+    restart: always
 
 volumes:
   build-volume:

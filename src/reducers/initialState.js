@@ -1,2 +1,5 @@
-// initial state tree here:
-export default {}
+export default {
+	authenticated: false,
+	userId: '',
+	user: ''
+}
