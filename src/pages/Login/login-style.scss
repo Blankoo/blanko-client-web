@@ -94,8 +94,23 @@
     background-size: cover;
     position: absolute;
     top: 0;
-    left: 40vw;
-    transition: 420ms ease-in-out;
+    transform: translateX(40vw);
+    $transitionDelay: 1200ms;
+    transition: $transitionDelay ease-out;
+    will-change: transform;
+
+    &.login-succes {
+      animation: slideLeft $transitionDelay;
+    }
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(40vw);
+    }
+    to {
+      transform: translateX(0vw);
+    }
   }
 
   .links {

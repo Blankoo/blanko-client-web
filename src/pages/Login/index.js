@@ -4,19 +4,19 @@ import { withRouter } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './login-style.scss'
 
-import { login } from '../../actions/'
+import { login, fetchProjects } from '../../actions/'
 
 class Login extends React.Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			username: '',
-			password: '',
-			message: null,
-			success: true,
+			username: 'info@noudadrichem.com',
+			password: 'test1234',
+			message: '',
+			success: false,
 			forgotPassword: false,
-			skeletonLeft: 100
+			skeletonLeft: 40
 		}
 
 		this.onType = this.onType.bind(this)
@@ -38,8 +38,15 @@ class Login extends React.Component {
 					success: payload.success
 				}, () => {
 					if(this.state.success) {
-						console.log('komt hij hier wel')
-						this.props.history.push('/')
+						window.localStorage.setItem('USER_TOK',  payload.token)
+						setTimeout(() => {
+							this.props.fetchProjects()
+							this.props.history.push('/')
+						}, 1100)
+					} else {
+						this.setState({
+							message: payload.message
+						})
 					}
 				})
 			})
@@ -51,7 +58,9 @@ class Login extends React.Component {
 		}
 	}
 
-	onType(e) { this.setState({ [e.target.name]: e.target.value }) }
+	onType(e) {
+		this.setState({ [e.target.name]: e.target.value })
+	}
 
 	toggleForgotPassword() {
 		this.setState(({ forgotPassword }) => ({
@@ -69,14 +78,16 @@ class Login extends React.Component {
 	}
 
 	render() {
-		const { authenticated } = this.props
-		const { success } = this.state
+		const { success, message } = this.state
 		const transitionOptions = {
       transitionName: 'fade',
 			transitionEnterTimeout: 0,
       transitionEnter: true,
       transitionLeave: false
 		}
+
+		const isSuccessfull = success && message.length !== 0
+		console.log('message.length', message.length)
 
 		return (
 			<div className="login" onKeyUp={this.onEnter}>
@@ -87,10 +98,10 @@ class Login extends React.Component {
 
 						<div className="input-fields" key={1}>
 							<input type="text" onChange={this.onType} name="username" value={this.state.username} placeholder="Username" autoFocus={true}
-								className={success ? '' : 'error'}/>
+								className={message.length > 0 ? 'error' : ''}/>
 
 							<input type="password" onChange={this.onType} value={this.state.password} name="password" placeholder="Password"
-								className={success ? '' : 'error'}/>
+								className={message.length > 0 ? 'error' : ''}/>
 							<button onClick={this.login} className="login-button">Login</button>
 
 							<span className="links">
@@ -106,7 +117,7 @@ class Login extends React.Component {
 							<p>Please provide the email your account is registerd with so we can send you a recovery email.</p>
 
 							<input type="text" onChange={this.onType} name="username" placeholder="Email address" autoFocus={true}
-								className={success ? '' : 'error'}/>
+								className={message.length > 0 ? 'error' : ''}/>
 							<button onClick={this.sendForgotUsernameMail} className="login-button">Send reset email</button>
 						</div>
 					}
@@ -114,7 +125,7 @@ class Login extends React.Component {
 					</ReactCSSTransitionGroup>
 				</div>
 
-				<div className="skeleton" style={{ left: `${this.state.skeletonLeft}vw` }}></div>
+				<div className={`skeleton ${success ? 'login-succes' : ''}`} ></div>
 			</div>
 		)
 	}
@@ -125,6 +136,6 @@ const mapStateToProps = (state) => {
 		authenticated: state.authenticationReducer.authenticated
   }
 }
-const mapActionsToProps = { login }
+const mapActionsToProps = { login, fetchProjects }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Login))
