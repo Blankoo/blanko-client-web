@@ -100,7 +100,7 @@
     will-change: transform;
 
     &.login-succes {
-      animation: slideLeft $transitionDelay;
+      animation: slideLeft $transitionDelay 1 ease-out forwards;
     }
   }
 

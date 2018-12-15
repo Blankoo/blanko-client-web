@@ -1,5 +1,6 @@
 export default {
-	authenticated: false,
+	authenticated: true,
 	userId: '',
-	user: ''
+	user: '',
+	projects: []
 }
