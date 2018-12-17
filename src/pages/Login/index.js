@@ -97,8 +97,15 @@ class Login extends React.Component {
 						{ !this.state.forgotPassword  ?
 
 						<div className="input-fields" key={1}>
-							<input type="text" onChange={this.onType} name="username" value={this.state.username} placeholder="Username" autoFocus={true}
-								className={message.length > 0 ? 'error' : ''}/>
+							<input
+								type="text"
+								onChange={this.onType}
+								name="username"
+								value={this.state.username}
+								placeholder="Username"
+								autoFocus={true}
+								className={message.length > 0 ? 'error' : ''}
+							/>
 
 							<input type="password" onChange={this.onType} value={this.state.password} name="password" placeholder="Password"
 								className={message.length > 0 ? 'error' : ''}/>

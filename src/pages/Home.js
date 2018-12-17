@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import Sidebar from '../components/Sidebar'
+import TasksContainer from '../components/tasksContainer'
 
 import { fetchProjects } from '../actions'
 
@@ -15,6 +16,7 @@ class Home extends Component {
 		return (
 			<>
 				<Sidebar/>
+				<TasksContainer/>
 			</>
 		)
 	}

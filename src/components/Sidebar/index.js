@@ -17,7 +17,7 @@ class SideBar extends Component {
 
 				<Projectslist/>
 
-				<span className="logout-icon" >
+				<span className="logout-icon">
 					<svg width="31px" height="32px" viewBox="0 0 31 32" version="1.1">
 					  <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 					    <g className="logout-icon-path" fill="#7A848F" fillRule="nonzero">
@@ -35,6 +35,7 @@ class SideBar extends Component {
 }
 
 const mapStateToProps = (state) => {
+	console.log(state)
 	return {
 		projects: state.projectReducer.projects
 	}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import {fetchTasks} from '../../actions/'
 
 class ProjectList extends React.Component {
 	render() {
@@ -15,7 +16,7 @@ class ProjectList extends React.Component {
 								const { _id, projectTitle, favorite } = project
 
 								return (
-									<li key={idx} className={'active'} >
+									<li key={idx} className={'active'} onClick={() => this.props.fetchTasks(project._id)}>
 										<span title={ projectTitle }>{ projectTitle }</span>
 										{/* <ProjectMenu
 											iconVisibility={true}
@@ -33,11 +34,13 @@ class ProjectList extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	projects: state.projectReducer.projects
-})
+const mapStateToProps = (state) => {
+	return {
+		projects: state.projectReducer.projects
+	}
+}
 
-export default connect(mapStateToProps, null)(ProjectList)
+export default connect(mapStateToProps, { fetchTasks })(ProjectList)
 
 
 ProjectList.defaultProps = {

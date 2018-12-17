@@ -8,6 +8,11 @@ export default function projectsReducer(state=initialState, action) {
 				...state,
 				projects: action.payload
 			}
+		case types.FETCH_TASKS:
+		return {
+			...state,
+			tasks: action.payload
+		}
     default:
       return state;
   }
