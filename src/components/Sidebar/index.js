@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './sidebarStyle.scss'
+
+import Projectslist from '../ProjectsList'
 
 class SideBar extends Component {
 	constructor(props) {
@@ -12,7 +15,9 @@ class SideBar extends Component {
 				<div className="blanko">Blanko.</div>
 				<div className="blanko-small">B.</div>
 
-				<span className="logout-icon" >
+				<Projectslist/>
+
+				<span className="logout-icon">
 					<svg width="31px" height="32px" viewBox="0 0 31 32" version="1.1">
 					  <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 					    <g className="logout-icon-path" fill="#7A848F" fillRule="nonzero">
@@ -29,4 +34,11 @@ class SideBar extends Component {
 	}
 }
 
-export default SideBar
+const mapStateToProps = (state) => {
+	console.log(state)
+	return {
+		projects: state.projectReducer.projects
+	}
+}
+
+export default connect(mapStateToProps, {})(SideBar)

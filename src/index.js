@@ -11,16 +11,20 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 
 const STORE = configureStore()
-const auto = false
 
-STORE.subscribe(e => console.log(STORE.getState()))
-console.log(STORE.getState())
+STORE.subscribe(e => console.info(STORE.getState()))
+console.info({ STORE: STORE.getState() })
 
 
-// STORE.getState().authenticationReducer.authenticated
+function isAuthenticated() {
+	const token = window.localStorage.getItem('USER_TOK')
+	const authenticated = STORE.getState().authenticationReducer.authenticated
+	return (token && authenticated)
+}
+
 const GuardedRoute = ({ component: Component, ...rest }) => (
   <Route exact {...rest} render={(props) => (
-		true
+		isAuthenticated()
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />

@@ -32,8 +32,6 @@
     display: block;
     background: transparent;
     border: 0;
-    font-size: 14px;
-    outline: none;
     color: #7A848F;
     letter-spacing: 0;
     border-bottom: 1px solid #7A848F;
@@ -100,7 +98,7 @@
     will-change: transform;
 
     &.login-succes {
-      animation: slideLeft $transitionDelay;
+      animation: slideLeft $transitionDelay 1 ease-out forwards;
     }
   }
 
@@ -150,7 +148,6 @@
 
   .forgot-password input {
     margin: 32px 0 40px;
-    ;
   }
 
   .forgot-password p {

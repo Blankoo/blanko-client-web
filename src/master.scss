@@ -13,18 +13,9 @@
   cursor: default;
 }
 
-body {
-  background: var(--white);
-  color: var(--text-color-primary);
-  overflow: hidden;
-}
-
-
 ::-webkit-scrollbar {
   display: none;
 }
-
-
 
 html {
   scroll-behavior: smooth;
@@ -33,9 +24,10 @@ html {
 body {
   margin: 0;
   padding: 0;
-  padding-left: var(--sizebar-width);
+  // padding-left: var(--sizebar-width);
   background: var(--white);
   color: var(--text-color-primary);
+  overflow-x:hidden;
 }
 .numbers {
   font-family: 'SF Mono', 'Droid Sans Mono', 'Ubuntu Mono', monospace !important;

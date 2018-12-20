@@ -2,9 +2,11 @@ import { combineReducers } from 'redux'
 
 // reducers
 import authenticationReducer from './authenticationReducer'
+import projectReducer from './projectReducer'
 
 const rootReducer = combineReducers({
-	authenticationReducer
+	authenticationReducer,
+	projectReducer
 })
 
 export default rootReducer
