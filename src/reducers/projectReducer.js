@@ -2,6 +2,7 @@ import initialState from './initialState';
 import * as types from '../contstants/actionTypes'
 
 export default function projectsReducer(state=initialState, action) {
+	console.log({ action })
 	switch (action.type) {
 		case types.FETCH_PROJECTS:
 			return {
@@ -9,11 +10,17 @@ export default function projectsReducer(state=initialState, action) {
 				projects: action.payload
 			}
 		case types.FETCH_TASKS:
-		return {
-			...state,
-			tasks: action.payload
-		}
-    default:
+			return {
+				...state,
+				tasks: action.payload.data,
+				activeProject: action.payload.projectId
+			}
+		case types.TOGGLE_ADDPROJECT:
+			return {
+				...state,
+				addProjectShown: !state.addProjectShown
+			}
+		default:
       return state;
   }
 }

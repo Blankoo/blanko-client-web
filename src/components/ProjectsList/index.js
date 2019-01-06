@@ -1,9 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {fetchTasks} from '../../actions/'
+import {fetchTasks, toggleAddProjectModal} from '../../actions/'
 
 class ProjectList extends React.Component {
+	postProject() {
+		console.log('add project ')
+	}
+
 	render() {
 		const { projects, className } = this.props
 
@@ -18,17 +22,12 @@ class ProjectList extends React.Component {
 								return (
 									<li key={idx} className={'active'} onClick={() => this.props.fetchTasks(project._id)}>
 										<span title={ projectTitle }>{ projectTitle }</span>
-										{/* <ProjectMenu
-											iconVisibility={true}
-											project={{ favorite: favorite, _id: _id }}
-											setProjectFavorite={setProjectFavorite}
-											deleteProject={deleteProject}
-										/> */}
 									</li>
 								)
 
 						})
 					}
+					<li onClick={this.props.toggleAddProjectModal}> + Add project</li>
 				</ul>
 		)
 	}
@@ -40,14 +39,13 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { fetchTasks })(ProjectList)
-
-
 ProjectList.defaultProps = {
 	className: ''
 }
 
-ProjectList.PropTypes = {
+ProjectList.propTypes = {
 	projects: PropTypes.array,
 	className: PropTypes.string
 }
+
+export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal })(ProjectList)
