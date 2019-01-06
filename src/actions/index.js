@@ -31,11 +31,27 @@ export const fetchProjects = () => {
 }
 
 export const fetchTasks = projectId => {
-	console.log('project id from actions', projectId)
 	return dispatch => http.get(`${config.apiUrl}/projects/${projectId}/tasks`)
 		.then(resolved => {
 			dispatch({
 				type: types.FETCH_TASKS,
+				payload: {
+					projectId,
+					data: resolved.data
+				}
+			})
+		})
+}
+
+export const toggleAddProjectModal = () => ({
+	type: types.TOGGLE_ADDPROJECT,
+})
+
+export const addProject = projectData => {
+	return dispatch  => http.post(`${config.apiUrl}/projects/add/`, projectData)
+		.then(resolved => {
+			dispatch({
+				type: types.ADD_PROJECT,
 				payload: resolved.data
 			})
 		})

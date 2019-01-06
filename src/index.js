@@ -13,7 +13,7 @@ import Login from './pages/Login'
 const STORE = configureStore()
 
 STORE.subscribe(e => console.info(STORE.getState()))
-console.info({ STORE: STORE.getState() })
+// console.info({ STORE: STORE.getState() })
 
 
 function isAuthenticated() {

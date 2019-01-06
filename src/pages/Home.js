@@ -4,23 +4,30 @@ import { withRouter } from 'react-router-dom'
 
 import Sidebar from '../components/Sidebar'
 import TasksContainer from '../components/tasksContainer'
+import AddProjectModal from '../components/AddProjectModal'
 
-import { fetchProjects } from '../actions'
+import * as actions from '../actions'
 
 class Home extends Component {
 	componentDidMount() {
-		const { fetchProjects } = this.props
-		fetchProjects()
+		this.props.fetchProjects()
 	}
+
 	render() {
+		const { toggleAddProjectModal, addProject } = this.props
+
 		return (
 			<>
 				<Sidebar/>
 				<TasksContainer/>
+				<AddProjectModal {...{
+					toggleAddProjectModal,
+					addProject
+				}}/>
 			</>
 		)
 	}
 }
 
 
-export default withRouter(connect(null, { fetchProjects })(Home))
+export default withRouter(connect(null, actions)(Home))
