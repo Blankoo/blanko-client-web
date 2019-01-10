@@ -31,7 +31,7 @@ export const fetchProjects = () => {
 }
 
 export const fetchTasks = projectId => {
-	return dispatch => http.get(`${config.apiUrl}/projects/${projectId}/tasks`)
+	return dispatch => http.get(`${config.apiUrl}/projects/5c366886c1e4070f6f6729da/tasks`)
 		.then(resolved => {
 			dispatch({
 				type: types.FETCH_TASKS,
@@ -52,6 +52,17 @@ export const addProject = projectData => {
 		.then(resolved => {
 			dispatch({
 				type: types.ADD_PROJECT,
+				payload: resolved.data
+			})
+		})
+}
+
+export const addTask = taskData => {
+	console.log(' add task ')
+	return dispatch => http.post(`${config.apiUrl}/projects/add/5c366886c1e4070f6f6729da`, taskData)
+		.then(resolved => {
+			dispatch({
+				type: types.ADD_TASK,
 				payload: resolved.data
 			})
 		})
