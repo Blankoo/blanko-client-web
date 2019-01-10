@@ -5,10 +5,6 @@ import './sidebarStyle.scss'
 import Projectslist from '../ProjectsList'
 
 class SideBar extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	render() {
 		return (
 			<div className="sidebar">
@@ -34,10 +30,8 @@ class SideBar extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		projects: state.projectReducer.projects
-	}
-}
+const mapStateToProps = ({ projectReducer }) => ({
+	projects: projectReducer.projects
+})
 
 export default connect(mapStateToProps, {})(SideBar)

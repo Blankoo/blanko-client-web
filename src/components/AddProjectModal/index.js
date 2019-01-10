@@ -41,10 +41,8 @@ class AddProjectModal extends React.Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		addProjectShown: state.projectReducer.addProjectShown
-	}
-}
+const mapStateToProps = ({ projectReducer }) => ({
+	addProjectShown: projectReducer.addProjectShown
+})
 
 export default connect(mapStateToProps, null)(AddProjectModal)
