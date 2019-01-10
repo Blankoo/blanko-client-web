@@ -11,8 +11,8 @@ class Login extends React.Component {
 		super(props)
 
 		this.state = {
-			username: 'info@noudadrichem.com',
-			password: 'test1234',
+			username: '',
+			password: '',
 			message: '',
 			success: false,
 			forgotPassword: false,
@@ -70,7 +70,6 @@ class Login extends React.Component {
 
 	sendForgotUsernameMail() {
 		const { username } = this.state
-		console.log(username);
 		// add('account/forgot', undefined, { username })
 		// 	.then(res => {
 		// 		console.log('forgot email: ', res)

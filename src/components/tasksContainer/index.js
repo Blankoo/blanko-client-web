@@ -12,7 +12,6 @@ class TasksContainer extends Component {
 		fetchTasks()
 	}
 
-
 	render() {
 		const { tasks } = this.props
 
@@ -28,12 +27,9 @@ class TasksContainer extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	// console.log('taskcontainer', state)
-	return {
-		tasks: state.projectReducer.tasks,
-		activeId: state.projectReducer.activeId
-	}
-}
+const mapStateToProps = ({ projectReducer }) => ({
+		tasks: projectReducer.tasks,
+		activeId: projectReducer.activeId
+	})
 
 export default connect(mapStateToProps, { fetchTasks })(TasksContainer)

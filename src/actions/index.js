@@ -22,7 +22,6 @@ export const login = userInfo => {
 export const fetchProjects = () => {
 	return dispatch => http.get(`${config.apiUrl}/projects`)
 		.then(resolved => {
-			console.log({ resolvedProjects: resolved })
 			dispatch({
 				type: types.FETCH_PROJECTS,
 				payload: resolved.data
@@ -58,7 +57,6 @@ export const addProject = projectData => {
 }
 
 export const addTask = (taskData, activeProjectId) => {
-	console.log(' add task ')
 	return dispatch => http.post(`${config.apiUrl}/projects/add/${activeProjectId}`, taskData)
 		.then(resolved => {
 			dispatch({
