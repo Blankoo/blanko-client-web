@@ -65,3 +65,13 @@ export const addTask = (taskData, activeProjectId) => {
 			})
 		})
 }
+
+export const deleteTask = (projectId, taskId) => {
+	return dispatch => http.delete(`${config.apiUrl}/tasks/${projectId}/${taskId}`)
+		.then(resolved => {
+			dispatch({
+				type: types.DELETE_TASK,
+				payload: resolved.data
+			})
+		})
+}

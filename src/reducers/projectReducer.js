@@ -31,6 +31,14 @@ export default function projectsReducer(state=initialState, action) {
 				...state,
 				tasks: [...state.tasks, action.payload.body]
 			}
+		case types.DELETE_TASK:
+			const deletedId = action.payload.id
+			const newTasks = state.tasks.filter(task => task._id !== deletedId)
+
+			return {
+				...state,
+				tasks: newTasks
+			}
 		default:
       return state;
   }

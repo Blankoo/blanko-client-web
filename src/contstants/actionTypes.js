@@ -8,3 +8,4 @@ export const ADD_PROJECT = 'ADD_PROJECT'
 
 export const TOGGLE_ADDTASK = 'TOGGLE_ADDTASK'
 export const ADD_TASK = 'ADD_TASK'
+export const DELETE_TASK = 'DELETE_TASK'
