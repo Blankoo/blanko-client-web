@@ -5,6 +5,7 @@ import './taskContainerStyle.scss'
 import {fetchTasks} from '../../actions'
 
 import Task from '../Task'
+import AddTask from '../AddTask'
 
 class TasksContainer extends Component {
 	componentDidMount() {
@@ -20,6 +21,8 @@ class TasksContainer extends Component {
 				<h1>Project title</h1>
 
 				{ tasks !== undefined && tasks.map(task => <Task task={task}/> ) }
+
+				<AddTask/>
 			</div>
 		)
 	}

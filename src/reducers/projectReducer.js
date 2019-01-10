@@ -20,6 +20,17 @@ export default function projectsReducer(state=initialState, action) {
 				...state,
 				addProjectShown: !state.addProjectShown
 			}
+		case types.ADD_PROJECT:
+			return {
+				...state,
+				projects: [...state.projects, action.payload],
+				addProjectShown: false
+			}
+		case types.ADD_TASK:
+			return {
+				...state,
+				tasks: [...state.tasks, action.payload.body]
+			}
 		default:
       return state;
   }
