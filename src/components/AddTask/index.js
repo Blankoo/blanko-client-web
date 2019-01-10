@@ -20,7 +20,7 @@ class AddTask extends React.Component {
 	}
 
 	addLocalTask = () => {
-		this.props.addTask(this.state)
+		this.props.addTask(this.state, this.props.activeProjectId)
 		this.setState({
 			title: '',
 			subTitle: ''
@@ -38,8 +38,8 @@ class AddTask extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	console.log({ addtaskState: state })
-}
+const mapStateToProps = ({ projectReducer }) => ({
+	activeProjectId: projectReducer.activeProject
+})
 
 export default connect(mapStateToProps, { addTask })(AddTask)
