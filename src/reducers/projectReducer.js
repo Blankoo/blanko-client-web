@@ -10,10 +10,12 @@ export default function projectsReducer(state=initialState, action) {
 				projects: action.payload
 			}
 		case types.FETCH_TASKS:
+			console.log('fetch task payload: ', action.payload)
 			return {
 				...state,
 				tasks: action.payload.data,
-				activeProject: action.payload.projectId
+				activeProjectId: action.payload.project._id,
+				activeProject: action.payload.project
 			}
 		case types.TOGGLE_ADDPROJECT:
 			return {

@@ -29,13 +29,13 @@ export const fetchProjects = () => {
 		})
 }
 
-export const fetchTasks = projectId => {
-	return dispatch => http.get(`${config.apiUrl}/projects/${projectId}/tasks`)
+export const fetchTasks = project => {
+	return dispatch => http.get(`${config.apiUrl}/projects/${project._id}/tasks`)
 		.then(resolved => {
 			dispatch({
 				type: types.FETCH_TASKS,
 				payload: {
-					projectId,
+					project,
 					data: resolved.data
 				}
 			})

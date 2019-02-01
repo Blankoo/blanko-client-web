@@ -3,6 +3,14 @@
   --text-color-primary: #9b9b9b;
   --text-color-secondary: #7A848F;
   --white: #fbfbfd;
+  --cta: #007AFF;
+  --smallBp: 864px;
+}
+
+@media screen and (max-width: 512px) {
+  :root {
+    --sizebar-width: 80px;
+  }
 }
 
 * {
@@ -24,30 +32,12 @@ html {
 body {
   margin: 0;
   padding: 0;
-  // padding-left: var(--sizebar-width);
   background: var(--white);
   color: var(--text-color-primary);
   overflow-x:hidden;
 }
-.numbers {
+.mono {
   font-family: 'SF Mono', 'Droid Sans Mono', 'Ubuntu Mono', monospace !important;
-}
-
-@media screen and (max-width: 850px) {
-  :root {
-    --sizebar-width: 80px;
-  }
-
-  .blanko-small {
-    display: block !important;
-  }
-
-  .blanko,
-  .description,
-  .favorites,
-  .projectList {
-    display: none;
-  }
 }
 
 .label {

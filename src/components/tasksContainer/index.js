@@ -13,23 +13,27 @@ class TasksContainer extends Component {
 	}
 
 	render() {
-		const { tasks } = this.props
-
+		const { tasks, projectTitle, projectDescription } = this.props
 		return (
 			<div className="tasks-container">
-				<h1>Project title</h1>
+				<div className="tasks-container-title">
+					<h1>{ projectTitle }</h1>
+					<p>{ projectDescription }</p>
+
+				</div>
 
 				{ tasks !== undefined && tasks.map(task => <Task task={task}/> ) }
 
-				<AddTask/>
+				{ projectTitle !== undefined && <AddTask/> }
 			</div>
 		)
 	}
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-		tasks: projectReducer.tasks,
-		activeId: projectReducer.activeId
-	})
+	tasks: projectReducer.tasks,
+	projectTitle: projectReducer.activeProject.projectTitle,
+	projectDescription: projectReducer.activeProject.projectDescription
+})
 
 export default connect(mapStateToProps, { fetchTasks })(TasksContainer)
