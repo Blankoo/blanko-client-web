@@ -39,7 +39,7 @@ class AddTask extends React.Component {
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-	activeProjectId: projectReducer.activeProject
+	activeProjectId: projectReducer.activeProjectId
 })
 
 export default connect(mapStateToProps, { addTask })(AddTask)

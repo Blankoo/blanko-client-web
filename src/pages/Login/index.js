@@ -33,7 +33,7 @@ class Login extends React.Component {
 		}
 
 		this.props.login(userBody)
-			.then(({payload}) => {
+			.then(({ payload }) => {
 				this.setState({
 					success: payload.success
 				}, () => {
@@ -70,10 +70,6 @@ class Login extends React.Component {
 
 	sendForgotUsernameMail() {
 		const { username } = this.state
-		// add('account/forgot', undefined, { username })
-		// 	.then(res => {
-		// 		console.log('forgot email: ', res)
-		// 	})
 	}
 
 	render() {
@@ -137,11 +133,10 @@ class Login extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-  return {
-		authenticated: state.authenticationReducer.authenticated
-  }
-}
+const mapStateToProps = ({ authenticationReducer }) => ({
+	authenticated: authenticationReducer.authenticated
+})
+
 const mapActionsToProps = { login, fetchProjects }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Login))
