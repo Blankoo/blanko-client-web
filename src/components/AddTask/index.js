@@ -2,6 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTask } from '../../actions'
 
+// Components
+import Button from '../Button'
+
 // Styles
 import './AddTask.scss'
 
@@ -48,7 +51,11 @@ class AddTask extends React.Component {
 					onChange={e => this.setInputState(e)}
 				/>
 
-				<button onClick={this.addLocalTask}>Add Task</button>
+				<Button
+					onClick={this.addLocalTask}
+					variant="secondary"
+					text="Add Task"
+				/>
 			</div>
 		)
 	}

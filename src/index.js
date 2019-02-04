@@ -2,13 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
-
 import configureStore from './store/configureStore'
-import './master.scss'
 
+// Components
 import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
+
+// Styles
+import './master.scss'
 
 const STORE = configureStore()
 
