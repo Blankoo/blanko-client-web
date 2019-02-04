@@ -32,7 +32,7 @@ class AddTask extends React.Component {
 	}
 
 	render() {
-		return  (
+		return (
 			<div>
 				<input
 					type="text"
