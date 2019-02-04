@@ -86,16 +86,15 @@
     height: 12px;
     object-fit: cover;
     opacity: 0.7;
-  }
-  
-  .logout-icon:hover svg g {
-    transition: 200ms ease;
-    fill: #FB1C1C;
-  }
-  
-  .logout-icon svg {
-    width: 100%;
-    transition: 200ms;
+
+    &:hover svg g {
+      transition: 200ms ease;
+      fill: #FB1C1C;
+    }
+
+    svg {
+      width: 100%;
+      transition: 200ms;
+    }
   }
 }
-
