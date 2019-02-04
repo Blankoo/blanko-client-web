@@ -22,7 +22,7 @@ class TasksContainer extends Component {
 
 				</div>
 
-				{ tasks !== undefined && tasks.map(task => <Task task={task}/> ) }
+				{ tasks !== undefined && tasks.map((task, idx) => <Task key={idx} task={task}/> ) }
 
 				{ projectTitle !== undefined && <AddTask/> }
 			</div>

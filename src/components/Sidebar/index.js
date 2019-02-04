@@ -35,4 +35,4 @@ const mapStateToProps = ({ projectReducer }) => ({
 	projects: projectReducer.projects
 })
 
-export default connect(mapStateToProps, {})(SideBar)
+export default connect(mapStateToProps)(SideBar)

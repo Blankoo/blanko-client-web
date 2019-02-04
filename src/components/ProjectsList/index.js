@@ -1,12 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchTasks, toggleAddProjectModal } from '../../actions/'
+import { fetchTasks, toggleAddProjectModal, setSelectedProject } from '../../actions/'
 
-class ProjectList extends React.Component {
+class ProjectList extends React.PureComponent {
+	selectProject = project => {
+		window.localStorage.setItem('PROJ_ID', project._id)
+		this.props.fetchTasks(project._id)
+		this.props.setSelectedProject(project)
+	}
+
 	render() {
-		const { projects, className, toggleAddProjectModal, fetchTasks, label, favorite } = this.props
-		console.log({listFav: favorite})
+		const { projects, className, toggleAddProjectModal, label, favorite } = this.props
+
 		return (
 			projects !== undefined &&
 				<ul className={`projects-list ${className}`}>
@@ -15,10 +21,10 @@ class ProjectList extends React.Component {
 						projects
 							.filter(p => p.favorite === favorite)
 							.map((project, idx) => {
-								const { _id, projectTitle, favorite, active = false } = project
+								const { projectTitle, active = false } = project
 
 								return (
-									<li key={idx} className={`projects-list-item ${active ? 'active' : 'not-active'}`} onClick={() => fetchTasks(project)}>
+									<li key={idx} className={`projects-list-item ${active ? 'active' : 'not-active'}`} onClick={() => this.selectProject(project)}>
 										<span title={ projectTitle }>{ projectTitle }</span>
 									</li>
 								)
@@ -45,4 +51,4 @@ ProjectList.propTypes = {
 	className: PropTypes.string
 }
 
-export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal })(ProjectList)
+export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal, setSelectedProject })(ProjectList)
