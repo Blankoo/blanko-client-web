@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { deleteTask } from '../../actions'
+import { deleteTask, setTaskActive } from '../../actions'
 
 import Checkbox from '../Checkbox'
 
 import './taskStyle.scss'
 
-const Task = ({ activeProjectId, deleteTask, task}) => {
+const Task = ({ activeProjectId, deleteTask, setTaskActive, task}) => {
 	return (
-		<div className="task-small">
+		<div className="task-small" onClick={() => setTaskActive(task)}>
 			<Checkbox check={task.status === 'DONE'}/>
 			<div>
 				<div className="task-small-title">{ task.title }</div>
@@ -24,5 +24,5 @@ const mapStateToProps = ({ projectReducer }) => ({
 	activeProjectId: projectReducer.activeProjectId
 })
 
-export default connect(mapStateToProps, { deleteTask })(Task)
+export default connect(mapStateToProps, { deleteTask, setTaskActive })(Task)
 

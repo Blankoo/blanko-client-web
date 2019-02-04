@@ -20,11 +20,13 @@ class AddTask extends React.Component {
 	}
 
 	addLocalTask = () => {
-		this.props.addTask(this.state, this.props.activeProjectId)
-		this.setState({
-			title: '',
-			subTitle: ''
-		})
+		if(this.state.title.length > 1) {
+			this.props.addTask(this.state, this.props.activeProjectId)
+			this.setState({
+				title: '',
+				subTitle: ''
+			})
+		}
 	}
 
 	render() {
