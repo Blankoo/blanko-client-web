@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { setTaskActive } from '../../actions'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-import { setTaskActive } from '../../actions'
-import './taskDetailStyle.scss'
+// Styles
+import './TaskDetail.scss'
 
 class TaskDetail extends React.Component {
 	state = {
