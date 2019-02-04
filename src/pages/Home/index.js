@@ -21,7 +21,7 @@ class Home extends Component {
 		const { toggleAddProjectModal, addProject } = this.props
 
 		return (
-			<div id="app">
+			<div className="home">
 				<Sidebar/>
 				<TasksContainer/>
 				<TaskDetail/>

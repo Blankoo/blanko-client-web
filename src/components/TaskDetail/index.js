@@ -13,7 +13,7 @@ class TaskDetail extends React.Component {
 	render() {
 		const isThereAnActiveTask = this.props.activeTask !== undefined
 		return (
-			<div className={`taskDetail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
+			<div className={`task-detail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
 				<span onClick={() => this.props.setTaskActive(undefined)}>CLOSE</span>
 				{
 					isThereAnActiveTask &&
