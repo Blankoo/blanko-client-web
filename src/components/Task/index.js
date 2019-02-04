@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { deleteTask } from '../../actions'
 
 const Task = ({ activeProjectId, deleteTask, task}) => {
-	console.log({task})
+
 	return (
 		<div>
 			{ task.title } --

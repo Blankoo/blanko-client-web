@@ -45,4 +45,4 @@ const mapStateToProps = ({ projectReducer }) => ({
 	addProjectShown: projectReducer.addProjectShown
 })
 
-export default connect(mapStateToProps, null)(AddProjectModal)
+export default connect(mapStateToProps)(AddProjectModal)

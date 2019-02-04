@@ -2,20 +2,23 @@ import initialState from './initialState';
 import * as types from '../contstants/actionTypes'
 
 export default function projectsReducer(state=initialState, action) {
-	console.log({ action })
 	switch (action.type) {
 		case types.FETCH_PROJECTS:
 			return {
 				...state,
 				projects: action.payload
 			}
+
+		case types.SET_PROJECT_DATA:
+			return {
+				...state,
+				activeProject: action.payload,
+				activeProjectId: action.payload._id
+			}
 		case types.FETCH_TASKS:
-			console.log('fetch task payload: ', action.payload)
 			return {
 				...state,
 				tasks: action.payload.data,
-				activeProjectId: action.payload.project._id,
-				activeProject: action.payload.project
 			}
 		case types.TOGGLE_ADDPROJECT:
 			return {

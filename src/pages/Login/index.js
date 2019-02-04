@@ -82,7 +82,6 @@ class Login extends React.Component {
 		}
 
 		const isSuccessfull = success && message.length !== 0
-		console.log('message.length', message.length)
 
 		return (
 			<div className="login" onKeyUp={this.onEnter}>
