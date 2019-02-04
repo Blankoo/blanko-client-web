@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import './taskContainerStyle.scss'
+import { fetchTasks, getSingleProject } from '../../actions'
 
-import {fetchTasks, getSingleProject} from '../../actions'
-
+// Components
 import Task from '../Task'
 import AddTask from '../AddTask'
+
+// Styles
+import './TaskContainer.scss'
 
 class TasksContainer extends Component {
 	componentDidMount() {
@@ -24,10 +26,13 @@ class TasksContainer extends Component {
 				<div className="tasks-container-title">
 					<h1>{ projectTitle }</h1>
 					<p>{ projectDescription }</p>
-
 				</div>
 
-				{ tasks !== undefined && tasks.map((task, idx) => <Task key={idx} task={task}/> ) }
+				{
+					tasks !== undefined && tasks.map((task, idx) => (
+						<Task key={idx} task={task}/>
+					))
+				}
 
 				{ projectTitle !== undefined && <AddTask/> }
 			</div>

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import './sidebarStyle.scss'
 
-import Projectslist from '../ProjectsList'
+// Components
+import ProjectsList from '../ProjectsList'
+
+// Stlyes
+import './Sidebar.scss'
 
 class SideBar extends Component {
 	render() {
@@ -11,9 +14,10 @@ class SideBar extends Component {
 				<div className="blanko">Blanko.</div>
 				<div className="blanko-small">B.</div>
 
-				<Projectslist favorite className="favorite" label="favorites"/>
-				<Projectslist label="projects"/>
+				<ProjectsList favorite className="favorite" label="favorites"/>
+				<ProjectsList label="projects"/>
 
+				{/*eslint-disable*/}
 				<span className="logout-icon">
 					<svg width="31px" height="32px" viewBox="0 0 31 32" version="1.1">
 					  <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -25,7 +29,7 @@ class SideBar extends Component {
 					  </g>
 					</svg>
 				</span>
-
+				{/*eslint-enable*/}
 			</div>
 		)
 	}

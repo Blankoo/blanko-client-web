@@ -11,7 +11,13 @@ class ProjectList extends React.PureComponent {
 	}
 
 	render() {
-		const { projects, className, toggleAddProjectModal, label, favorite } = this.props
+		const {
+			projects,
+			className,
+			toggleAddProjectModal,
+			label,
+			favorite
+		} = this.props
 
 		return (
 			projects !== undefined &&
@@ -24,14 +30,23 @@ class ProjectList extends React.PureComponent {
 								const { projectTitle, active = false } = project
 
 								return (
-									<li key={idx} className={`projects-list-item ${active ? 'active' : 'not-active'}`} onClick={() => this.selectProject(project)}>
+									<li
+										key={idx}
+										onClick={() => this.selectProject(project)}
+										className={`projects-list-item ${active ? 'active' : 'not-active'}`}
+									>
 										<span title={ projectTitle }>{ projectTitle }</span>
 									</li>
 								)
 
 						})
 					}
-					{ !favorite && <li onClick={toggleAddProjectModal}> + Add project</li>}
+
+					{
+						!favorite && (
+							<li onClick={toggleAddProjectModal}> + Add project</li>
+						)
+					}
 				</ul>
 		)
 	}

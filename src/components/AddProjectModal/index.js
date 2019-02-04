@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import './addProjectModalStyle.scss'
+
+// Styles
+import './AddProjectModal.scss'
 
 class AddProjectModal extends React.Component {
 	constructor(props) {
