@@ -81,6 +81,7 @@
     "no-array-constructor": 2,
     "no-unused-vars": 1,
     "no-case-declarations": "off",
+    "no-param-reassign": 0,
     "global-require": 0,
     "prefer-spread": 1,
     "prefer-arrow-callback": 2,
