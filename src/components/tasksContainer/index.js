@@ -9,8 +9,6 @@ import AddTask from '../AddTask'
 
 class TasksContainer extends Component {
 	componentDidMount() {
-		fetchTasks()
-
 		const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
 
 		if(hasSelectedProject) {

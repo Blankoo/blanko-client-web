@@ -7,8 +7,23 @@
   width: 448px;
   height: calc(100vh - 64px);
   flex: 1;
+  transition: 200ms;
+
+  &.closed {
+    transform: translateX(99%);    
+  }
 
   @media screen and (max-width: 512px) {
     display: none;
   }
+}
+.fade-enter {
+  opacity: 0;
+  top: 8px;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  top: 0px;
+  transition: 220ms ease-in;
 }

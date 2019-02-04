@@ -89,3 +89,11 @@ export const deleteTask = (projectId, taskId) => {
 			})
 		})
 }
+
+export const setTaskActive = task => {
+	console.log('set task active', task)
+	return {
+		type: types.SET_TASK_ACTIVE,
+		payload: task
+	}
+}
