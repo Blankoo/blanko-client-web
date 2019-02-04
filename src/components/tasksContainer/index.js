@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './taskContainerStyle.scss'
 
-import {fetchTasks} from '../../actions'
+import {fetchTasks, getSingleProject} from '../../actions'
 
 import Task from '../Task'
 import AddTask from '../AddTask'
@@ -10,6 +10,13 @@ import AddTask from '../AddTask'
 class TasksContainer extends Component {
 	componentDidMount() {
 		fetchTasks()
+
+		const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
+
+		if(hasSelectedProject) {
+			this.props.getSingleProject(hasSelectedProject)
+			this.props.fetchTasks(hasSelectedProject)
+		}
 	}
 
 	render() {
@@ -36,4 +43,4 @@ const mapStateToProps = ({ projectReducer }) => ({
 	projectDescription: projectReducer.activeProject.projectDescription
 })
 
-export default connect(mapStateToProps, { fetchTasks })(TasksContainer)
+export default connect(mapStateToProps, { fetchTasks, getSingleProject })(TasksContainer)

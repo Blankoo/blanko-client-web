@@ -14,11 +14,6 @@ import './homeStyle.scss'
 class Home extends Component {
 	componentDidMount() {
 		this.props.fetchProjects()
-		// const hasSelectedProj = window.localStorage.getItem('PROJ_ID')
-
-		// if(hasSelectedProj) {
-		// 	this.props.fetchTasks
-		// }
 	}
 
 	render() {

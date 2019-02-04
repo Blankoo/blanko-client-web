@@ -29,12 +29,10 @@ export const fetchProjects = () => {
 		})
 }
 
-export const setSelectedProject = project => {
-	return {
-		type: types.SET_PROJECT_DATA,
-		payload: project
-	}
-}
+export const setSelectedProject = project => ({
+	type: types.SET_PROJECT_DATA,
+	payload: project
+})
 
 export const fetchTasks = projectID => {
 	return dispatch => http.get(`${config.apiUrl}/projects/${projectID}/tasks`)
@@ -57,6 +55,16 @@ export const addProject = projectData => {
 		.then(resolved => {
 			dispatch({
 				type: types.ADD_PROJECT,
+				payload: resolved.data
+			})
+		})
+}
+
+export const getSingleProject = id => {
+	return dispatch => http.get(`${config.apiUrl}/projects/${id}`)
+		.then(resolved => {
+			dispatch({
+				type: types.SET_PROJECT_DATA,
 				payload: resolved.data
 			})
 		})
