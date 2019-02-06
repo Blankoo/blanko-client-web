@@ -22,13 +22,13 @@ export default function projectsReducer(state = initialState, action) {
     case types.TOGGLE_ADDPROJECT:
       return {
         ...state,
-        addProjectShown: !state.addProjectShown
+        isAddProjectShown: !state.isAddProjectShown
       }
     case types.ADD_PROJECT:
       return {
         ...state,
         projects: [...state.projects, action.payload],
-        addProjectShown: false
+        isAddProjectShown: false
       }
     case types.ADD_TASK:
       return {

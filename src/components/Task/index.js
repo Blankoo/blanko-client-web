@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { deleteTask, setTaskActive } from '../../actions'
 
@@ -9,8 +10,6 @@ import Checkbox from '../Checkbox'
 import './Task.scss'
 
 const Task = ({
-  activeProjectId,
-  deleteTask,
   setTaskActive,
   task
 }) => (
@@ -28,6 +27,11 @@ const Task = ({
     {/* <span onClick={() => deleteTask(activeProjectId, task._id)}>X</span> */}
   </div>
 )
+
+Task.propTypes = {
+  setTaskActive: PropTypes.func,
+  task: PropTypes.shape
+}
 
 const mapStateToProps = ({ projectReducer }) => ({
   activeProjectId: projectReducer.activeProjectId

@@ -1,18 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import configureStore from './store/configureStore'
 import './master.scss'
 
-import Error from './containers/404'
+// import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
 
 const STORE = configureStore()
 
-STORE.subscribe(e => console.info(STORE.getState()))
+STORE.subscribe(() => console.info(STORE.getState()))
 // console.info({ STORE: STORE.getState() })
 
 function isAuthenticated() {
@@ -30,6 +31,10 @@ const GuardedRoute = ({ component: Component, ...rest }) => (
     )}
   />
 )
+
+GuardedRoute.propTypes = {
+  component: PropTypes.element
+}
 
 ReactDOM.render(
   <Provider store={STORE}>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchTasks, getSingleProject } from '../../actions'
 
@@ -12,7 +13,6 @@ import './TaskContainer.scss'
 class TasksContainer extends Component {
   componentDidMount() {
     const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
-
     const { getSingleProject, fetchTasks } = this.props
 
     if (hasSelectedProject) {
@@ -41,6 +41,14 @@ class TasksContainer extends Component {
       </div>
     )
   }
+}
+
+TasksContainer.propTypes = {
+  tasks: PropTypes.shape,
+  projectTitle: PropTypes.string,
+  projectDescription: PropTypes.string,
+  getSingleProject: PropTypes.func,
+  fetchTasks: PropTypes.func
 }
 
 const mapStateToProps = ({ projectReducer }) => ({

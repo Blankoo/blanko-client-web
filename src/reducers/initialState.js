@@ -4,6 +4,6 @@ export default {
   userId: '',
   user: '',
   projects: [],
-  addProjectShown: false,
+  isAddProjectShown: false,
   activeTask: undefined
 }

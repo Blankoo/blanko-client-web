@@ -1,13 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchTasks, toggleAddProjectModal, setSelectedProject } from '../../actions/'
+import { fetchTasks, toggleAddProjectModal, setSelectedProject } from '../../actions'
 
 class ProjectList extends React.PureComponent {
-  selectProject = project => {
+  selectProject = (project) => {
+    const { fetchTasks, setSelectedProject } = this.props
+
     window.localStorage.setItem('PROJ_ID', project._id)
-    this.props.fetchTasks(project._id)
-    this.props.setSelectedProject(project)
+    fetchTasks(project._id)
+    setSelectedProject(project)
   }
 
   render() {
@@ -16,38 +18,39 @@ class ProjectList extends React.PureComponent {
       className,
       toggleAddProjectModal,
       label,
-      favorite
+      isFavorite
     } = this.props
 
     return (
-      projects !== undefined &&
-        <ul className={`projects-list ${className}`}>
-          <label>{ label }</label>
-          {
-            projects
-              .filter(p => p.favorite === favorite)
-              .map((project, idx) => {
-                const { projectTitle, active = false } = project
+      projects !== undefined && (
+      <ul className={`projects-list ${className}`}>
+        <div className="label">{ label }</div>
 
-                return (
-                  <li
-                    key={idx}
-                    onClick={() => this.selectProject(project)}
-                    className={`projects-list-item ${active ? 'active' : 'not-active'}`}
-                  >
-                    <span title={ projectTitle }>{ projectTitle }</span>
-                  </li>
-                )
+        {
+          projects
+            .filter(p => p.favorite === isFavorite)
+            .map((project, idx) => {
+              const { projectTitle, active = false } = project
 
+              return (
+                <li
+                  key={idx}
+                  onClick={() => this.selectProject(project)}
+                  className={`projects-list-item ${active ? 'active' : 'not-active'}`}
+                >
+                  <span title={projectTitle}>{ projectTitle }</span>
+                </li>
+              )
             })
-          }
+        }
 
-          {
-            !favorite && (
-              <li onClick={toggleAddProjectModal}> + Add project</li>
-            )
-          }
-        </ul>
+        {
+          !isFavorite && (
+            <li onClick={toggleAddProjectModal}> + Add project</li>
+          )
+        }
+      </ul>
+      )
     )
   }
 }
@@ -58,12 +61,17 @@ const mapStateToProps = ({ projectReducer }) => ({
 
 ProjectList.defaultProps = {
   className: '',
-  favorite: false
+  isFavorite: false
 }
 
 ProjectList.propTypes = {
-  projects: PropTypes.array,
-  className: PropTypes.string
+  projects: PropTypes.shape,
+  className: PropTypes.string,
+  label: PropTypes.string,
+  isFavorite: PropTypes.bool,
+  toggleAddProjectModal: PropTypes.func,
+  fetchTasks: PropTypes.func,
+  setSelectedProject: PropTypes.func
 }
 
 export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal, setSelectedProject })(ProjectList)

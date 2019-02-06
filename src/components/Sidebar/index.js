@@ -12,9 +12,10 @@ const SideBar = () => (
     <div className="blanko">Blanko.</div>
     <div className="blanko-small">B.</div>
 
-    <ProjectsList favorite className="favorite" label="favorites" />
+    <ProjectsList isFavorite className="favorite" label="favorites" />
     <ProjectsList label="projects" />
 
+    {/* eslint-disable */}
     <span className="logout-icon">
       <svg width="31px" height="32px" viewBox="0 0 31 32" version="1.1">
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -24,6 +25,7 @@ const SideBar = () => (
         </g>
       </svg>
     </span>
+    {/* eslint-enable */}
   </div>
 )
 

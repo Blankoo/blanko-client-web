@@ -69,9 +69,9 @@ class Login extends React.Component {
     }))
   }
 
-  sendForgotUsernameMail = () => {
-    const { username } = this.state
-  }
+  // sendForgotUsernameMail = () => {
+  //   const { username } = this.state
+  // }
 
   render() {
     const {
