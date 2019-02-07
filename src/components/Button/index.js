@@ -5,33 +5,30 @@ import PropTypes from 'prop-types'
 import './Button.scss'
 
 const Button = ({
-	text,
-	variant,
-	size,
-	disabled,
-	fullWidth,
-	onClick
+  text,
+  variant,
+  size,
+  isDisabled,
+  isFullWidth,
+  onClick
 }) => (
-		<button
-			className={`button ${variant} ${size} ${fullWidth ? 'full-width' : ''}`}
-			disabled={disabled}
-			onClick={onClick}
-		>
-			{text}
-		</button>
-	)
-
-Button.defaultProps = {
-	text: 'Button',
-	variant: 'primary',
-	size: 'md'
-}
+  <button
+    className={`button ${variant} ${size} ${isFullWidth ? 'full-width' : ''}`}
+    disabled={isDisabled}
+    onClick={onClick}
+    type="button"
+  >
+    {text}
+  </button>
+)
 
 Button.propTypes = {
-	text: PropTypes.string.isRequired,
-	variant: PropTypes.string.isRequired,
-	size: PropTypes.string.isRequired,
-	onClick: PropTypes.func
+  text: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  isDisabled: PropTypes.bool,
+  isFullWidth: PropTypes.bool
 }
 
 export default Button
