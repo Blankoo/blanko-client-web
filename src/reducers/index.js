@@ -5,8 +5,8 @@ import authenticationReducer from './authenticationReducer'
 import projectReducer from './projectReducer'
 
 const rootReducer = combineReducers({
-	authenticationReducer,
-	projectReducer
+  authenticationReducer,
+  projectReducer
 })
 
 export default rootReducer
