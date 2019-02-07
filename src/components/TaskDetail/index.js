@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setTaskActive } from '../../actions'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import TimeMeasuring from '../TimeMeasuring'
 
 // Styles
 import './TaskDetail.scss'
@@ -10,11 +10,13 @@ class TaskDetail extends React.Component {
 	state = {
 		shown: false
 	}
+
 	render() {
 		const isThereAnActiveTask = this.props.activeTask !== undefined
+
 		return (
 			<div className={`task-detail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
-				<span onClick={() => this.props.setTaskActive(undefined)}>CLOSE</span>
+				<span className="close-button" onClick={() => this.props.setTaskActive(undefined)}>x</span>
 				{
 					isThereAnActiveTask &&
 					<>
@@ -22,6 +24,7 @@ class TaskDetail extends React.Component {
 						<p>{ this.props.activeTask.subTitle }</p>
 					</>
 				}
+				<TimeMeasuring/>
 			</div>
 		)
 	}

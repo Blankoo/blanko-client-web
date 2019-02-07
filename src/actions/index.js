@@ -97,3 +97,8 @@ export const setTaskActive = task => {
 		payload: task
 	}
 }
+
+export const addTimeMeasurement = mes => {
+	console.log('add time meaurement')
+	return dispatch => http.post(`${config.apiUrl}`)
+}
