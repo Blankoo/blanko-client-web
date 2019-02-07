@@ -28,8 +28,6 @@ class AddProjectModal extends React.Component {
   render() {
     const { toggleAddProjectModal, isShown, addProject } = this.props
 
-    /* TODO: Replace button with Button component */
-
     return isShown && (
       <div className="add-project-modal">
         <div>

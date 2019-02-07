@@ -41,8 +41,6 @@ class AddTask extends React.Component {
   render() {
     const { title, subTitle } = this.state
 
-    /* TODO: Replace button with Button component */
-
     return (
       <div>
         <input
