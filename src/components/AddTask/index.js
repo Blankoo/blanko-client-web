@@ -1,61 +1,80 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTask } from '../../actions'
+
+// Components
+import Button from '../Button'
 
 // Styles
 import './AddTask.scss'
 
 class AddTask extends React.Component {
-	constructor(props) {
-		super(props)
+  constructor(props) {
+    super(props)
 
-		this.state = {
-			title: '',
-			subTitle: '',
-		}
-	}
+    this.state = {
+      title: '',
+      subTitle: '',
+    }
+  }
 
-	setInputState = e => {
-		this.setState({
-			[e.target.id]: e.target.value
-		})
-	}
+  setInputState = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
 
-	addLocalTask = () => {
-		if(this.state.title.length > 1) {
-			this.props.addTask(this.state, this.props.activeProjectId)
-			this.setState({
-				title: '',
-				subTitle: ''
-			})
-		}
-	}
+  addLocalTask = () => {
+    const { title } = this.state
+    const { activeProjectId, addTask } = this.props
 
-	render() {
-		return  (
-			<div>
-				<input
-					type="text"
-					id="title"
-					value={this.state.title}
-					onChange={e => this.setInputState(e)}
-				/>
+    if (title.length > 1) {
+      addTask(this.state, activeProjectId)
+      this.setState({
+        title: '',
+        subTitle: ''
+      })
+    }
+  }
 
-				<input
-					type="text"
-					id="subTitle"
-					value={this.state.subTitle}
-					onChange={e => this.setInputState(e)}
-				/>
+  render() {
+    const { title, subTitle } = this.state
 
-				<button onClick={this.addLocalTask}>Add Task</button>
-			</div>
-		)
-	}
+    return (
+      <div>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={e => this.setInputState(e)}
+        />
+
+        <input
+          type="text"
+          id="subTitle"
+          value={subTitle}
+          onChange={e => this.setInputState(e)}
+        />
+
+        <Button
+          onClick={this.addLocalTask}
+          text="Add Task"
+          variant="secondary"
+          size="md"
+        />
+      </div>
+    )
+  }
+}
+
+AddTask.propTypes = {
+  activeProjectId: PropTypes.string,
+  addTask: PropTypes.func
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-	activeProjectId: projectReducer.activeProjectId
+  activeProjectId: projectReducer.activeProjectId
 })
 
 export default connect(mapStateToProps, { addTask })(AddTask)

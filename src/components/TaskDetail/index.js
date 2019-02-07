@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setTaskActive } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
@@ -27,14 +28,22 @@ class TaskDetail extends React.Component {
 				<TimeMeasuring/>
 			</div>
 		)
-	}
+  }
+}
+
+TaskDetail.propTypes = {
+  activeTask: PropTypes.shape({
+    title: PropTypes.string,
+    subTitle: PropTypes.string
+  })
 }
 
 const mapStateToProps = ({ projectReducer }) => {
-	console.log('task detail ', projectReducer)
-	return {
-		activeTask: projectReducer.activeTask
-	}
+  console.log('task detail ', projectReducer)
+
+  return {
+    activeTask: projectReducer.activeTask
+  }
 }
 
 export default connect(mapStateToProps, { setTaskActive })(TaskDetail)

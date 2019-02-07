@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchTasks, getSingleProject } from '../../actions'
 
@@ -10,40 +11,50 @@ import AddTask from '../AddTask'
 import './TaskContainer.scss'
 
 class TasksContainer extends Component {
-	componentDidMount() {
-		const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
+  componentDidMount() {
+    const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
+    const { getSingleProject, fetchTasks } = this.props
 
-		if(hasSelectedProject) {
-			this.props.getSingleProject(hasSelectedProject)
-			this.props.fetchTasks(hasSelectedProject)
-		}
-	}
+    if (hasSelectedProject) {
+      getSingleProject(hasSelectedProject)
+      fetchTasks(hasSelectedProject)
+    }
+  }
 
-	render() {
-		const { tasks, projectTitle, projectDescription } = this.props
-		return (
-			<div className="tasks-container">
-				<div className="tasks-container-title">
-					<h1>{ projectTitle }</h1>
-					<p>{ projectDescription }</p>
-				</div>
+  render() {
+    const { tasks, projectTitle, projectDescription } = this.props
 
-				{
-					tasks !== undefined && tasks.map((task, idx) => (
-						<Task key={idx} task={task}/>
-					))
-				}
+    return (
+      <div className="tasks-container">
+        <div className="tasks-container-title">
+          <h1>{projectTitle}</h1>
+          <p>{projectDescription}</p>
+        </div>
 
-				{ projectTitle !== undefined && <AddTask/> }
-			</div>
-		)
-	}
+        {
+          tasks !== undefined && tasks.map((task, idx) => (
+            <Task key={idx} task={task} />
+          ))
+        }
+
+        {projectTitle !== undefined && <AddTask />}
+      </div>
+    )
+  }
+}
+
+TasksContainer.propTypes = {
+  tasks: PropTypes.shape,
+  projectTitle: PropTypes.string,
+  projectDescription: PropTypes.string,
+  getSingleProject: PropTypes.func,
+  fetchTasks: PropTypes.func
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-	tasks: projectReducer.tasks,
-	projectTitle: projectReducer.activeProject.projectTitle,
-	projectDescription: projectReducer.activeProject.projectDescription
+  tasks: projectReducer.tasks,
+  projectTitle: projectReducer.activeProject.projectTitle,
+  projectDescription: projectReducer.activeProject.projectDescription
 })
 
 export default connect(mapStateToProps, { fetchTasks, getSingleProject })(TasksContainer)

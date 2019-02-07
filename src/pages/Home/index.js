@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import * as actions from '../../actions'
 
@@ -13,27 +14,36 @@ import TaskDetail from '../../components/TaskDetail'
 import './Home.scss'
 
 class Home extends Component {
-	componentDidMount() {
-		this.props.fetchProjects()
-	}
+  componentDidMount() {
+    const { fetchProjects } = this.props
 
-	render() {
-		const { toggleAddProjectModal, addProject } = this.props
+    fetchProjects()
+  }
 
-		return (
-			<div className="home">
-				<Sidebar/>
-				<TasksContainer/>
-				<TaskDetail/>
+  render() {
+    const { toggleAddProjectModal, addProject } = this.props
 
-				<AddProjectModal {...{
-					toggleAddProjectModal,
-					addProject
-				}}/>
-			</div>
-		)
-	}
+    return (
+      <div className="home">
+        <Sidebar />
+        <TasksContainer />
+        <TaskDetail />
+
+        <AddProjectModal
+          {...{
+            toggleAddProjectModal,
+            addProject
+          }}
+        />
+      </div>
+    )
+  }
 }
 
+Home.propTypes = {
+  fetchProjects: PropTypes.func,
+  toggleAddProjectModal: PropTypes.func,
+  addProject: PropTypes.func
+}
 
 export default withRouter(connect(null, actions)(Home))
