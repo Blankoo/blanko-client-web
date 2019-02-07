@@ -6,11 +6,23 @@ import { fetchTasks, getSingleProject } from '../../actions'
 // Components
 import Task from '../Task'
 import AddTask from '../AddTask'
+import FilterBar from '../FilterBar'
 
 // Styles
 import './TaskContainer.scss'
 
 class TasksContainer extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isFilterBarSticky: false
+    }
+
+    this.filterBar = React.createRef()
+    this.tasksContainer = React.createRef()
+  }
+
   componentDidMount() {
     const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
     const { getSingleProject, fetchTasks } = this.props
@@ -19,10 +31,29 @@ class TasksContainer extends Component {
       getSingleProject(hasSelectedProject)
       fetchTasks(hasSelectedProject)
     }
+
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = () => {
+    if (window.scrollY < 146) {
+      this.setState({
+        isFilterBarSticky: false
+      })
+    } else if (window.scrollY > 146) {
+      this.setState({
+        isFilterBarSticky: true
+      })
+    }
   }
 
   render() {
     const { tasks, projectTitle, projectDescription } = this.props
+    const { isFilterBarSticky } = this.state
 
     return (
       <div className="tasks-container">
@@ -31,13 +62,52 @@ class TasksContainer extends Component {
           <p>{projectDescription}</p>
         </div>
 
-        {
-          tasks !== undefined && tasks.map((task, idx) => (
-            <Task key={idx} task={task} />
-          ))
-        }
+        <FilterBar isSticky={isFilterBarSticky} />
 
-        {projectTitle !== undefined && <AddTask />}
+        <div className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+          {
+            tasks !== undefined && tasks.map((task, idx) => (
+              <Task key={idx} task={task} />
+            ))
+          }
+
+          {projectTitle !== undefined && <AddTask />}
+        </div>
       </div>
     )
   }

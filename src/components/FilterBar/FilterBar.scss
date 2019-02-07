@@ -1,0 +1,21 @@
+.filter-bar {
+  height: 64px;
+  width: calc(100% + 32px);
+  background: #FBFBFD;
+  position: relative;
+  left: -32px;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+
+  &.sticky {
+    top: 0;
+    left: var(--sidebar-width);
+    position: fixed;
+    box-shadow: 0 32px 32px 0 #FBFBFD;
+  }
+
+  .button {
+    margin-right: 8px;
+  }
+}
