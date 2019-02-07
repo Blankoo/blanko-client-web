@@ -9,32 +9,42 @@ import Checkbox from '../Checkbox'
 // Styles
 import './Task.scss'
 
-const Task = ({
-  setTaskActive,
-  task
-}) => (
-  <div className="task-small" onClick={() => setTaskActive(task)}>
-    <Checkbox check={task.status === 'DONE'} />
+const Task = ({ activeProjectId, setTaskActive, activeTask, task }) => {
+  const isActive = activeTask !== undefined && (
+    activeTask._id === task._id
+  )
 
-    <div>
-      <div className="task-small-title">{task.title}</div>
-      {
-        task.subTitle !== '' && (
-          <div className="task-small-sub">{task.subTitle}</div>
-        )
-      }
+  /* TODO: Check if Task is done */
+  const isDone = false
+
+  return (
+    <div
+      className={`task-small ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
+      onClick={() => setTaskActive(task)}
+    >
+      <Checkbox check={task.status === 'DONE'} />
+
+      <div>
+        <div className="task-small-title">{task.title}</div>
+        {
+          task.subTitle !== '' && (
+            <div className="task-small-sub">{task.subTitle}</div>
+          )
+        }
+      </div>
     </div>
-    {/* <span onClick={() => deleteTask(activeProjectId, task._id)}>X</span> */}
-  </div>
-)
+  )
+}
 
 Task.propTypes = {
   setTaskActive: PropTypes.func,
-  task: PropTypes.shape
+  activeTask: PropTypes.instanceOf(Object),
+  task: PropTypes.instanceOf(Object)
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  activeProjectId: projectReducer.activeProjectId
+  activeProjectId: projectReducer.activeProjectId,
+  activeTask: projectReducer.activeTask
 })
 
 export default connect(mapStateToProps, { deleteTask, setTaskActive })(Task)

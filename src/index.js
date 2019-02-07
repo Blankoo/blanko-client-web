@@ -34,7 +34,7 @@ const GuardedRoute = ({ component: Component, ...rest }) => (
 )
 
 GuardedRoute.propTypes = {
-  component: PropTypes.element
+  component: PropTypes.func
 }
 
 ReactDOM.render(
