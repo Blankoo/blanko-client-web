@@ -1,10 +1,17 @@
 :root {
   --sizebar-width: 264px;
-  --text-color-primary: #9b9b9b;
+
+  // Colors
+  --text-color-primary: #9B9B9B; 
   --text-color-secondary: #7A848F;
-  --white: #fbfbfd;
-  --cta: #007AFF;
-  --smallBp: 864px;
+  --text-color-tertiary: #CED2D6;
+
+  --white: #FBFBFD;
+  --white-second: #F3F3F3;
+  --blanko-blue: #007AFF;
+  --blanko-blue-light: #6EB3FF;
+
+  --red-danger: #C23636;
 }
 
 @media screen and (max-width: 512px) {
@@ -45,7 +52,7 @@ body {
   font-size: 10px;
   user-select: none;
   color: var(--text-color-secondary);
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -55,7 +62,7 @@ h2 {
   font-size: 32px;
   color: var(--text-color-secondary);
   letter-spacing: 0;
-  font-weight:700;
+  font-weight: 700;
   user-select: none;
   cursor: default;
 }

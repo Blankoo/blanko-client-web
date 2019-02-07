@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTask } from '../../actions'
 
+// Components
+import Button from '../Button'
+
 // Styles
 import './AddTask.scss'
 
@@ -38,8 +41,6 @@ class AddTask extends React.Component {
   render() {
     const { title, subTitle } = this.state
 
-    /* TODO: Replace button with Button component */
-
     return (
       <div>
         <input
@@ -56,7 +57,12 @@ class AddTask extends React.Component {
           onChange={e => this.setInputState(e)}
         />
 
-        <button onClick={this.addLocalTask}>Add Task</button>
+        <Button
+          onClick={this.addLocalTask}
+          text="Add Task"
+          variant="secondary"
+          size="md"
+        />
       </div>
     )
   }

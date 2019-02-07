@@ -2,8 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+// Components
+import Button from '../Button'
+
 // Styles
 import './AddProjectModal.scss'
+
 
 class AddProjectModal extends React.Component {
   constructor(props) {
@@ -24,8 +28,6 @@ class AddProjectModal extends React.Component {
   render() {
     const { toggleAddProjectModal, isShown, addProject } = this.props
 
-    /* TODO: Replace button with Button component */
-
     return isShown && (
       <div className="add-project-modal">
         <div>
@@ -37,8 +39,19 @@ class AddProjectModal extends React.Component {
             <label>Description</label>
             <input id="projectDescription" onChange={this.onChange} />
 
-            <button onClick={toggleAddProjectModal}>Cancel</button>
-            <button onClick={() => addProject(this.state)}>Add project</button>
+            <Button
+              onClick={toggleAddProjectModal}
+              variant="secondary"
+              text="Cancel"
+              size="md"
+            />
+
+            <Button
+              onClick={() => addProject(this.state)}
+              variant="secondary"
+              text="Add project"
+              size="md"
+            />
           </div>
         </div>
       </div>
