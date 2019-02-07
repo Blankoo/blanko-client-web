@@ -24,7 +24,7 @@ class Login extends React.Component {
 
   login = () => {
     const { login, fetchProjects, history } = this.props
-    const { success, username, password } = this.state
+    const { username, password } = this.state
 
     const userBody = {
       username,
@@ -37,7 +37,7 @@ class Login extends React.Component {
         this.setState({
           success: payload.success
         }, () => {
-          if (success) {
+          if (payload.success) {
             window.localStorage.setItem('USER_TOK', payload.token)
             setTimeout(() => {
               fetchProjects()
@@ -102,7 +102,7 @@ class Login extends React.Component {
                     onChange={this.onType}
                     name="username"
                     value={username}
-                    placeholder="Username"
+                    placeholder="Email address"
                     autoFocus
                     className={message.length > 0 ? 'error' : ''}
                   />

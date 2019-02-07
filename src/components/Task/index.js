@@ -38,8 +38,8 @@ const Task = ({ activeProjectId, setTaskActive, activeTask, task }) => {
 
 Task.propTypes = {
   setTaskActive: PropTypes.func,
-  activeTask: PropTypes.string,
-  task: PropTypes.shape
+  activeTask: PropTypes.instanceOf(Object),
+  task: PropTypes.instanceOf(Object)
 }
 
 const mapStateToProps = ({ projectReducer }) => ({

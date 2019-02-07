@@ -1,5 +1,5 @@
 :root {
-  --sizebar-width: 264px;
+  --sidebar-width: 296px;
 
   // Colors
   --text-color-primary: #9B9B9B; 
@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 512px) {
   :root {
-    --sizebar-width: 80px;
+    --sidebar-width: 80px;
   }
 }
 
@@ -59,7 +59,7 @@ body {
 
 h1,
 h2 {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 22px;
   color: var(--text-color-secondary);
   letter-spacing: 0;
