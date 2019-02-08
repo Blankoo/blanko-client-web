@@ -10,42 +10,41 @@ import { login, fetchProjects } from '../../actions'
 import './Login.scss'
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      username: '',
-      password: '',
-      message: '',
-      success: false,
-      forgotPassword: false
-    }
+  state = {
+    username: '',
+    password: '',
+    message: '',
+    success: false,
+    forgotPassword: false
   }
 
   login = () => {
-    const { login, fetchProjects, history } = this.props
-    const { success, username, password } = this.state
+    const { login, fetchProjects } = this.props
+    const { username, password } = this.state
 
     const userBody = {
       username,
       password
     }
 
-
+    console.log('loing funcs')
     login(userBody)
       .then(({ payload }) => {
+        console.log('login payload', payload)
         this.setState({
           success: payload.success
         }, () => {
-          if (success) {
+          if (this.state.success) {
+            console.log('is succes')
             window.localStorage.setItem('USER_TOK', payload.token)
             setTimeout(() => {
               fetchProjects()
-              history.push('/')
+              this.props.history.push('/')
             }, 1100)
-          } else {
+          }
+          else {
             this.setState({
-              message: payload.message
+              // message: payload.message
             })
           }
         })
@@ -88,7 +87,7 @@ class Login extends React.Component {
       transitionEnter: true,
       transitionLeave: false
     }
-
+    console.log('login page state', this.state)
     return (
       <div className="login" onKeyUp={this.onEnter}>
         <div className="sidebar-left">
@@ -177,7 +176,7 @@ class Login extends React.Component {
 Login.propTypes = {
   login: PropTypes.func,
   fetchProjects: PropTypes.func,
-  history: PropTypes.shape()
+  // history: PropTypes.shape()
 }
 
 const mapStateToProps = ({ authenticationReducer }) => ({

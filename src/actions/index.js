@@ -2,8 +2,11 @@ import * as types from '../contstants/actionTypes'
 import http from '../utils/http'
 import config from '../utils/config'
 
-export const login = userInfo => dispatch => http.post(`${config.apiUrl}/account/login`, userInfo)
+export const login = userInfo => {
+  console.log('login action is fired')
+  return dispatch => http.post(`${config.apiUrl}/account/login`, userInfo)
   .then((resolved) => {
+    console.log('login resolved from action', resolved)
     if (resolved.data.success) {
       return dispatch({
         type: types.LOGIN_SUCCESS,
@@ -15,6 +18,7 @@ export const login = userInfo => dispatch => http.post(`${config.apiUrl}/account
       payload: resolved.data
     })
   })
+}
 
 export const fetchProjects = () => dispatch => http.get(`${config.apiUrl}/projects`)
   .then((resolved) => {
@@ -83,7 +87,7 @@ export const setTaskActive = (task) => {
   }
 }
 
-export const addTimeMeasurement = mes => {
+export const startTimeMeasurement = mes => {
 	console.log('add time meaurement')
 	return dispatch => http.post(`${config.apiUrl}`)
 }
