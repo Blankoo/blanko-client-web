@@ -20,7 +20,7 @@ class TasksContainer extends Component {
     }
 
     this.filterBar = React.createRef()
-    this.tasksContainer = React.createRef()
+    this.tasksContainerTitle = React.createRef()
   }
 
   componentDidMount() {
@@ -40,7 +40,10 @@ class TasksContainer extends Component {
   }
 
   handleScroll = () => {
-    if (window.scrollY < 146) {
+    const scrollOffset = this.tasksContainerTitle.current.clientHeight
+    const outerHeights = 64
+
+    if (window.scrollY < scrollOffset + outerHeights) {
       this.setState({
         isFilterBarSticky: false
       })
@@ -52,12 +55,20 @@ class TasksContainer extends Component {
   }
 
   render() {
-    const { tasks, projectTitle, projectDescription } = this.props
+    const {
+      tasks,
+      projectTitle,
+      projectDescription,
+      activeTask
+    } = this.props
+
     const { isFilterBarSticky } = this.state
 
+    const isThereAnActiveTask = activeTask !== undefined
+
     return (
-      <div className="tasks-container">
-        <div className="tasks-container-title">
+      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
+        <div className="tasks-container-title" ref={this.tasksContainerTitle}>
           <h1>{projectTitle}</h1>
           <p>{projectDescription}</p>
         </div>
@@ -118,13 +129,15 @@ TasksContainer.propTypes = {
   projectTitle: PropTypes.string,
   projectDescription: PropTypes.string,
   getSingleProject: PropTypes.func,
-  fetchTasks: PropTypes.func
+  fetchTasks: PropTypes.func,
+  activeTask: PropTypes.instanceOf(Object)
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
   projectTitle: projectReducer.activeProject.projectTitle,
-  projectDescription: projectReducer.activeProject.projectDescription
+  projectDescription: projectReducer.activeProject.projectDescription,
+  activeTask: projectReducer.activeTask
 })
 
 export default connect(mapStateToProps, { fetchTasks, getSingleProject })(TasksContainer)
