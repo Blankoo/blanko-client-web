@@ -39,14 +39,13 @@ TaskDetail.propTypes = {
     title: PropTypes.string,
     subTitle: PropTypes.string
   })
+
 }
 
 const mapStateToProps = ({ projectReducer }) => {
   console.log('task detail ', projectReducer)
-
   return {
     activeTask: projectReducer.activeTask
   }
 }
-
 export default connect(mapStateToProps, { setTaskActive })(TaskDetail)
