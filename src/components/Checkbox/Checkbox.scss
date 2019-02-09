@@ -8,13 +8,13 @@
   background: #F3F3F3;
   border-radius: 4px;
   margin-right: 16px;
-  cursor: default;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
-}
 
-.checkbox img {
-  width: 9px;
-  height: 6px;
-  user-select: none;
+  img {
+    width: 9px;
+    height: 6px;
+    user-select: none;
+  }
 }

@@ -1,3 +1,5 @@
+$transitionDelay: 1200ms;
+
 .login {
   .blanko {
     font-size: 32px;
@@ -37,18 +39,18 @@
     border-bottom: 1px solid #7A848F;
     padding: 0 0 8px;
     outline: none;
-  }
 
-  input:nth-child(2) {
-    margin: 32px 0 40px;
-  }
+    &:nth-child(2) {
+      margin: 32px 0 40px;
+    }
 
-  input:focus {
-    border-color: #007aff !important;
-  }
+    &:focus {
+      border-color: #007aff;
+    }
 
-  input.error {
-    border-color: #ff0000;
+    &.error {
+      border-color: #ff0000;
+    }
   }
 
   .login-button {
@@ -59,7 +61,7 @@
     font-weight: bold;
     display: flex;
     width: 100%;
-    box-shadow: 0 2px 8px 0 rgba(0, 122, 255, 0.33);
+    box-shadow: 0 2px 8px 0 rgba(0, 122, 255, .33);
     border-radius: 4px;
     width: 282px;
     text-align: center;
@@ -70,14 +72,16 @@
     transition: 300ms ease-in-out;
   }
 
-  .login-button:hover {
-    background: #0063cc;
-    box-shadow: 0 2px 8px 0 rgba(0, 122, 255, 0.33);
-  }
+  .login-button {
+    &:hover {
+      background: #0063cc;
+      box-shadow: 0 2px 8px 0 rgba(0, 122, 255, .33);
+    }
 
-  .login-button:active {
-    background: #0063CC;
-    box-shadow: 0 2px 8px 0 rgba(0, 99, 204, 0.33), inset 0 0 8px 2px rgba(0, 55, 115, 0.30);
+    &:active {
+      background: #0063CC;
+      box-shadow: 0 2px 8px 0 rgba(0, 99, 204, .33), inset 0 0 8px 2px rgba(0, 55, 115, .30);
+    }
   }
 
   .skeleton {
@@ -87,28 +91,18 @@
     background: #FBFBFD;
     box-shadow: 0 5px 10px 0 #EEEEF3;
     border-radius: 10px;
-    background-image: url("../../assets/login/skeleton.svg");
+    background-image: url('../../assets/login/skeleton.svg');
     background-position: top left;
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
     top: 0;
     transform: translateX(40vw);
-    $transitionDelay: 1200ms;
     transition: $transitionDelay ease-out;
     will-change: transform;
 
-    &.login-succes {
+    &.login-success {
       animation: slideLeft $transitionDelay 1 ease-out forwards;
-    }
-  }
-
-  @keyframes slideLeft {
-    from {
-      transform: translateX(40vw);
-    }
-    to {
-      transform: translateX(0vw);
     }
   }
 
@@ -128,18 +122,18 @@
     transition: 300ms ease-in-out;
     font-size: 14px;
     outline: none;
-  }
 
-  .link:hover {
-    opacity: 1;
-  }
-
-  .link.small:first-child {
-    margin-right: 24px;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .link.small {
     font-size: 10px;
+
+    &:first-child {
+      margin-right: 24px;
+    }
   }
 
   .move-to-left {
@@ -147,26 +141,35 @@
     margin-bottom: 16px;
   }
 
-  .forgot-password input {
-    margin: 32px 0 40px;
-  }
-
-  .forgot-password p {
-    line-height: 24px;
-  }
-
   .forgot-password {
     margin-top: 90px;
+
+    input {
+      margin: 32px 0 40px;  
+    }
+
+    p {
+      line-height: 24px;
+    }
   }
 
   .fade-enter {
     opacity: 0;
     top: 8px;
-  }
 
-  .fade-enter.fade-enter-active {
-    opacity: 1;
-    top: 0px;
-    transition: 220ms ease-in;
+    &.fade-enter-active {
+      opacity: 1;
+      top: 0px;
+      transition: 220ms ease-in;
+    }
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(40vw);
+  }
+  to {
+    transform: translateX(0vw);
   }
 }

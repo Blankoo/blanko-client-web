@@ -1,0 +1,44 @@
+.task-small {
+  $transitionTime: .15s;
+
+  background: #FFFFFF;
+  box-shadow: 0 5px 10px 0 #eeeef3;
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  cursor: pointer;
+  transition: all ease-in-out $transitionTime;
+
+  &.active {
+    background: #FFFFFF;
+    box-shadow: 0 5px 20px 0 #D5D5DD;
+  }
+
+  &.done {
+    opacity: 1;
+    box-shadow: none;
+    background: #FEFEFE;
+
+    .task-small-title,
+    .task-small-sub {
+      opacity: .25;
+      text-decoration: line-through;
+    }
+  }
+
+  &-title {
+    font-size: 14px;
+    color: #424459;
+    letter-spacing: 0;
+    transition: all ease-in-out $transitionTime;
+  }
+
+  &-sub {
+    font-size: 12px;
+    color: #7D7D7D;
+    letter-spacing: 0;
+    margin-top: 8px;
+    transition: all ease-in-out $transitionTime;
+  }
+}

@@ -1,7 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-
 import { setTaskActive } from '../../actions'
 import './taskDetailStyle.scss'
 
@@ -27,10 +26,11 @@ class TaskDetail extends React.Component {
 }
 
 const mapStateToProps = ({ projectReducer }) => {
-	console.log('task detail ', projectReducer)
-	return {
-		activeTask: projectReducer.activeTask
-	}
+  console.log('task detail ', projectReducer)
+
+  return {
+    activeTask: projectReducer.activeTask
+  }
 }
 
 export default connect(mapStateToProps, { setTaskActive })(TaskDetail)

@@ -1,38 +1,49 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import * as actions from '../../actions'
 
+// Components
 import Sidebar from '../../components/Sidebar'
-import TasksContainer from '../../components/tasksContainer'
+import TasksContainer from '../../components/TasksContainer'
 import AddProjectModal from '../../components/AddProjectModal'
 import TaskDetail from '../../components/TaskDetail'
 
-import * as actions from '../../actions'
-
-import './homeStyle.scss'
+// Styles
+import './Home.scss'
 
 class Home extends Component {
-	componentDidMount() {
-		this.props.fetchProjects()
-	}
+  componentDidMount() {
+    const { fetchProjects } = this.props
 
-	render() {
-		const { toggleAddProjectModal, addProject } = this.props
+    fetchProjects()
+  }
 
-		return (
-			<div id="app">
-				<Sidebar/>
-				<TasksContainer/>
-				<TaskDetail/>
+  render() {
+    const { toggleAddProjectModal, addProject } = this.props
 
-				<AddProjectModal {...{
-					toggleAddProjectModal,
-					addProject
-				}}/>
-			</div>
-		)
-	}
+    return (
+      <div className="home">
+        <Sidebar />
+        <TasksContainer />
+        <TaskDetail />
+
+        <AddProjectModal
+          {...{
+            toggleAddProjectModal,
+            addProject
+          }}
+        />
+      </div>
+    )
+  }
 }
 
+Home.propTypes = {
+  fetchProjects: PropTypes.func,
+  toggleAddProjectModal: PropTypes.func,
+  addProject: PropTypes.func
+}
 
 export default withRouter(connect(null, actions)(Home))
