@@ -27,18 +27,18 @@ class AddProjectModal extends React.Component {
 
   render() {
     const { toggleAddProjectModal, isShown, addProject } = this.props
+    const { projectTitle, projectDescription } = this.state
 
     return isShown && (
       <div className="add-project-modal">
-        <div>
-          <div onClick={toggleAddProjectModal}>X</div>
-          <div>
-            <label htmlFor="projectTitle">Project Title</label>
-            <input id="projectTitle" onChange={this.onChange} />
+        <div className="modal-wrapper">
+          <label className="label" htmlFor="projectTitle">Project Title</label>
+          <input id="projectTitle" onChange={this.onChange} />
 
-            <label>Description</label>
-            <input id="projectDescription" onChange={this.onChange} />
+          <label className="label">Description</label>
+          <input id="projectDescription" onChange={this.onChange} />
 
+          <div className="modal-wrapper-buttons">
             <Button
               onClick={toggleAddProjectModal}
               variant="secondary"
@@ -49,7 +49,8 @@ class AddProjectModal extends React.Component {
             <Button
               onClick={() => addProject(this.state)}
               variant="secondary"
-              text="Add project"
+              text="Save"
+              isDisabled={(projectTitle && projectDescription) === ''}
               size="md"
             />
           </div>

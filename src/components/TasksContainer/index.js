@@ -44,7 +44,7 @@ class TasksContainer extends Component {
 }
 
 TasksContainer.propTypes = {
-  tasks: PropTypes.shape,
+  tasks: PropTypes.instanceOf(Array),
   projectTitle: PropTypes.string,
   projectDescription: PropTypes.string,
   getSingleProject: PropTypes.func,

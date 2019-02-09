@@ -1,0 +1,52 @@
+.projects-list {
+  list-style: none;
+  line-height: 24px;
+  font-size: 14px;
+
+  @media screen and (max-width: 512px) {
+    display: none;
+  }
+
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .add-project {
+      display: inline-flex;
+      cursor: pointer;
+    }
+  }
+
+  &-item {
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-color-primary);
+    letter-spacing: 0;
+    line-height: 32px;
+    position: relative;
+    
+    &.active {
+      font-weight: 600;
+      color: var(--blanko-blue);
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 4px;
+        height: 32px;
+        background: var(--blanko-blue);
+        border-radius: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -48px;
+      }
+    }
+  }
+
+  &.favorite {
+    margin-bottom: 32px;
+  }
+}

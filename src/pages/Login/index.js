@@ -35,7 +35,6 @@ class Login extends React.Component {
           success: payload.success
         }, () => {
           if (this.state.success) {
-            console.log('is succes')
             window.localStorage.setItem('USER_TOK', payload.token)
             setTimeout(() => {
               fetchProjects()
@@ -44,7 +43,7 @@ class Login extends React.Component {
           }
           else {
             this.setState({
-              // message: payload.message
+              message: payload.message
             })
           }
         })
@@ -87,7 +86,7 @@ class Login extends React.Component {
       transitionEnter: true,
       transitionLeave: false
     }
-    console.log('login page state', this.state)
+
     return (
       <div className="login" onKeyUp={this.onEnter}>
         <div className="sidebar-left">
@@ -101,7 +100,7 @@ class Login extends React.Component {
                     onChange={this.onType}
                     name="username"
                     value={username}
-                    placeholder="Username"
+                    placeholder="Email address"
                     autoFocus
                     className={message.length > 0 ? 'error' : ''}
                   />

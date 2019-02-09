@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { setTaskActive } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
 
+// Components
+import Checkbox from '../Checkbox'
+
 // Styles
 import './TaskDetail.scss'
 

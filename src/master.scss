@@ -1,10 +1,11 @@
 :root {
-  --sizebar-width: 264px;
+  --sidebar-width: 296px;
 
   // Colors
   --text-color-primary: #9B9B9B; 
   --text-color-secondary: #7A848F;
-  --text-color-tertiary: #CED2D6;
+  --text-color-tertiary: #7D7D7D;
+  --text-color-quaternary: #CED2D6;
 
   --white: #FBFBFD;
   --white-second: #F3F3F3;
@@ -16,7 +17,7 @@
 
 @media screen and (max-width: 512px) {
   :root {
-    --sizebar-width: 80px;
+    --sidebar-width: 80px;
   }
 }
 
@@ -25,7 +26,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Open Sans', sans-serif;
-  cursor: default;
 }
 
 ::-webkit-scrollbar {
@@ -59,14 +59,22 @@ body {
 
 h1,
 h2 {
-  font-size: 32px;
+  font-weight: 500;
+  font-size: 22px;
   color: var(--text-color-secondary);
   letter-spacing: 0;
-  font-weight: 700;
   user-select: none;
   cursor: default;
 }
 
 h2 {
   font-size: 24px;
+}
+
+p {
+  font-weight: lighter;
+  font-size: 12px;
+  color: var(--text-color-tertiary);
+  letter-spacing: 0;
+  line-height: 20px;
 }

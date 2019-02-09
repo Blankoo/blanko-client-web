@@ -1,5 +1,5 @@
 .sidebar {
-  width: var(--sizebar-width);
+  width: var(--sidebar-width);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -7,7 +7,7 @@
   background: #FBFBFD;
   box-shadow: inset 0 2px 40px 0 rgba(114,114,114,0.07);
   padding-bottom: 32px;
-  padding-left: 48px;
+  padding: 0 48px;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 512px) {
@@ -44,32 +44,6 @@
   
   .favorites {
     margin-top:64px;
-  }
-  
-  .projects-list {
-    list-style: none;
-    line-height: 24px;
-    font-size: 14px;
-    @media screen and (max-width: 512px) {
-      display: none;
-    }
-
-    &-item {
-      &.active {
-        color: var(--blanko-blue);
-      }
-    }
-
-    &.favorite {
-      margin-bottom: 32px;
-    }
-
-    label {
-      color: var(--blanko-blue);
-      font-size: 10px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
   }
   
   .favorites .label,

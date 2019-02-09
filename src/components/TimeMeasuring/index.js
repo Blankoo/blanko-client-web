@@ -32,7 +32,8 @@ class TimeMeasuring extends React.Component {
 			this.setState({
 				currenTime: this.currenTime()
 			})
-		}, 500)
+    }, 500)
+    console.log('this interval: ', this.interval)
 	}
 
 	stopMeasurement = () => {
@@ -66,6 +67,7 @@ class TimeMeasuring extends React.Component {
 				time measuring
 				<div>
 					<button onClick={this.startMeasurement}>Start</button>
+          <button onClick={this.stopMeasurement}>Stop</button>
 					<br/><br/>
 					<span className="numbers">
 					{

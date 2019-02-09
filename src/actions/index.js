@@ -87,7 +87,14 @@ export const setTaskActive = (task) => {
   }
 }
 
-export const startTimeMeasurement = mes => {
+export const startTimeMeasurement = taskId => {
 	console.log('add time meaurement')
-	return dispatch => http.post(`${config.apiUrl}`)
+  return dispatch => http.post(`${config.apiUrl}/timemeasurement/new/${taskId}`)
+    .then(resolved => {
+      console.log('resolved measurement', resolved)
+      dispatch({
+        type: types.START_MES,
+        payload: resolved.data
+      })
+    })
 }
