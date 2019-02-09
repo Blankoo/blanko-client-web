@@ -7,7 +7,7 @@ import './taskDetailStyle.scss'
 
 class TaskDetail extends React.Component {
 	state = {
-		shown: false
+		shown: true
 	}
 	render() {
 		const isThereAnActiveTask = this.props.activeTask !== undefined
@@ -15,7 +15,7 @@ class TaskDetail extends React.Component {
 			<div className={`taskDetail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
 				<span onClick={() => this.props.setTaskActive(undefined)}>CLOSE</span>
 				{
-					isThereAnActiveTask &&
+					isThereAnActiveTask && this.state.shown &&
 					<>
 						<h1>{ this.props.activeTask.title }</h1>
 						<p>{ this.props.activeTask.subTitle }</p>
