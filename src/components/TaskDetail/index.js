@@ -6,35 +6,41 @@ import TimeMeasuring from '../TimeMeasuring'
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-
 // Components
 import Checkbox from '../Checkbox'
 
 // Styles
 import './TaskDetail.scss'
 
-class TaskDetail extends React.Component {
-	state = {
-		shown: false
-	}
+const TaskDetail = (props) => {
+  const {
+    activeTask
+  } = props
 
-	render() {
-    const isThereAnActiveTask = this.props.activeTask !== undefined
+  const isThereAnActiveTask = activeTask !== undefined
 
-		return (
-			<div className={`task-detail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
-				<span className="close-button" onClick={() => this.props.setTaskActive(undefined)}>x</span>
-				{
-					isThereAnActiveTask &&
-					<>
-						<h1>{ this.props.activeTask.title }</h1>
-						<p>{ this.props.activeTask.subTitle }</p>
+  return (
+    <div className={`task-detail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
+      <span className="close" onClick={() => setTaskActive(undefined)}>
+        <img src={require('../../assets/icons/cross.svg')} alt="Close task detail" />
+      </span>
+
+      {
+        isThereAnActiveTask && (
+          <>
+            <div className="task-detail-top">
+              <div className="title">
+                <Checkbox />
+                <h1>{activeTask.title}</h1>
+              </div>
+              <p>{activeTask.subTitle}</p>
+            </div>
             <TimeMeasuring/>
-					</>
-				}
-			</div>
-		)
-  }
+          </>
+        )
+      }
+    </div>
+  )
 }
 
 TaskDetail.propTypes = {

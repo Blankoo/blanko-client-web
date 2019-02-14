@@ -1,0 +1,35 @@
+.input {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    margin-bottom: 8px;
+  }
+  
+  .input-wrapper {
+    background-color: var(--white-second);
+    border-radius: 4px;
+    padding: 8px 16px;
+    display: flex;
+
+    .icon {
+      height: 12px;
+      display: inline-flex;
+
+      & + input {
+       margin-left: 8px; 
+      }
+    }
+
+    input {
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      font-size: 10px;
+      color: var(--text-color-secondary);
+      letter-spacing: 0;
+      outline: none;
+    }
+  }
+}
+

@@ -1,14 +1,51 @@
 .tasks-container {
   margin-left: var(--sidebar-width);
+  margin-right: calc(var(--task-detail-width) / 2);
   padding: 32px 32px 24px 32px;
   flex: 2;
   background-color: #FBFBFD;
+  height: 100vh;
+  transition: margin ease-in-out .2s;
+  max-width: 800px;
+
+  &.task-active {
+    margin-right: calc(var(--task-detail-width) + 32px);
+  }
 
   &-title {
     margin-bottom: 32px;
 
     h1 {
       margin-bottom: 16px;
+    }
+  }
+
+  .tasks-list {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 32px;
+
+    &.sticky {
+      margin-top: calc(64px + 32px);
+    }
+
+    &.fade-enter {
+      opacity: .01;
+    }
+
+    &.fade-enter-active {
+      opacity: 1;
+      transition: opacity 500ms ease-in-out;
+    }
+
+    &.fade-exit {
+      opacity: 1;
+    }
+
+    &.fade-exit-active {
+      opacity: .01;
+      transition: opacity 500ms ease-in-out;
     }
   }
 }
