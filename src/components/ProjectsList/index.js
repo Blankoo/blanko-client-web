@@ -21,7 +21,8 @@ class ProjectsList extends React.PureComponent {
       className,
       toggleAddProjectModal,
       label,
-      isFavorite
+      isFavorite,
+      activeProjectId
     } = this.props
 
     return (
@@ -42,13 +43,13 @@ class ProjectsList extends React.PureComponent {
           projects
             .filter(p => p.favorite === isFavorite)
             .map((project, idx) => {
-              const { projectTitle, active = false } = project
+              const { projectTitle } = project
 
               return (
                 <li
                   key={idx}
                   onClick={() => this.selectProject(project)}
-                  className={`projects-list-item ${active ? 'active' : ''}`}
+                  className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
                   <span>{ projectTitle }</span>
                 </li>
@@ -62,7 +63,8 @@ class ProjectsList extends React.PureComponent {
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  projects: projectReducer.projects
+  projects: projectReducer.projects,
+  activeProjectId: projectReducer.activeProjectId
 })
 
 ProjectsList.defaultProps = {
@@ -77,7 +79,8 @@ ProjectsList.propTypes = {
   isFavorite: PropTypes.bool,
   toggleAddProjectModal: PropTypes.func,
   fetchTasks: PropTypes.func,
-  setSelectedProject: PropTypes.func
+  setSelectedProject: PropTypes.func,
+  activeProjectId: PropTypes.string
 }
 
 export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal, setSelectedProject })(ProjectsList)

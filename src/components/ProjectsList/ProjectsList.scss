@@ -26,13 +26,18 @@
     letter-spacing: 0;
     line-height: 32px;
     position: relative;
+
+    &::before {
+      content: '';
+      height: 16px;
+      opacity: 0;
+    }
     
     &.active {
       font-weight: 600;
       color: var(--blanko-blue);
 
       &::before {
-        content: '';
         position: absolute;
         display: block;
         width: 4px;
@@ -41,7 +46,9 @@
         border-radius: 4px;
         top: 50%;
         transform: translateY(-50%);
-        left: -48px;
+        left: -46px;
+        opacity: 1;
+        transition: all ease-in-out .4s;
       }
     }
   }
