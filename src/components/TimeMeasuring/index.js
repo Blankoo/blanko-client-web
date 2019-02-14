@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { startTimeMeasurement} from '../../actions'
+
+import SingleMeasurement from './SingleMeasurement'
+
 class TimeMeasuring extends React.Component {
 	state = {
 		isMeasuring: false,
@@ -11,16 +15,16 @@ class TimeMeasuring extends React.Component {
 
 	currenTime = () => new Date().getTime()
 
-	startMeasurement = () => {
+	startMeasurement = taskId => {
 		this.setState({
 			isMeasuring: true,
 			startTime: this.currenTime()
 		}, () => {
 			this.setSpendedTimeValue()
 			const inititalMeasurement = {
-				startTime: this.currenTime(),
-				isFinished: false
-			}
+				startTime: this.state.startTime,
+      }
+      this.props.startTimeMeasurement(taskId, inititalMeasurement)
 		})
 	}
 
@@ -40,7 +44,7 @@ class TimeMeasuring extends React.Component {
 		this.setState({
 			isMeasuring: false,
 		}, () => {
-			const inititalMeasurement = {
+			const putMeasurement = {
 				endTime: this.currenTime(),
 				isFinished: true
 			}
@@ -60,14 +64,15 @@ class TimeMeasuring extends React.Component {
 	render() {
 		const totalInMiliSeconds = (endTime, startTime) => Math.floor(endTime - startTime)
 		const totalInSeconds = (endTime, startTime) => Math.floor(totalInMiliSeconds(endTime, startTime) / 1000)
-		// const totalMeasuredTime = this.props.measurements.reduce((zero, { total }) => zero + total, 0)
+    // const totalMeasuredTime = this.props.measurements.reduce((zero, { total }) => zero + total, 0)
+    const { activeTaskId, measurements } = this.props
+    const { startTime } = this.state
 
 		return (
 			<div>
-				time measuring
 				<div>
-					<button onClick={this.startMeasurement}>Start</button>
-          <button onClick={this.stopMeasurement}>Stop</button>
+					<button onClick={() => this.startMeasurement(activeTaskId)}>Start</button>
+          <button onClick={() => this.stopMeasurement(activeTaskId)}>Stop</button>
 					<br/><br/>
 					<span className="numbers">
 					{
@@ -77,9 +82,24 @@ class TimeMeasuring extends React.Component {
 					}
 					</span>
 				</div>
+
+        <div>
+          {
+            measurements
+              .filter(m => m.isFinished)
+              .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx}/>)
+          }
+        </div>
 			</div>
 		)
 	}
 }
 
-export default TimeMeasuring
+function mapStateToProps({ projectReducer }) {
+  return {
+    activeTaskId: projectReducer.activeTask._id,
+    measurements: projectReducer.measurements
+  }
+}
+
+export default connect(mapStateToProps, { startTimeMeasurement })(TimeMeasuring)

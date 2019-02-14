@@ -80,16 +80,27 @@ export const deleteTask = (projectId, taskId) => dispatch => http.delete(`${conf
   })
 
 export const setTaskActive = (task) => {
-  console.log('set task active', task)
-  return {
-    type: types.SET_TASK_ACTIVE,
-    payload: task
+  if(task !== undefined) {
+    return dispatch => http.get(`${config.apiUrl}/timemeasurements/all/${task._id}`)
+      .then(resolved => {
+        console.log('measurements: ', resolved.data)
+        const measurements = resolved.data
+
+        dispatch({
+          type: types.SET_TASK_ACTIVE,
+          payload: {
+            task,
+            measurements
+          }
+        })
+      })
   }
 }
 
-export const startTimeMeasurement = taskId => {
-	console.log('add time meaurement')
-  return dispatch => http.post(`${config.apiUrl}/timemeasurement/new/${taskId}`)
+export const startTimeMeasurement = (taskId, startMesObj) => {
+  console.log('add time meaurement action', taskId, startMesObj)
+  if(taskId !== undefined) {
+    return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, startMesObj)
     .then(resolved => {
       console.log('resolved measurement', resolved)
       dispatch({
@@ -97,4 +108,17 @@ export const startTimeMeasurement = taskId => {
         payload: resolved.data
       })
     })
+  }
+}
+
+export function stopTimeMeasurement(taskId, stopMesObj) {
+  if(taskId !== undefined) {
+    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/5c6144571bb05a571ad41c7c`)
+      .then(resolved => {
+        dispatch({
+          type: types.STOP_MES,
+          payload: resolved.data
+        })
+      })
+  }
 }

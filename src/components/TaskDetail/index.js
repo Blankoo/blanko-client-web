@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { setTaskActive } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+
 // Components
 import Checkbox from '../Checkbox'
 
@@ -16,7 +19,7 @@ class TaskDetail extends React.Component {
 	}
 
 	render() {
-		const isThereAnActiveTask = this.props.activeTask !== undefined
+    const isThereAnActiveTask = this.props.activeTask !== undefined
 
 		return (
 			<div className={`task-detail ${isThereAnActiveTask ? 'open' : 'closed'}`}>
@@ -26,9 +29,9 @@ class TaskDetail extends React.Component {
 					<>
 						<h1>{ this.props.activeTask.title }</h1>
 						<p>{ this.props.activeTask.subTitle }</p>
+            <TimeMeasuring/>
 					</>
 				}
-				<TimeMeasuring/>
 			</div>
 		)
   }

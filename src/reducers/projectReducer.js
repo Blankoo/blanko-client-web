@@ -44,10 +44,10 @@ export default function projectsReducer(state = initialState, action) {
         tasks: newTasks
       }
     case types.SET_TASK_ACTIVE:
-      console.log('set task active reducer')
       return {
         ...state,
-        activeTask: action.payload
+        activeTask: action.payload.task,
+        measurements: action.payload.measurements
       }
     default:
       return state

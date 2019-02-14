@@ -27,10 +27,8 @@ class Login extends React.Component {
       password
     }
 
-    console.log('loing funcs')
     login(userBody)
       .then(({ payload }) => {
-        console.log('login payload', payload)
         this.setState({
           success: payload.success
         }, () => {
