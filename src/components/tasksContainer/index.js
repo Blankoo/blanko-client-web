@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group'
 import { connect } from 'react-redux'
 import { fetchTasks, getSingleProject } from '../../actions'
 
@@ -16,7 +20,8 @@ class TasksContainer extends Component {
     super(props)
 
     this.state = {
-      isFilterBarSticky: false
+      isFilterBarSticky: false,
+      searchQuery: ''
     }
 
     this.filterBar = React.createRef()
@@ -56,15 +61,23 @@ class TasksContainer extends Component {
 
   render() {
     const {
-      tasks,
       projectTitle,
       projectDescription,
-      activeTask
+      activeTask,
+      tasks
     } = this.props
 
-    const { isFilterBarSticky } = this.state
+    const { isFilterBarSticky, searchQuery } = this.state
 
     const isThereAnActiveTask = activeTask !== undefined
+
+    const handleTaskSearch = (e) => {
+      const query = e.target.value.toLowerCase()
+
+      this.setState({
+        searchQuery: query
+      })
+    }
 
     return (
       <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
@@ -73,52 +86,29 @@ class TasksContainer extends Component {
           <p>{projectDescription}</p>
         </div>
 
-        <FilterBar isSticky={isFilterBarSticky} />
+        <FilterBar isSticky={isFilterBarSticky} handleTaskSearch={handleTaskSearch} />
 
-        <div className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
+        <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
           {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
+            tasks !== undefined && (
+              tasks
+                .filter(task => (
+                  task.title.toLowerCase().includes(searchQuery)
+                  || task.subTitle.toLowerCase().includes(searchQuery)))
+                .map(task => (
+                  <CSSTransition
+                    key={task._id}
+                    timeout={250}
+                    classNames="fade"
+                  >
+                    <Task task={task} />
+                  </CSSTransition>
+                ))
+            )
           }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
-          {
-            tasks !== undefined && tasks.map((task, idx) => (
-              <Task key={idx} task={task} />
-            ))
-          }
+        </TransitionGroup>
 
-          {projectTitle !== undefined && <AddTask />}
-        </div>
+        {projectTitle !== undefined && <AddTask />}
       </div>
     )
   }

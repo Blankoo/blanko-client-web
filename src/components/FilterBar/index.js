@@ -17,7 +17,7 @@ class FilterBar extends Component {
   }
 
   render() {
-    const { isSticky } = this.props
+    const { isSticky, handleTaskSearch } = this.props
 
     return (
       <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
@@ -43,11 +43,7 @@ class FilterBar extends Component {
           variant="secondary"
         />
 
-        <div className="search" style={{ marginRight: 8 }}>
-          <Input placeholder="Zoeken" icon="glass" />
-        </div>
-
-        <Input label="Label here" placeholder="Zoeken" />
+        <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} />
       </div>
     )
   }

@@ -8,7 +8,8 @@ const Input = ({
   icon,
   placeholder,
   type,
-  label
+  label,
+  onChange
 }) => (
   <div className="input">
     {
@@ -25,7 +26,7 @@ const Input = ({
           </span>
         )
       }
-      <input type={type} placeholder={placeholder} />
+      <input type={type} placeholder={placeholder} onChange={onChange} />
     </div>
   </div>
 )
@@ -38,7 +39,8 @@ Input.propTypes = {
   icon: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 export default Input
