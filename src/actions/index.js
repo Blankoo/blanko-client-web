@@ -3,10 +3,8 @@ import http from '../utils/http'
 import config from '../utils/config'
 
 export const login = userInfo => {
-  console.log('login action is fired')
   return dispatch => http.post(`${config.apiUrl}/account/login`, userInfo)
   .then((resolved) => {
-    console.log('login resolved from action', resolved)
     if (resolved.data.success) {
       return dispatch({
         type: types.LOGIN_SUCCESS,
@@ -93,6 +91,8 @@ export const setTaskActive = (task) => {
           }
         })
       })
+  } else {
+
   }
 }
 
@@ -100,7 +100,6 @@ export const startTimeMeasurement = (taskId, startMesObj) => {
   if(taskId !== undefined) {
     return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, startMesObj)
     .then(resolved => {
-      console.log('resolved measurement', resolved)
       dispatch({
         type: types.START_MES,
         payload: resolved.data
@@ -110,11 +109,9 @@ export const startTimeMeasurement = (taskId, startMesObj) => {
 }
 
 export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
-  console.log('stoptimemeasurment action ')
   if(taskId !== undefined) {
     return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/${measurementId}`, endMesObj)
       .then(resolved => {
-        console.log('end mes resolved', resolved)
         dispatch({
           type: types.STOP_MES,
           payload: resolved.data
