@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SingleMeasurment = (meas) => {
-  console.log(meas)
   return (
     <div>
       {

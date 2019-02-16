@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { startTimeMeasurement} from '../../actions'
+import {
+  startTimeMeasurement,
+  stopTimeMeasurement
+} from '../../actions'
 
 import SingleMeasurement from './SingleMeasurement'
 
@@ -37,10 +40,9 @@ class TimeMeasuring extends React.Component {
 				currenTime: this.currenTime()
 			})
     }, 500)
-    console.log('this interval: ', this.interval)
 	}
 
-	stopMeasurement = () => {
+	stopMeasurement = taskId => {
 		this.setState({
 			isMeasuring: false,
 		}, () => {
@@ -48,7 +50,7 @@ class TimeMeasuring extends React.Component {
 				endTime: this.currenTime(),
 				isFinished: true
 			}
-
+      this.props.stopTimeMeasurement(taskId, this.props.activeMeasurementId , putMeasurement)
 			clearInterval(this.interval)
 		})
 	}
@@ -98,8 +100,9 @@ class TimeMeasuring extends React.Component {
 function mapStateToProps({ projectReducer }) {
   return {
     activeTaskId: projectReducer.activeTask._id,
-    measurements: projectReducer.measurements
+    measurements: projectReducer.measurements,
+    activeMeasurementId: projectReducer.activeMeasurementId
   }
 }
 
-export default connect(mapStateToProps, { startTimeMeasurement })(TimeMeasuring)
+export default connect(mapStateToProps, { startTimeMeasurement, stopTimeMeasurement })(TimeMeasuring)

@@ -49,6 +49,17 @@ export default function projectsReducer(state = initialState, action) {
         activeTask: action.payload.task,
         measurements: action.payload.measurements
       }
+    case types.START_MES:
+      return {
+        ...state,
+        activeMeasurementId: action.payload.newMeasurement._id
+      }
+    case types.STOP_MES:
+      return {
+        ...state,
+        activeMeasurementId: undefined,
+        measurements: state.measurements.concat(action.payload.measurement)
+      }
     default:
       return state
   }

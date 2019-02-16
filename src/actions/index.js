@@ -83,7 +83,6 @@ export const setTaskActive = (task) => {
   if(task !== undefined) {
     return dispatch => http.get(`${config.apiUrl}/timemeasurements/all/${task._id}`)
       .then(resolved => {
-        console.log('measurements: ', resolved.data)
         const measurements = resolved.data
 
         dispatch({
@@ -98,7 +97,6 @@ export const setTaskActive = (task) => {
 }
 
 export const startTimeMeasurement = (taskId, startMesObj) => {
-  console.log('add time meaurement action', taskId, startMesObj)
   if(taskId !== undefined) {
     return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, startMesObj)
     .then(resolved => {
@@ -111,10 +109,12 @@ export const startTimeMeasurement = (taskId, startMesObj) => {
   }
 }
 
-export function stopTimeMeasurement(taskId, stopMesObj) {
+export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
+  console.log('stoptimemeasurment action ')
   if(taskId !== undefined) {
-    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/5c6144571bb05a571ad41c7c`)
+    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/${measurementId}`, endMesObj)
       .then(resolved => {
+        console.log('end mes resolved', resolved)
         dispatch({
           type: types.STOP_MES,
           payload: resolved.data
