@@ -13,6 +13,12 @@
 
   &.closed {
     transform: translateX(99%);    
+  } 
+
+  .close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
   }
 
   @media screen and (max-width: 512px) {

@@ -16,7 +16,6 @@ import './Home.scss'
 class Home extends Component {
   componentDidMount() {
     const { fetchProjects } = this.props
-
     fetchProjects()
   }
 
