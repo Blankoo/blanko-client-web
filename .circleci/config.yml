@@ -1,5 +1,20 @@
 version: 2
 jobs:
+  build:
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
+      - run:
+          name: update-npm 
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: npm-install
+          command: npm install
+      - run:
+          name: npm-build
+          command: npm run build
+
   deploy:
     machine:
       enabled: true
@@ -7,11 +22,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "0d:d8:c8:d4:f8:48:17:a1:68:af:83:5b:45:94:b1:f9"
-
       - run:
           name: host authenticity
           command: ssh-keyscan $HOST >> ~/.ssh/known_hosts
-
       - run:
           name: Login in via SSH
           command: | 
@@ -21,7 +34,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - build
       - deploy:
+          requires:
+            - build
           filters:
             branches:
               only: master
