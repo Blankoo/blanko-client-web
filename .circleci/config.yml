@@ -1,43 +1,12 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:8.11.3
-    steps:
-      - checkout
-      - run:
-          name: update-npm 
-          command: 'sudo npm install -g npm@latest'
-      - run:
-          name: npm-install
-          command: npm install
-      - run:
-          name: npm-build
-          command: npm run build
-
-  deploy:
-    machine:
-      enabled: true
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "b8:72:a2:e8:09:79:0f:88:be:26:82:6e:39:6b:bd:a3"
-      - run:
-          name: host authenticity
-          command: ssh-keyscan $HOST >> ~/.ssh/known_hosts
-      - run:
-          name: Login in via SSH
-          command: | 
-            ssh $USER@$HOST echo 'vanuit circle ci deploy' >> test.txt
-
 workflows:
   version: 2
-  build_and_test:
+  build-and-deploy:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
+      - deploy-prod:
           filters:
             branches:
-              only: master
+              only:
+                - master
+          requires:
+            - build
