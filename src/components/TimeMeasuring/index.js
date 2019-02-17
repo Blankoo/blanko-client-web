@@ -68,7 +68,7 @@ class TimeMeasuring extends React.Component {
 		const totalInSeconds = (endTime, startTime) => Math.floor(totalInMiliSeconds(endTime, startTime) / 1000)
     // const totalMeasuredTime = this.props.measurements.reduce((zero, { total }) => zero + total, 0)
     const { activeTaskId, measurements } = this.props
-    const { startTime } = this.state
+    const { startTime, currenTime } = this.state
 
 		return (
 			<div>
@@ -79,7 +79,7 @@ class TimeMeasuring extends React.Component {
 					<span className="numbers">
 					{
 						this.secondsToHourMinuteSecond(
-							totalInSeconds(this.state.currenTime, this.state.startTime)
+							totalInSeconds(currenTime, startTime)
 						)
 					}
 					</span>

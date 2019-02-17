@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { setTaskActive } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
 
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-
 // Components
 import Checkbox from '../Checkbox'
 
