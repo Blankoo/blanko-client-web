@@ -12,7 +12,8 @@ import './TaskDetail.scss'
 
 const TaskDetail = (props) => {
   const {
-    activeTask
+    activeTask,
+    setTaskActive
   } = props
 
   const isThereAnActiveTask = activeTask !== undefined

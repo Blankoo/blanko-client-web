@@ -44,7 +44,9 @@ class TimeMeasuring extends React.Component {
 
 	stopMeasurement = taskId => {
 		this.setState({
-			isMeasuring: false,
+      isMeasuring: false,
+      startTime: this.currenTime(),
+      currenTime: this.currenTime()
 		}, () => {
 			const putMeasurement = {
 				endTime: this.currenTime(),
@@ -75,7 +77,6 @@ class TimeMeasuring extends React.Component {
 				<div>
 					<button onClick={() => this.startMeasurement(activeTaskId)}>Start</button>
           <button onClick={() => this.stopMeasurement(activeTaskId)}>Stop</button>
-					<br/><br/>
 					<span className="numbers">
 					{
 						this.secondsToHourMinuteSecond(

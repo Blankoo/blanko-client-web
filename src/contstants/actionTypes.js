@@ -11,6 +11,7 @@ export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 export const SET_PROJECT_DATA = 'SET_PROJECT_DATA'
 export const SET_TASK_ACTIVE = 'SET_TASK_ACTIVE'
+export const SET_TASK_NOT_ACTIVE = 'SET_TASK_NOT_ACTIVE'
 
 export const START_MES = 'START_MES'
 export const STOP_MES = 'STOP_MES'
