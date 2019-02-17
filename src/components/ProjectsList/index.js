@@ -21,7 +21,8 @@ class ProjectsList extends React.PureComponent {
       className,
       toggleAddProjectModal,
       label,
-      isFavorite
+      isFavorite,
+      activeProjectId
     } = this.props
 
     return (
@@ -32,9 +33,7 @@ class ProjectsList extends React.PureComponent {
           {
             !isFavorite && (
               <span className="add-project" onClick={toggleAddProjectModal}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9">
-                  <path fill="#7A848F" d="M4.5,3.5 L7.5,3.5 C7.77614237,3.5 8,3.72385763 8,4 C8,4.27614237 7.77614237,4.5 7.5,4.5 L4.5,4.5 L4.5,7.5 C4.5,7.77614237 4.27614237,8 4,8 C3.72385763,8 3.5,7.77614237 3.5,7.5 L3.5,4.5 L0.5,4.5 C0.223857625,4.5 0,4.27614237 0,4 C0,3.72385763 0.223857625,3.5 0.5,3.5 L3.5,3.5 L3.5,0.5 C3.5,0.223857625 3.72385763,5.07265313e-17 4,0 C4.27614237,-5.07265313e-17 4.5,0.223857625 4.5,0.5 L4.5,3.5 Z" transform="translate(.6 .5)" />
-                </svg>
+                <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
               </span>
             )
           }
@@ -44,13 +43,13 @@ class ProjectsList extends React.PureComponent {
           projects
             .filter(p => p.favorite === isFavorite)
             .map((project, idx) => {
-              const { projectTitle, active = false } = project
+              const { projectTitle } = project
 
               return (
                 <li
                   key={idx}
                   onClick={() => this.selectProject(project)}
-                  className={`projects-list-item ${active ? 'active' : ''}`}
+                  className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
                   <span>{ projectTitle }</span>
                 </li>
@@ -64,7 +63,8 @@ class ProjectsList extends React.PureComponent {
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  projects: projectReducer.projects
+  projects: projectReducer.projects,
+  activeProjectId: projectReducer.activeProjectId
 })
 
 ProjectsList.defaultProps = {
@@ -79,7 +79,8 @@ ProjectsList.propTypes = {
   isFavorite: PropTypes.bool,
   toggleAddProjectModal: PropTypes.func,
   fetchTasks: PropTypes.func,
-  setSelectedProject: PropTypes.func
+  setSelectedProject: PropTypes.func,
+  activeProjectId: PropTypes.string
 }
 
 export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal, setSelectedProject })(ProjectsList)

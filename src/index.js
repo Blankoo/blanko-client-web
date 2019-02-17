@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, browserHistory } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 
@@ -28,14 +28,12 @@ const GuardedRoute = ({ component: Component, ...rest }) => (
   <Route
     exact {...rest}
     render={props => (
-      isAuthenticated() ? <Component {...props} /> : <Redirect to="/login" />
+      isAuthenticated()
+      ? <Component {...props} />
+      : <Redirect to="/login" />
     )}
   />
 )
-
-GuardedRoute.propTypes = {
-  component: PropTypes.func
-}
 
 ReactDOM.render(
   <Provider store={STORE}>

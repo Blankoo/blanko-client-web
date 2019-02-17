@@ -10,20 +10,16 @@ import { login, fetchProjects } from '../../actions'
 import './Login.scss'
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      username: '',
-      password: '',
-      message: '',
-      success: false,
-      forgotPassword: false
-    }
+  state = {
+    username: '',
+    password: '',
+    message: '',
+    success: false,
+    forgotPassword: false
   }
 
   login = () => {
-    const { login, fetchProjects, history } = this.props
+    const { login, fetchProjects } = this.props
     const { username, password } = this.state
 
     const userBody = {
@@ -31,19 +27,19 @@ class Login extends React.Component {
       password
     }
 
-
     login(userBody)
       .then(({ payload }) => {
         this.setState({
           success: payload.success
         }, () => {
-          if (payload.success) {
+          if (this.state.success) {
             window.localStorage.setItem('USER_TOK', payload.token)
             setTimeout(() => {
               fetchProjects()
-              history.push('/')
+              this.props.history.push('/')
             }, 1100)
-          } else {
+          }
+          else {
             this.setState({
               message: payload.message
             })
@@ -177,7 +173,7 @@ class Login extends React.Component {
 Login.propTypes = {
   login: PropTypes.func,
   fetchProjects: PropTypes.func,
-  history: PropTypes.shape()
+  // history: PropTypes.shape()
 }
 
 const mapStateToProps = ({ authenticationReducer }) => ({
