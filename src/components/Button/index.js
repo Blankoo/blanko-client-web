@@ -8,6 +8,7 @@ const Button = ({
   text,
   variant,
   size,
+  value,
   isDisabled,
   isFullWidth,
   onClick
@@ -17,6 +18,7 @@ const Button = ({
     disabled={isDisabled}
     onClick={onClick}
     type="button"
+    value={value}
   >
     {text}
   </button>
@@ -26,6 +28,7 @@ Button.propTypes = {
   text: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onClick: PropTypes.func,
   isDisabled: PropTypes.bool,
   isFullWidth: PropTypes.bool
