@@ -7,6 +7,10 @@ import {
 } from '../../actions'
 
 import SingleMeasurement from './SingleMeasurement'
+import {
+  secondsToHourMinuteSecond,
+  totalInSeconds
+} from './actions'
 
 class TimeMeasuring extends React.Component {
 	state = {
@@ -44,7 +48,9 @@ class TimeMeasuring extends React.Component {
 
 	stopMeasurement = taskId => {
 		this.setState({
-			isMeasuring: false,
+      isMeasuring: false,
+      startTime: this.currenTime(),
+      currenTime: this.currenTime()
 		}, () => {
 			const putMeasurement = {
 				endTime: this.currenTime(),
@@ -55,17 +61,7 @@ class TimeMeasuring extends React.Component {
 		})
 	}
 
-	secondsToHourMinuteSecond = totalSeconds => {
-		const hour = Math.floor(totalSeconds / 3600)
-		const minute = Math.floor(totalSeconds % 3600 / 60)
-		const seconds = Math.floor(totalSeconds % 3600 % 60)
-
-		return `${('0' + hour).slice(-2)}:${('0' + minute).slice(-2)}:${('0' + seconds).slice(-2)}`
-	}
-
 	render() {
-		const totalInMiliSeconds = (endTime, startTime) => Math.floor(endTime - startTime)
-		const totalInSeconds = (endTime, startTime) => Math.floor(totalInMiliSeconds(endTime, startTime) / 1000)
     // const totalMeasuredTime = this.props.measurements.reduce((zero, { total }) => zero + total, 0)
     const { activeTaskId, measurements } = this.props
     const { startTime, currenTime } = this.state
@@ -75,10 +71,9 @@ class TimeMeasuring extends React.Component {
 				<div>
 					<button onClick={() => this.startMeasurement(activeTaskId)}>Start</button>
           <button onClick={() => this.stopMeasurement(activeTaskId)}>Stop</button>
-					<br/><br/>
 					<span className="numbers">
 					{
-						this.secondsToHourMinuteSecond(
+						secondsToHourMinuteSecond(
 							totalInSeconds(currenTime, startTime)
 						)
 					}
