@@ -88,13 +88,6 @@ class TasksContainer extends Component {
 
     const isThereAnActiveTask = activeTask !== undefined
 
-    // const filterArguments = (task) => {
-    //   if (task.title.toLowerCase().includes(searchQuery) || task.subTitle.toLowerCase().includes(searchQuery)) {
-    //     return task
-    //   }
-    //   return task
-    // }
-
     return (
       <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
         <div className="tasks-container-title" ref={this.tasksContainerTitle}>
@@ -113,10 +106,11 @@ class TasksContainer extends Component {
           {
             tasks !== undefined && (
               tasks
-                .filter(task => (
-                  task.title.toLowerCase().includes(searchQuery)
-                  || task.subTitle.toLowerCase().includes(searchQuery))
-                  && task.status === filterStatus)
+                .filter(({ title, subTitle, status }) => (
+                  (title.toLowerCase().includes(searchQuery)
+                  || subTitle.toLowerCase().includes(searchQuery))
+                  && (filterStatus !== 'ALL' && status === filterStatus)
+                ))
                 .map(task => (
                   <CSSTransition
                     key={task._id}

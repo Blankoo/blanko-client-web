@@ -9,17 +9,17 @@ import Checkbox from '../Checkbox'
 // Styles
 import './Task.scss'
 
-const Task = ({ activeProjectId, setTaskActive, activeTask, task }) => {
+const Task = ({
+  setTaskActive,
+  activeTask, task
+}) => {
   const isActive = activeTask !== undefined && (
     activeTask._id === task._id
   )
 
-  /* TODO: Check if Task is done */
-  const isDone = false
-
   return (
     <div
-      className={`task-small ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
+      className={`task-small ${isActive ? 'active' : ''} ${task.status ? 'DONE' : ''}`}
       onClick={() => setTaskActive(task)}
     >
       <Checkbox check={task.status === 'DONE'} />
@@ -43,7 +43,6 @@ Task.propTypes = {
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  activeProjectId: projectReducer.activeProjectId,
   activeTask: projectReducer.activeTask
 })
 
