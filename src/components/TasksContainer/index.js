@@ -68,7 +68,6 @@ class TasksContainer extends Component {
     } = this.props
 
     const { isFilterBarSticky, searchQuery } = this.state
-
     const isThereAnActiveTask = activeTask !== undefined
 
     const handleTaskSearch = (e) => {

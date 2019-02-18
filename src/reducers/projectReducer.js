@@ -49,6 +49,12 @@ export default function projectsReducer(state = initialState, action) {
         activeTask: action.payload.task,
         measurements: action.payload.measurements
       }
+
+    case types.SET_TASK_NOT_ACTIVE:
+      return {
+        ...state,
+        activeTask: undefined
+      }
     case types.START_MES:
       return {
         ...state,

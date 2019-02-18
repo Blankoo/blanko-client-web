@@ -12,9 +12,7 @@ import Login from './pages/Login'
 import './master.scss'
 
 const STORE = configureStore()
-
 STORE.subscribe(() => console.info(STORE.getState()))
-// console.info({ STORE: STORE.getState() })
 
 function isAuthenticated() {
   const token = window.localStorage.getItem('USER_TOK')
