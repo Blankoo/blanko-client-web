@@ -9,15 +9,19 @@
   .input-wrapper {
     background-color: var(--white-second);
     border-radius: 4px;
-    padding: 8px 16px;
     display: flex;
+    align-items: center;
+    position: relative;
 
     .icon {
       height: 12px;
       display: inline-flex;
+      left: 8px;
+      position: absolute;
+      pointer-events: none;
 
       & + input {
-       margin-left: 8px; 
+        padding: 8px 16px 8px 24px;
       }
     }
 
@@ -29,6 +33,8 @@
       color: var(--text-color-secondary);
       letter-spacing: 0;
       outline: none;
+      width: 100%;
+      padding: 8px 16px;
     }
   }
 }
