@@ -13,6 +13,13 @@
     background: #FCFCFC;
     border-radius: 4px;
     padding: 32px 32px 24px;
+    display: flex;
+    min-width: 440px;
+    flex-direction: column;
+
+    .input {
+      margin-bottom: 16px;
+    }
 
     &-buttons {
       display: flex;

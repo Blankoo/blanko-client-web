@@ -9,12 +9,13 @@ const Input = ({
   placeholder,
   type,
   label,
-  onChange
+  onChange,
+  id
 }) => (
   <div className="input">
     {
       label && (
-        <label className="label">{label}</label>
+        <label htmlFor={id} className="label">{label}</label>
       )
     }
 
@@ -26,7 +27,14 @@ const Input = ({
           </span>
         )
       }
-      <input type={type} placeholder={placeholder} onChange={onChange} />
+
+      <input
+        name={id}
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </div>
   </div>
 )
@@ -40,7 +48,8 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  id: PropTypes.string
 }
 
 export default Input
