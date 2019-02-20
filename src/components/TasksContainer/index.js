@@ -13,7 +13,7 @@ import AddTask from '../AddTask'
 import FilterBar from '../FilterBar'
 
 // Styles
-import './TaskContainer.scss'
+import './TasksContainer.scss'
 
 class TasksContainer extends Component {
   constructor(props) {
@@ -21,7 +21,8 @@ class TasksContainer extends Component {
 
     this.state = {
       isFilterBarSticky: false,
-      searchQuery: ''
+      searchQuery: '',
+      filterStatus: 'ALL'
     }
 
     this.filterBar = React.createRef()
@@ -59,6 +60,22 @@ class TasksContainer extends Component {
     }
   }
 
+  handleTaskSearch = (e) => {
+    const query = e.target.value.toLowerCase()
+
+    this.setState({
+      searchQuery: query
+    })
+  }
+
+  handleTaskStatusFilter = (e) => {
+    const status = e.target.value
+
+    this.setState({
+      filterStatus: status
+    })
+  }
+
   render() {
     const {
       projectTitle,
@@ -67,16 +84,9 @@ class TasksContainer extends Component {
       tasks
     } = this.props
 
-    const { isFilterBarSticky, searchQuery } = this.state
+    const { isFilterBarSticky, searchQuery, filterStatus } = this.state
+
     const isThereAnActiveTask = activeTask !== undefined
-
-    const handleTaskSearch = (e) => {
-      const query = e.target.value.toLowerCase()
-
-      this.setState({
-        searchQuery: query
-      })
-    }
 
     return (
       <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
@@ -85,15 +95,22 @@ class TasksContainer extends Component {
           <p>{projectDescription}</p>
         </div>
 
-        <FilterBar isSticky={isFilterBarSticky} handleTaskSearch={handleTaskSearch} />
+        <FilterBar
+          isSticky={isFilterBarSticky}
+          handleTaskSearch={this.handleTaskSearch}
+          handleTaskStatusFilter={this.handleTaskStatusFilter}
+          filterStatus={filterStatus}
+        />
 
         <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
           {
             tasks !== undefined && (
               tasks
-                .filter(task => (
-                  task.title.toLowerCase().includes(searchQuery)
-                  || task.subTitle.toLowerCase().includes(searchQuery)))
+                .filter(({ title, subTitle, status }) => (
+                  (title.toLowerCase().includes(searchQuery)
+                  || subTitle.toLowerCase().includes(searchQuery))
+                  && (filterStatus !== 'ALL' && status === filterStatus)
+                ))
                 .map(task => (
                   <CSSTransition
                     key={task._id}

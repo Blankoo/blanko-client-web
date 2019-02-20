@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 // Components
 import Button from '../Button'
+import Input from '../Input'
 
 // Styles
 import './AddProjectModal.scss'
@@ -32,11 +33,9 @@ class AddProjectModal extends React.Component {
     return isShown && (
       <div className="add-project-modal">
         <div className="modal-wrapper">
-          <label className="label" htmlFor="projectTitle">Project Title</label>
-          <input id="projectTitle" onChange={this.onChange} />
+          <Input id="projectTitle" label="Project Title" onChange={this.onChange} />
 
-          <label className="label">Description</label>
-          <input id="projectDescription" onChange={this.onChange} />
+          <Input id="projectDescription" label="Description" onChange={this.onChange} />
 
           <div className="modal-wrapper-buttons">
             <Button
