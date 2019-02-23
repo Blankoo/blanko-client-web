@@ -78,24 +78,27 @@ export const deleteTask = (projectId, taskId) => dispatch => http.delete(`${conf
   })
 
 export const setTaskActive = (task) => {
-  return dispatch => {
-    console.log(dispatch)
-    if(task !== undefined) {
-      http.get(`${config.apiUrl}/timemeasurements/all/${task._id}`)
-        .then(resolved => {
-          const measurements = resolved.data
-          dispatch({
-            type: types.SET_TASK_ACTIVE,
-            payload: {
-              task,
-              measurements
-            }
+  return (dispatch, getState) => {
+    const thereIsNoActiveMeasurement = getState().projectReducer.activeMeasurementId === undefined
+
+    if(thereIsNoActiveMeasurement) {
+      if(task !== undefined) {
+        http.get(`${config.apiUrl}/timemeasurements/all/${task._id}`)
+          .then(resolved => {
+            const measurements = resolved.data
+            dispatch({
+              type: types.SET_TASK_ACTIVE,
+              payload: {
+                task,
+                measurements
+              }
+            })
           })
+      } else {
+        dispatch({
+          type: types.SET_TASK_NOT_ACTIVE
         })
-    } else {
-      dispatch({
-        type: types.SET_TASK_NOT_ACTIVE
-      })
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import './timeMeasuringStyle.scss'
 
 import {
   startTimeMeasurement,
@@ -7,6 +8,7 @@ import {
 } from '../../actions'
 
 import SingleMeasurement from './SingleMeasurement'
+import Button from '../Button'
 import {
   secondsToHourMinuteSecond,
   totalInSeconds
@@ -62,24 +64,33 @@ class TimeMeasuring extends React.Component {
 	}
 
 	render() {
-    // const totalMeasuredTime = this.props.measurements.reduce((zero, { total }) => zero + total, 0)
     const { activeTaskId, measurements } = this.props
-    const { startTime, currenTime } = this.state
+    const { startTime, currenTime, isMeasuring } = this.state
+    const totalMeasuredTime = measurements.filter(m => m.isFinished).reduce((zero, { total }) => zero + total, 0)
 
 		return (
 			<div>
 				<div>
-					<button onClick={() => this.startMeasurement(activeTaskId)}>Start</button>
-          <button onClick={() => this.stopMeasurement(activeTaskId)}>Stop</button>
-					<span className="numbers">
+          {
+            isMeasuring
+            ? <Button onClick={() => this.stopMeasurement(activeTaskId)} text="Stop" />
+            : <Button onClick={() => this.startMeasurement(activeTaskId)} text="Start" variant="primary" />
+          }
+					<div className="numbers">
 					{
 						secondsToHourMinuteSecond(
 							totalInSeconds(currenTime, startTime)
 						)
 					}
-					</span>
+					</div>
 				</div>
 
+        <div>
+          { totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }
+        </div>
+        <div>
+
+        </div>
         <div>
           {
             measurements

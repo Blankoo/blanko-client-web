@@ -10,7 +10,7 @@
   padding: 0 48px;
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 512px) {
+  @media screen and (max-width: 800px) {
     padding-left: 0;
   }
 
@@ -31,13 +31,13 @@
     font-size: 42px;
     padding-left: 22px;
 
-    @media screen and (max-width: 512px) {
+    @media screen and (max-width: 800px) {
       display: block;
     }
   }
 
   .blanko {
-    @media screen and (max-width: 512px) {
+    @media screen and (max-width: 800px) {
       display: none;
     }
   }

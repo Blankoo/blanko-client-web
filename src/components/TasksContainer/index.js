@@ -76,6 +76,27 @@ class TasksContainer extends Component {
     })
   }
 
+  // filterByQuery = (task) => {
+  //   const { title, subTitle, status } = task
+  //   const { searchQuery, filterStatus } = this.state
+
+  //   return (
+  //     title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery)
+  //   ) && (filterStatus !== 'ALL' && status === filterStatus)
+  // }
+
+  filterByQuery = (task) => {
+    const { title, subTitle, status } = task
+    const { searchQuery, filterStatus } = this.state
+
+    const showAllTasks = status === 'ALL'
+    if(showAllTasks && searchQuery !== '') {
+      return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
+    } else {
+      return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
+    }
+  }
+
   render() {
     const {
       projectTitle,
@@ -84,7 +105,7 @@ class TasksContainer extends Component {
       tasks
     } = this.props
 
-    const { isFilterBarSticky, searchQuery, filterStatus } = this.state
+    const { isFilterBarSticky, filterStatus } = this.state
 
     const isThereAnActiveTask = activeTask !== undefined
 
@@ -106,11 +127,7 @@ class TasksContainer extends Component {
           {
             tasks !== undefined && (
               tasks
-                .filter(({ title, subTitle, status }) => (
-                  (title.toLowerCase().includes(searchQuery)
-                  || subTitle.toLowerCase().includes(searchQuery))
-                  && (filterStatus !== 'ALL' && status === filterStatus)
-                ))
+                .filter(this.filterByQuery)
                 .map(task => (
                   <CSSTransition
                     key={task._id}

@@ -34,4 +34,11 @@ Button.propTypes = {
   isFullWidth: PropTypes.bool
 }
 
+Button.defaultProps = {
+  variant: 'primary',
+  size: 'md'
+}
+
+
+
 export default Button

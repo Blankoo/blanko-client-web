@@ -3,7 +3,7 @@ export function secondsToHourMinuteSecond(totalSeconds) {
   const minute = Math.floor(totalSeconds % 3600 / 60)
   const seconds = Math.floor(totalSeconds % 3600 % 60)
 
-  return `${('0' + hour).slice(-2)}:${('0' + minute).slice(-2)}:${('0' + seconds).slice(-2)}`
+return `${('0' + hour).slice(-2)}:${('0' + minute).slice(-2)}:${('0' + seconds).slice(-2)}`
 }
 
 

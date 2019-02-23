@@ -16,9 +16,22 @@
   --red-danger: #C23636;
 }
 
-@media screen and (max-width: 512px) {
+@media screen and (max-width: 800px) {
   :root {
     --sidebar-width: 80px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Colors
+  --text-color-primary: red; 
+  --text-color-secondary: red;
+  --text-color-tertiary: red;
+  --text-color-quaternary: red;
+
+  --white: #FBFBFD;
+  --white-second: #F3F3F3;
   }
 }
 
