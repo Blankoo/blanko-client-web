@@ -67,7 +67,6 @@ class TimeMeasuring extends React.Component {
     const { activeTaskId, measurements } = this.props
     const { startTime, currenTime, isMeasuring } = this.state
     const totalMeasuredTime = measurements.filter(m => m.isFinished).reduce((zero, { total }) => zero + total, 0)
-    console.log({ totalMeasuredTime })
 
 		return (
 			<div>
@@ -87,7 +86,7 @@ class TimeMeasuring extends React.Component {
 				</div>
 
         <div>
-          { totalMeasuredTime !== NaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }
+          { totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }
         </div>
         <div>
 
