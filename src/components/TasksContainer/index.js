@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group'
 import { connect } from 'react-redux'
 import { fetchTasks, getSingleProject } from '../../actions'
 
 // Components
-import Task from '../Task'
 import AddTask from '../AddTask'
 import FilterBar from '../FilterBar'
+import TaskList from './TaskList'
 
 // Styles
 import './TasksContainer.scss'
@@ -76,27 +72,6 @@ class TasksContainer extends Component {
     })
   }
 
-  // filterByQuery = (task) => {
-  //   const { title, subTitle, status } = task
-  //   const { searchQuery, filterStatus } = this.state
-
-  //   return (
-  //     title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery)
-  //   ) && (filterStatus !== 'ALL' && status === filterStatus)
-  // }
-
-  filterByQuery = (task) => {
-    const { title, subTitle, status } = task
-    const { searchQuery, filterStatus } = this.state
-
-    const showAllTasks = status === 'ALL'
-    if(showAllTasks && searchQuery !== '') {
-      return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
-    } else {
-      return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
-    }
-  }
-
   render() {
     const {
       projectTitle,
@@ -105,7 +80,7 @@ class TasksContainer extends Component {
       tasks
     } = this.props
 
-    const { isFilterBarSticky, filterStatus } = this.state
+    const { isFilterBarSticky, filterStatus, searchQuery } = this.state
 
     const isThereAnActiveTask = activeTask !== undefined
 
@@ -123,23 +98,13 @@ class TasksContainer extends Component {
           filterStatus={filterStatus}
         />
 
-        <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
-          {
-            tasks !== undefined && (
-              tasks
-                .filter(this.filterByQuery)
-                .map(task => (
-                  <CSSTransition
-                    key={task._id}
-                    timeout={250}
-                    classNames="fade"
-                  >
-                    <Task task={task} />
-                  </CSSTransition>
-                ))
-            )
-          }
-        </TransitionGroup>
+        <TaskList
+          tasks={tasks}
+          isSticky={isFilterBarSticky}
+          searchQuery={searchQuery}
+          filterStatus={filterStatus}
+        />
+
 
         {projectTitle !== undefined && <AddTask />}
       </div>
