@@ -4,7 +4,7 @@ import { secondsToHourMinuteSecond } from './actions'
 const SingleMeasurment = (meas) => (
   <div className="single-measurement">
     <span>Measurement:</span>
-    <span>{ secondsToHourMinuteSecond(meas.total / 1000) }</span>
+    <span className="mono">{ secondsToHourMinuteSecond(meas.total / 1000) }</span>
   </div>
 )
 

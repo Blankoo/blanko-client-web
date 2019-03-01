@@ -7,12 +7,12 @@ import {
 
 import Task from '../Task'
 
-class TaskList extends React.PureComponent {
+class TaskList extends React.Component {
   filterByQuery = (task) => {
     const { title, subTitle, status } = task
     const { searchQuery, filterStatus } = this.props
-
     const showAllTasks = filterStatus === 'ALL'
+
     if(showAllTasks) {
       return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
     } else {
@@ -22,33 +22,36 @@ class TaskList extends React.PureComponent {
 
   render() {
     const { tasks, isFilterBarSticky } = this.props
+
     return (
       <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
       {
-        tasks !== undefined && (
-          tasks
-            .filter(this.filterByQuery)
-            .map(task => (
-              <CSSTransition
-                key={task._id}
-                timeout={250}
-                classNames="fade"
-              >
-                <Task task={task} />
-              </CSSTransition>
-            ))
-        )
+        tasks
+          .filter(this.filterByQuery)
+          .map(task => (
+            <CSSTransition
+              key={task._id}
+              timeout={0}
+              classNames="fade"
+            >
+              <Task task={task} />
+            </CSSTransition>
+          ))
       }
       </TransitionGroup>
     )
   }
 }
 
+TaskList.defaultProps = {
+  tasks: []
+}
+
 TaskList.propTypes = {
   tasks: PropTypes.instanceOf(Array),
   isFilterBarSticky: PropTypes.boolean,
+  searchQuery: PropTypes.string,
+  filterStatus: PropTypes.string
 }
-
-
 
 export default TaskList

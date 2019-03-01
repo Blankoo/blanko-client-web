@@ -22,16 +22,21 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    // Colors
-  --text-color-primary: red; 
-  --text-color-secondary: red;
-  --text-color-tertiary: red;
-  --text-color-quaternary: red;
+    --text-color-primary: red; 
+    --text-color-secondary: red;
+    --text-color-tertiary: red;
+    --text-color-quaternary: red;
 
-  --white: #FBFBFD;
-  --white-second: #F3F3F3;
+    --white: #FBFBFD;
+    --white-second: #F3F3F3;
   }
 }
 
@@ -56,6 +61,7 @@ body {
   background: var(--white);
   color: var(--text-color-primary);
   overflow-x:hidden;
+  font-size: 1rem;
 }
 
 .mono {
