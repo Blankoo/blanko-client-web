@@ -22,23 +22,44 @@ class TaskList extends React.Component {
 
   render() {
     const { tasks, isFilterBarSticky } = this.props
+    // return (
+    //   <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
+    //   {
+    //     tasks !== undefined && (
+    //       tasks
+    //         .filter(this.filterByQuery)
+    //         .map(task => (
+    //           <CSSTransition
+    //             key={task._id}
+    //             timeout={250}
+    //             classNames="fade"
+    //           >
+    //             <Task task={task} />
+    //           </CSSTransition>
+    //         ))
+    //     )
+    //   }
+    //   </TransitionGroup>
+    // )
 
     return (
-      <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
-      {
-        tasks
-          .filter(this.filterByQuery)
-          .map(task => (
-            <CSSTransition
-              key={task._id}
-              timeout={0}
-              classNames="fade"
-            >
-              <Task task={task} />
-            </CSSTransition>
-          ))
+      <>
+       {
+        tasks !== undefined && (
+          tasks
+            .filter(this.filterByQuery)
+            .map(task => (
+              <CSSTransition
+                key={task._id}
+                timeout={250}
+                classNames="fade"
+              >
+                <Task task={task} />
+              </CSSTransition>
+            ))
+        )
       }
-      </TransitionGroup>
+      </>
     )
   }
 }

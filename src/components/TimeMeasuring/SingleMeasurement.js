@@ -1,10 +1,10 @@
 import React from 'react'
 import { secondsToHourMinuteSecond } from './actions'
 
-const SingleMeasurment = (meas) => (
+const SingleMeasurment = ({ total }) => (
   <div className="single-measurement">
     <span>Measurement:</span>
-    <span className="mono">{ secondsToHourMinuteSecond(meas.total / 1000) }</span>
+    <span>{ secondsToHourMinuteSecond(total / 1000) }</span>
   </div>
 )
 

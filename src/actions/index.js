@@ -103,6 +103,25 @@ export const setTaskActive = (task) => {
   }
 }
 
+export function updateTaskStatus(taskId, currentStatus) {
+  const newStatus = {
+    status: currentStatus === 'TODO' ? 'DONE' : 'TODO'
+  }
+
+  console.log('update task status action')
+  if(taskId !== undefined) {
+    return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
+      .then(resolved => {
+        const currentTasks = getState().proejctReducer.tasks
+
+        dispatch({
+          type: types.CHANGE_TASK_STATUS,
+          payload: resolved.data
+        })
+      })
+  }
+}
+
 export const startTimeMeasurement = (taskId, startMesObj) => {
   if(taskId !== undefined) {
     return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, startMesObj)
