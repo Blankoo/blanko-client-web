@@ -22,9 +22,29 @@ class TaskList extends React.PureComponent {
 
   render() {
     const { tasks, isFilterBarSticky } = this.props
+    // return (
+    //   <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
+    //   {
+    //     tasks !== undefined && (
+    //       tasks
+    //         .filter(this.filterByQuery)
+    //         .map(task => (
+    //           <CSSTransition
+    //             key={task._id}
+    //             timeout={250}
+    //             classNames="fade"
+    //           >
+    //             <Task task={task} />
+    //           </CSSTransition>
+    //         ))
+    //     )
+    //   }
+    //   </TransitionGroup>
+    // )
+
     return (
-      <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
-      {
+      <>
+       {
         tasks !== undefined && (
           tasks
             .filter(this.filterByQuery)
@@ -39,7 +59,7 @@ class TaskList extends React.PureComponent {
             ))
         )
       }
-      </TransitionGroup>
+      </>
     )
   }
 }

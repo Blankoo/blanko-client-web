@@ -110,8 +110,10 @@ export function updateTaskStatus(taskId, currentStatus) {
 
   console.log('update task status action')
   if(taskId !== undefined) {
-    return dispatch => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
+    return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
       .then(resolved => {
+        const currentTasks = getState().proejctReducer.tasks
+
         dispatch({
           type: types.CHANGE_TASK_STATUS,
           payload: resolved.data
