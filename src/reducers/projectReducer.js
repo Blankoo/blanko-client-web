@@ -37,7 +37,7 @@ export default function projectsReducer(state = initialState, action) {
       }
     case types.DELETE_TASK:
       const deletedId = action.payload.id
-      const deletedTask = state.tasks.filter(task => task._id !== deletedId)
+      const deletedTask = [...state.tasks].filter(task => task._id !== deletedId)
 
       return {
         ...state,
@@ -56,9 +56,12 @@ export default function projectsReducer(state = initialState, action) {
         activeTask: undefined
       }
     case types.CHANGE_TASK_STATUS:
+      const changedTaskIndex = state.tasks.map(t => t._id).indexOf(action.payload.task._id)
+      const newTasks = state.tasks.splice(changedTaskIndex, 1, action.payload.task)
+
       return {
         ...state,
-        tasks: action.payload.tasks
+        tasks: newTasks
       }
     case types.START_MES:
       return {

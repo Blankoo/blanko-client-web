@@ -107,13 +107,20 @@ export function updateTaskStatus(taskId, currentStatus) {
   const newStatus = {
     status: currentStatus === 'TODO' ? 'DONE' : 'TODO'
   }
-
-  console.log('update task status action')
   if(taskId !== undefined) {
     return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
       .then(resolved => {
-        const currentTasks = getState().proejctReducer.tasks
-
+        // const oldTasks = [...getState().projectReducer.tasks]
+        // console.log(JSON.stringify(oldTasks))
+        // const newTasks = oldTasks.map((task, idx) => {
+        //   if(task._id === taskId) {
+        //     console.log('this task is clicked', task)
+        //     task.status = task.status === 'TODO' ? 'DONE' : 'TODO'
+        //     return task
+        //   } else {
+        //     return task
+        //   }
+        // })
         dispatch({
           type: types.CHANGE_TASK_STATUS,
           payload: resolved.data
