@@ -77,7 +77,6 @@ class TasksContainer extends Component {
       projectTitle,
       projectDescription,
       activeTask,
-      tasks
     } = this.props
 
     const { isFilterBarSticky, filterStatus, searchQuery } = this.state
