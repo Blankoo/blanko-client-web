@@ -76,7 +76,7 @@ class TimeMeasuring extends React.Component {
             ? <Button onClick={() => this.stopMeasurement(activeTaskId)} text="Stop" />
             : <Button onClick={() => this.startMeasurement(activeTaskId)} text="Start" variant="primary" />
           }
-					<div className="numbers">
+					<div className="numbers mono">
 					{
 						secondsToHourMinuteSecond(
 							totalInSeconds(currenTime, startTime)
@@ -85,7 +85,7 @@ class TimeMeasuring extends React.Component {
 					</div>
 				</div>
 
-        <div>
+        <div className="mono">
           { totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }
         </div>
         <div>

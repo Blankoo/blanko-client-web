@@ -1,12 +1,11 @@
 .tasks-container {
   margin-left: var(--sidebar-width);
-  margin-right: calc(var(--task-detail-width) / 2);
+  margin-right: 32px;
   padding: 32px 32px 24px 32px;
   flex: 2;
   background-color: #FBFBFD;
   height: 100vh;
   transition: margin ease-in-out .2s;
-  max-width: 800px;
 
   &.task-active {
     margin-right: calc(var(--task-detail-width) + 32px);
@@ -31,12 +30,12 @@
     }
 
     &.fade-enter {
-      opacity: .01;
+      opacity: 0;
     }
 
     &.fade-enter-active {
       opacity: 1;
-      transition: opacity 250ms ease-in-out;
+      transition: opacity 2500ms ease-in-out;
     }
 
     &.fade-exit {
@@ -44,8 +43,8 @@
     }
 
     &.fade-exit-active {
-      opacity: .01;
-      transition: opacity 250ms ease-in-out;
+      opacity: 0;
+      transition:0ms;
     }
   }
 }
