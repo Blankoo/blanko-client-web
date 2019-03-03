@@ -99,7 +99,6 @@ class TasksContainer extends Component {
         />
 
         <TaskList
-          tasks={tasks}
           isSticky={isFilterBarSticky}
           searchQuery={searchQuery}
           filterStatus={filterStatus}
@@ -113,7 +112,6 @@ class TasksContainer extends Component {
 }
 
 TasksContainer.propTypes = {
-  tasks: PropTypes.instanceOf(Array),
   projectTitle: PropTypes.string,
   projectDescription: PropTypes.string,
   getSingleProject: PropTypes.func,
@@ -122,7 +120,6 @@ TasksContainer.propTypes = {
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  tasks: projectReducer.tasks,
   projectTitle: projectReducer.activeProject.projectTitle,
   projectDescription: projectReducer.activeProject.projectDescription,
   activeTask: projectReducer.activeTask

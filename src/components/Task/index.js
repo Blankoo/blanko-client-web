@@ -24,7 +24,7 @@ const Task = (props) => {
       onClick={() => setTaskActive(task)}
     >
       <Checkbox check={task.status === 'DONE'} onClick={(e) => {
-        // e.stopPropagation();
+        e.stopPropagation();
         updateTaskStatus(task._id, task.status)
       }} />
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   CSSTransition,
   TransitionGroup,
@@ -75,4 +76,9 @@ TaskList.propTypes = {
   filterStatus: PropTypes.string
 }
 
-export default TaskList
+
+const mapStateToProps = ({ projectReducer }) => ({
+  tasks: projectReducer.tasks,
+})
+
+export default connect(mapStateToProps)(TaskList)

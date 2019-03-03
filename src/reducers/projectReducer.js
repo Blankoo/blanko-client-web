@@ -56,12 +56,9 @@ export default function projectsReducer(state = initialState, action) {
         activeTask: undefined
       }
     case types.CHANGE_TASK_STATUS:
-      const changedTaskIndex = state.tasks.map(t => t._id).indexOf(action.payload.task._id)
-      const newTasks = state.tasks.splice(changedTaskIndex, 1, action.payload.task)
-
       return {
         ...state,
-        tasks: newTasks
+        tasks: action.payload.newTasks
       }
     case types.START_MES:
       return {
