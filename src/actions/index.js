@@ -110,26 +110,18 @@ export function updateTaskStatus(taskId, currentStatus) {
   if(taskId !== undefined) {
     return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
       .then(resolved => {
-        const oldTasks = [...getState().projectReducer.tasks]
-        console.log(JSON.stringify(oldTasks))
-        const newTasks = oldTasks.map((task, idx) => {
-          if(task._id === taskId) {
-            return {
-              ...task,
-              status: task.status === 'TODO' ? 'DONE' : 'TODO'
-            }
-          } else {
-            return task
-          }
-        })
 
-        // const changedTaskIndex = state.tasks.map(t => t._id).indexOf(action.payload.task._id)
-        // const newTasks = state.tasks.splice(changedTaskIndex, 1, action.payload.task)
+        const oldTasks = [...getState().projectReducer.tasks]
+        const newTasks = oldTasks.map(task => ({
+          ...task,
+          status: task._id === taskId && task.status === 'TODO' ? 'DONE' : 'TODO'
+        }))
 
         dispatch({
           type: types.CHANGE_TASK_STATUS,
           payload: {
-            newTasks
+            newTasks,
+            data: resolved.data
           }
         })
       })
