@@ -7,6 +7,7 @@ import {
 } from 'react-transition-group'
 
 import Task from '../Task'
+import AddTask from '../AddTask'
 
 class TaskList extends React.Component {
   filterByQuery = (task) => {
@@ -60,6 +61,8 @@ class TaskList extends React.Component {
             ))
         )
       }
+
+      <AddTask/>
       </>
     )
   }
