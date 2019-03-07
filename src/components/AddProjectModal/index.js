@@ -47,9 +47,9 @@ class AddProjectModal extends React.Component {
 
             <Button
               onClick={() => addProject(this.state)}
-              variant="secondary"
+              variant="primary"
               text="Save"
-              isDisabled={(projectTitle && projectDescription) === ''}
+              isDisabled={projectTitle === ''}
               size="md"
             />
           </div>

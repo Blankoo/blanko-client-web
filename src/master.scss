@@ -16,7 +16,7 @@
   --red-danger: #C23636;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 400px) and (max-width: 800px) {
   :root {
     --sidebar-width: 80px;
   }
@@ -60,12 +60,13 @@ body {
   padding: 0;
   background: var(--white);
   color: var(--text-color-primary);
-  overflow-x:hidden;
+  overflow-x:hidden !important;
   font-size: 1rem;
 }
 
 .mono {
   font-family: 'SF Mono', 'Droid Sans Mono', 'Ubuntu Mono', monospace !important;
+  font-size: inherit;
 }
 
 .label {
@@ -97,4 +98,8 @@ p {
   color: var(--text-color-tertiary);
   letter-spacing: 0;
   line-height: 20px;
+}
+
+img {
+  max-width: 100%;
 }

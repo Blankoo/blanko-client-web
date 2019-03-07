@@ -69,11 +69,11 @@ class TimeMeasuring extends React.Component {
     const totalMeasuredTime = measurements.filter(m => m.isFinished).reduce((zero, { total }) => zero + total, 0)
 
 		return (
-			<div>
-				<div>
+			<div className="time-measurements">
+				<div className="current-measurement">
           {
             isMeasuring
-            ? <Button onClick={() => this.stopMeasurement(activeTaskId)} text="Stop" />
+            ? <Button onClick={() => this.stopMeasurement(activeTaskId)} text="Stop" variant="danger" />
             : <Button onClick={() => this.startMeasurement(activeTaskId)} text="Start" variant="primary" />
           }
 					<div className="numbers mono">
@@ -85,13 +85,15 @@ class TimeMeasuring extends React.Component {
 					</div>
 				</div>
 
-        <div className="mono">
-          { totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }
+        <div className="total-measured mono">
+          <span className="label">Total measured time:</span>
+          <span className="mono">{ totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }</span>
         </div>
         <div>
 
         </div>
         <div>
+          <span className="label">All measurements:</span>
           {
             measurements
               .filter(m => m.isFinished)

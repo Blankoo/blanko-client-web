@@ -10,12 +10,30 @@
   padding: 0 48px;
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 800px) {
+  transition: 200ms;
+
+  @media screen and (min-width: 400px) and (max-width: 800px) {
     padding-left: 0;
   }
 
   @media screen and (max-width: 400px) {
-    display: none;
+    width: 95%;
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 2;
+    transform: translateX(-100%);
+
+    &.open {
+      transform: translateX(0%);
+    }
+
+    .close-sidebar {
+      position: fixed;
+      top: 40px;
+      right: 24px;
+      transform: scale(1.5);
+    }
   }
 
   .blanko,
@@ -35,13 +53,13 @@
     font-size: 42px;
     padding-left: 22px;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (min-width: 400px) and (max-width: 800px) {
       display: block;
     }
   }
 
   .blanko {
-    @media screen and (max-width: 800px) {
+    @media screen and (min-width: 400px) and (max-width: 800px) {
       display: none;
     }
   }

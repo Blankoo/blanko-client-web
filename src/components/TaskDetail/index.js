@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { setTaskActive } from '../../actions'
+import { setTaskActive, updateTaskStatus } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
 
 // Components
@@ -13,7 +13,8 @@ import './TaskDetail.scss'
 const TaskDetail = (props) => {
   const {
     activeTask,
-    setTaskActive
+    setTaskActive,
+    updateTaskStatus
   } = props
 
   const isThereAnActiveTask = activeTask !== undefined
@@ -29,7 +30,7 @@ const TaskDetail = (props) => {
           <>
             <div className="task-detail-top">
               <div className="title">
-                <Checkbox />
+              <Checkbox check={activeTask.status === 'DONE'} onClick={(e) => updateTaskStatus(activeTask._id, activeTask.status)} />
                 <h1>{activeTask.title}</h1>
               </div>
               <p>{activeTask.subTitle}</p>
@@ -47,7 +48,6 @@ TaskDetail.propTypes = {
     title: PropTypes.string,
     subTitle: PropTypes.string
   })
-
 }
 
 const mapStateToProps = ({ projectReducer }) => {
@@ -56,4 +56,4 @@ const mapStateToProps = ({ projectReducer }) => {
     activeTask: projectReducer.activeTask
   }
 }
-export default connect(mapStateToProps, { setTaskActive })(TaskDetail)
+export default connect(mapStateToProps, { setTaskActive, updateTaskStatus })(TaskDetail)

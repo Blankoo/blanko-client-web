@@ -77,7 +77,8 @@ export const deleteTask = (projectId, taskId) => dispatch => http.delete(`${conf
     })
   })
 
-export const setTaskActive = (task) => {
+export function setTaskActive(task) {
+  console.log('set task active')
   return (dispatch, getState) => {
     const thereIsNoActiveMeasurement = getState().projectReducer.activeMeasurementId === undefined
 
@@ -107,15 +108,25 @@ export function updateTaskStatus(taskId, currentStatus) {
   const newStatus = {
     status: currentStatus === 'TODO' ? 'DONE' : 'TODO'
   }
+  let updatedTaskGlob = {}
+
   if(taskId !== undefined) {
     return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
       .then(resolved => {
 
-        const oldTasks = [...getState().projectReducer.tasks]
-        const newTasks = oldTasks.map(task => ({
-          ...task,
-          status: task._id === taskId && task.status === 'TODO' ? 'DONE' : 'TODO'
-        }))
+        const oldTasks = getState().projectReducer.tasks
+        const newTasks = oldTasks.map(task => {
+          if(task._id === taskId ) {
+            const updatedTask = {
+              ...task,
+              status: (task.status === 'TODO') ? 'DONE' : 'TODO'
+            }
+            updatedTaskGlob = updatedTask
+            return updatedTask
+          } else {
+            return task
+          }
+        })
 
         dispatch({
           type: types.CHANGE_TASK_STATUS,
@@ -124,6 +135,9 @@ export function updateTaskStatus(taskId, currentStatus) {
             data: resolved.data
           }
         })
+        if(getState().projectReducer.activeTask != undefined) {
+          dispatch(setTaskActive(updatedTaskGlob))
+        }
       })
   }
 }
@@ -150,4 +164,10 @@ export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
         })
       })
   }
+}
+
+export function showSidebar() {
+    return {
+      type: types.TOGGLE_SIDEBAR,
+    }
 }

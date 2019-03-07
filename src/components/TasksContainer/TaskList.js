@@ -71,7 +71,6 @@ TaskList.defaultProps = {
 
 TaskList.propTypes = {
   tasks: PropTypes.instanceOf(Array),
-  isFilterBarSticky: PropTypes.boolean,
   searchQuery: PropTypes.string,
   filterStatus: PropTypes.string
 }

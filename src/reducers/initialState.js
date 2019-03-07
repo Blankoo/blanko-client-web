@@ -5,5 +5,6 @@ export default {
   user: '',
   projects: [],
   isAddProjectShown: false,
-  activeTask: undefined
+  activeTask: undefined,
+  isSidebarShown: false
 }

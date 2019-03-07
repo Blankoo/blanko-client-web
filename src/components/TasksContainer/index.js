@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTasks, getSingleProject } from '../../actions'
+import { fetchTasks, getSingleProject, showSidebar } from '../../actions'
 
 // Components
 import AddTask from '../AddTask'
@@ -48,10 +48,14 @@ class TasksContainer extends Component {
     if (window.scrollY < scrollOffset + outerHeights) {
       this.setState({
         isFilterBarSticky: false
+      }, () => {
+        document.body.style.paddingTop = 0
       })
     } else if (window.scrollY > 146) {
       this.setState({
         isFilterBarSticky: true
+      }, () => {
+        document.body.style.paddingTop = 64 + 'px'
       })
     }
   }
@@ -77,6 +81,7 @@ class TasksContainer extends Component {
       projectTitle,
       projectDescription,
       activeTask,
+      showSidebar
     } = this.props
 
     const { isFilterBarSticky, filterStatus, searchQuery } = this.state
@@ -85,6 +90,13 @@ class TasksContainer extends Component {
 
     return (
       <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
+        {
+          window.innerWidth < 400 &&
+          <div onClick={showSidebar} className="hamburger-icon-sidebar">
+            <img src={require('../../assets/icons/hamburger-icon.svg')} alt="icon to show sidebar" />
+          </div>
+        }
+
         <div className="tasks-container-title" ref={this.tasksContainerTitle}>
           <h1>{projectTitle}</h1>
           <p>{projectDescription}</p>
@@ -124,4 +136,4 @@ const mapStateToProps = ({ projectReducer }) => ({
   activeTask: projectReducer.activeTask
 })
 
-export default connect(mapStateToProps, { fetchTasks, getSingleProject })(TasksContainer)
+export default connect(mapStateToProps, { fetchTasks, getSingleProject, showSidebar })(TasksContainer)

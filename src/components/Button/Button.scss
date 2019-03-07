@@ -16,7 +16,6 @@
 
   &.md {
     padding: 8px 16px;
-    letter-spacing: .5px;
     font-weight: 600;
     line-height: 12px;
   }
@@ -24,7 +23,7 @@
   &.primary {
     text-align: center;
     text-transform: uppercase;
-    color: #FFFFFF;
+    color:var(--white);
     background-color: var(--blanko-blue);
 
     &:hover {
@@ -44,10 +43,10 @@
     text-align: center;
     text-transform: uppercase;
     color: var(--text-color-secondary);
-    background-color: transparent;
+    background-color: var(--white);
 
     &:hover {
-      background-color: #FFFFFF;
+      background-color: var(--white);
       box-shadow: 0 2px 8px 0 rgba(128, 128, 128, 0.30);
     }
 
@@ -64,20 +63,18 @@
   &.danger {
     text-align: center;
     text-transform: uppercase;
-    color: var(--text-color-secondary);
-    background-color: transparent;
-
+    color: var(--white);
+    background-color: var(--red-danger);
+    box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
+    
     &:hover {
       color: var(--white);
-      background: var(--red-danger);
-      box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
     }
 
     &:disabled {
       color: var(--gray-light);
 
       &:hover {
-        background-color: transparent;
         box-shadow: none;
       }
     }

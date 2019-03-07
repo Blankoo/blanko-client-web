@@ -71,6 +71,11 @@ export default function projectsReducer(state = initialState, action) {
         activeMeasurementId: undefined,
         measurements: state.measurements.concat(action.payload.measurement)
       }
+    case types.TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        isSidebarShown: !state.isSidebarShown,
+      }
     default:
       return state
   }

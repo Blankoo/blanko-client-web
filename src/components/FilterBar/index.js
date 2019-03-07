@@ -58,7 +58,7 @@ class FilterBar extends Component {
           ))
         }
 
-        <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} />
+        { window.innerWidth > 400 && <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} /> }
       </div>
     )
   }

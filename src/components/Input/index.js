@@ -4,40 +4,46 @@ import PropTypes from 'prop-types'
 // Styles
 import './Input.scss'
 
-const Input = ({
-  icon,
-  placeholder,
-  type,
-  label,
-  onChange,
-  id
-}) => (
-  <div className="input">
-    {
-      label && (
-        <label htmlFor={id} className="label">{label}</label>
-      )
-    }
+const Input = (props) => {
+  const {
+    icon,
+    placeholder,
+    type,
+    label,
+    onChange,
+    id,
+    value
+  } = props
 
-    <div className="input-wrapper">
+  return (
+    <div className="input">
       {
-        icon && (
-          <span className="icon">
-            <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
-          </span>
+        label && (
+          <label htmlFor={id} className="label">{label}</label>
         )
       }
 
-      <input
-        name={id}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-      />
+      <div className="input-wrapper">
+        {
+          icon && (
+            <span className="icon">
+              <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
+            </span>
+          )
+        }
+
+        <input
+          name={id}
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+        />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 Input.defaultProps = {
   type: 'text'
