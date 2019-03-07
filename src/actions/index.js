@@ -77,7 +77,8 @@ export const deleteTask = (projectId, taskId) => dispatch => http.delete(`${conf
     })
   })
 
-export const setTaskActive = (task) => {
+export function setTaskActive(task) {
+  console.log('set task active')
   return (dispatch, getState) => {
     const thereIsNoActiveMeasurement = getState().projectReducer.activeMeasurementId === undefined
 
@@ -107,6 +108,7 @@ export function updateTaskStatus(taskId, currentStatus) {
   const newStatus = {
     status: currentStatus === 'TODO' ? 'DONE' : 'TODO'
   }
+  let updatedTaskGlob = {}
 
   if(taskId !== undefined) {
     return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
@@ -115,10 +117,12 @@ export function updateTaskStatus(taskId, currentStatus) {
         const oldTasks = getState().projectReducer.tasks
         const newTasks = oldTasks.map(task => {
           if(task._id === taskId ) {
-            return {
+            const updatedTask = {
               ...task,
               status: (task.status === 'TODO') ? 'DONE' : 'TODO'
             }
+            updatedTaskGlob = updatedTask
+            return updatedTask
           } else {
             return task
           }
@@ -131,6 +135,7 @@ export function updateTaskStatus(taskId, currentStatus) {
             data: resolved.data
           }
         })
+        dispatch(setTaskActive(updatedTaskGlob))
       })
   }
 }
