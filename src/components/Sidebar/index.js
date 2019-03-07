@@ -1,14 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { showSidebar } from '../../actions'
+
 // Components
 import ProjectsList from '../ProjectsList'
 
 // Stlyes
 import './Sidebar.scss'
 
-const SideBar = () => (
-  <div className="sidebar">
+const SideBar = ({ isSidebarShown, showSidebar }) => (
+  <div className={`sidebar ${isSidebarShown ? 'open' : 'closed'}`}>
+    {
+      window.innerWidth < 400 &&
+      <span className="close-sidebar" onClick={showSidebar}>
+        <img src={require('../../assets/icons/cross.svg')} alt="Close task detail" />
+      </span>
+    }
+
     <div className="blanko">Blanko.</div>
     <div className="blanko-small">B.</div>
 
@@ -30,7 +39,8 @@ const SideBar = () => (
 )
 
 const mapStateToProps = ({ projectReducer }) => ({
-  projects: projectReducer.projects
+  projects: projectReducer.projects,
+  isSidebarShown: projectReducer.isSidebarShown
 })
 
-export default connect(mapStateToProps)(SideBar)
+export default connect(mapStateToProps, { showSidebar })(SideBar)

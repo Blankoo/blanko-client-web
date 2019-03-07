@@ -135,7 +135,9 @@ export function updateTaskStatus(taskId, currentStatus) {
             data: resolved.data
           }
         })
-        dispatch(setTaskActive(updatedTaskGlob))
+        if(getState().projectReducer.activeTask != undefined) {
+          dispatch(setTaskActive(updatedTaskGlob))
+        }
       })
   }
 }
@@ -162,4 +164,10 @@ export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
         })
       })
   }
+}
+
+export function showSidebar() {
+    return {
+      type: types.TOGGLE_SIDEBAR,
+    }
 }

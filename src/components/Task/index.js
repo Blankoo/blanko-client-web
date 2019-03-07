@@ -20,7 +20,7 @@ const Task = (props) => {
 
   return (
     <div
-      className={`task-small ${isActive ? 'active' : ''} ${task.status ? 'DONE' : ''}`}
+      className={`task-small ${isActive ? 'active' : ''}`}
       onClick={() => setTaskActive(task)}
     >
       <Checkbox check={task.status === 'DONE'} onClick={(e) => {
