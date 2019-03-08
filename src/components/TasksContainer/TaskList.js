@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group'
 
 import Task from '../Task'
+import AddTask from '../AddTask'
 
 class TaskList extends React.Component {
   filterByQuery = (task) => {
@@ -60,6 +58,8 @@ class TaskList extends React.Component {
             ))
         )
       }
+
+      <AddTask/>
       </>
     )
   }

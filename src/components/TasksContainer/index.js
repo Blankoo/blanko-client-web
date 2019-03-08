@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { fetchTasks, getSingleProject, showSidebar } from '../../actions'
 
 // Components
-import AddTask from '../AddTask'
 import FilterBar from '../FilterBar'
 import TaskList from './TaskList'
+import SadFace from '../../assets/sad-face'
 
 // Styles
 import './TasksContainer.scss'
@@ -55,7 +55,7 @@ class TasksContainer extends Component {
       this.setState({
         isFilterBarSticky: true
       }, () => {
-        document.body.style.paddingTop = 64 + 'px'
+        document.body.style.paddingTop = 64
       })
     }
   }
@@ -97,26 +97,31 @@ class TasksContainer extends Component {
           </div>
         }
 
-        <div className="tasks-container-title" ref={this.tasksContainerTitle}>
-          <h1>{projectTitle}</h1>
-          <p>{projectDescription}</p>
-        </div>
+        {
+          projectTitle !== undefined
+          ? <>
+            <div className="tasks-container-title" ref={this.tasksContainerTitle}>
+              <h1>{projectTitle}</h1>
+              <p>{projectDescription}</p>
+            </div>
 
-        <FilterBar
-          isSticky={isFilterBarSticky}
-          handleTaskSearch={this.handleTaskSearch}
-          handleTaskStatusFilter={this.handleTaskStatusFilter}
-          filterStatus={filterStatus}
-        />
+            <FilterBar
+              isSticky={isFilterBarSticky}
+              handleTaskSearch={this.handleTaskSearch}
+              handleTaskStatusFilter={this.handleTaskStatusFilter}
+              filterStatus={filterStatus}
+            />
 
-        <TaskList
-          isSticky={isFilterBarSticky}
-          searchQuery={searchQuery}
-          filterStatus={filterStatus}
-        />
-
-
-        {projectTitle !== undefined && <AddTask />}
+            <TaskList
+              isSticky={isFilterBarSticky}
+              searchQuery={searchQuery}
+              filterStatus={filterStatus}
+            />
+            </>
+          : <div className="sadface-container">
+            <SadFace/>
+          </div>
+        }
       </div>
     )
   }

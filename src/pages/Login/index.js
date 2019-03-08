@@ -164,7 +164,10 @@ class Login extends React.Component {
           </ReactCSSTransitionGroup>
         </div>
 
-        <div className={`skeleton ${success ? 'login-success' : ''}`} />
+        {
+          window.innerWidth > 400
+          && <div className={`skeleton ${success ? 'login-success' : ''}`} />
+        }
       </div>
     )
   }

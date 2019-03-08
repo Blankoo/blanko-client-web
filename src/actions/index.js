@@ -33,6 +33,7 @@ export const setSelectedProject = project => ({
 
 export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/projects/${projectID}/tasks`)
   .then((resolved) => {
+
     dispatch({
       type: types.FETCH_TASKS,
       payload: {
