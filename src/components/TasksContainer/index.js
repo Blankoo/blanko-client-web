@@ -122,8 +122,6 @@ class TasksContainer extends Component {
             <SadFace/>
           </div>
         }
-
-
       </div>
     )
   }
