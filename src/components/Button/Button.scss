@@ -63,6 +63,8 @@
   &.danger {
     text-align: center;
     text-transform: uppercase;
+    box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
+    background-color: var(--red-danger);
     color: var(--white);
     
     &:hover {
@@ -80,6 +82,8 @@
     &.secondary {
       background-color: var(--white);
       color: var(--red-danger);
+      box-shadow: none;
+
       &:hover {
         box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
         background-color: var(--red-danger);

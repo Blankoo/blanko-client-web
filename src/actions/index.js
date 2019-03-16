@@ -70,14 +70,6 @@ export const addTask = (taskData, activeProjectId) => dispatch => http.post(`${c
     })
   })
 
-export const deleteTask = (projectId, taskId) => dispatch => http.delete(`${config.apiUrl}/tasks/${projectId}/${taskId}`)
-  .then((resolved) => {
-    dispatch({
-      type: types.DELETE_TASK,
-      payload: resolved.data
-    })
-  })
-
 export function setTaskActive(task) {
   console.log('set task active')
   return (dispatch, getState) => {
@@ -172,3 +164,27 @@ export function showSidebar() {
       type: types.TOGGLE_SIDEBAR,
     }
 }
+
+export function deleteTask(taskId) {
+  return dispatch => http.delete(`${config.apiUrl}/tasks/${taskId}`)
+    .then((resolved) => {
+      dispatch({
+        type: types.DELETE_TASK,
+        payload: resolved.data
+      })
+    })
+}
+
+
+
+// export function deleteTask(taskId) {
+//   if(taskId !== undefined) {
+//     return dispatch => http.delete()
+//       .then(resolved => {
+//         console.log('task deleted: ', resolved)
+//         dispatch({
+//           type: types.DELETE_TASK
+//         })
+//       })
+//   }
+// }

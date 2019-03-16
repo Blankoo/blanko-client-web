@@ -37,11 +37,13 @@ export default function projectsReducer(state = initialState, action) {
       }
     case types.DELETE_TASK:
       const deletedId = action.payload.id
-      const deletedTask = [...state.tasks].filter(task => task._id !== deletedId)
+      const deletedTasks = [...state.tasks].filter(task => task._id !== deletedId)
 
       return {
         ...state,
-        tasks: deletedTask
+        tasks: deletedTasks,
+        activeTask: undefined,
+        measurements: undefined
       }
     case types.SET_TASK_ACTIVE:
       return {
