@@ -14,6 +14,7 @@ const Button = (props) => {
     isFullWidth,
     onClick
   } = props
+
   return (
     <button
       className={`button ${variant} ${size} ${isFullWidth ? 'full-width' : ''}`}
@@ -22,7 +23,7 @@ const Button = (props) => {
       type="button"
       value={value}
     >
-      {text}
+    {text}
     </button>
   )
 }

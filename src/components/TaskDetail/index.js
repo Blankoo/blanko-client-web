@@ -6,6 +6,7 @@ import TimeMeasuring from '../TimeMeasuring'
 
 // Components
 import Checkbox from '../Checkbox'
+import Button from '../Button'
 
 // Styles
 import './TaskDetail.scss'
@@ -25,6 +26,8 @@ const TaskDetail = (props) => {
         <img src={require('../../assets/icons/cross.svg')} alt="Close task detail" />
       </span>
 
+
+      <div className="task-detail-main-container">
       {
         isThereAnActiveTask && (
           <>
@@ -39,6 +42,12 @@ const TaskDetail = (props) => {
           </>
         )
       }
+      </div>
+
+      <div className="task-detail-bottom">
+        <Button text="Edit" variant="secondary" size="md"/>
+        <Button text="Delete" variant="danger secondary" size="md"/>
+      </div>
     </div>
   )
 }
