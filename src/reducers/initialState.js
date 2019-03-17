@@ -1,6 +1,6 @@
 export default {
   authenticated: true,
-  activeProject: '',
+  activeProject: {},
   userId: '',
   user: '',
   projects: [],

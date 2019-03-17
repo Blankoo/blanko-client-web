@@ -1,12 +1,14 @@
 .task-detail {
-  background: #FFFFFF;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: var(--strong-white);
   box-shadow: 0 5px 10px 0 #EEEEF3;;
   border-radius: 8px;
   margin: 32px 32px 32px 0;
-  padding: 40px 24px 24px 24px;
+  padding: 40px 24px 16px 24px;
   min-width: var(--task-detail-width);
   height: calc(100vh - 64px);
-  flex: 1;
   transition: 200ms;
   position: fixed;
   right: 0;
@@ -62,7 +64,15 @@
     }
   }
   
+  &-main-container {
+    flex: 1;
+  }
 
+  &-bottom {
+    button:first-child {
+      margin-right: 8px;
+    }
+  }
 
 }
 

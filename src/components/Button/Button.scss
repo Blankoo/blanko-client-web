@@ -63,19 +63,31 @@
   &.danger {
     text-align: center;
     text-transform: uppercase;
-    color: var(--white);
-    background-color: var(--red-danger);
     box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
+    background-color: var(--red-danger);
+    color: var(--white);
     
     &:hover {
       color: var(--white);
     }
-
+    
     &:disabled {
       color: var(--gray-light);
-
+      
       &:hover {
         box-shadow: none;
+      }
+    }
+    
+    &.secondary {
+      background-color: var(--white);
+      color: var(--red-danger);
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: 0 2px 8px 0 rgba(179, 43, 43, .33);
+        background-color: var(--red-danger);
+        color: var(--strong-white);
       }
     }
   }

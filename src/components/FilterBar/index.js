@@ -41,9 +41,9 @@ class FilterBar extends Component {
 
     return (
       <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
-        <span className="add-project-button">
+        {/* <span className="add-project-button">
           <img src={require('../../assets/icons/plus.svg')} alt="Add task" />
-        </span>
+        </span> */}
 
         {
           filterButtons.map(({ text, value }, idx) => (

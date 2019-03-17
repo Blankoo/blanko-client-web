@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { setTaskActive, updateTaskStatus } from '../../actions'
+import { setTaskActive, updateTaskStatus, deleteTask } from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
 
 // Components
 import Checkbox from '../Checkbox'
+import Button from '../Button'
 
 // Styles
 import './TaskDetail.scss'
@@ -14,7 +15,8 @@ const TaskDetail = (props) => {
   const {
     activeTask,
     setTaskActive,
-    updateTaskStatus
+    updateTaskStatus,
+    deleteTask
   } = props
 
   const isThereAnActiveTask = activeTask !== undefined
@@ -25,6 +27,8 @@ const TaskDetail = (props) => {
         <img src={require('../../assets/icons/cross.svg')} alt="Close task detail" />
       </span>
 
+
+      <div className="task-detail-main-container">
       {
         isThereAnActiveTask && (
           <>
@@ -39,6 +43,12 @@ const TaskDetail = (props) => {
           </>
         )
       }
+      </div>
+
+      <div className="task-detail-bottom">
+        <Button text="Edit" variant="secondary" size="md"/>
+        <Button text="Delete" variant="danger secondary" size="md" onClick={() => deleteTask(activeTask._id)}/>
+      </div>
     </div>
   )
 }
@@ -50,10 +60,8 @@ TaskDetail.propTypes = {
   })
 }
 
-const mapStateToProps = ({ projectReducer }) => {
-  console.log('task detail ', projectReducer)
-  return {
-    activeTask: projectReducer.activeTask
-  }
-}
-export default connect(mapStateToProps, { setTaskActive, updateTaskStatus })(TaskDetail)
+const mapStateToProps = ({ projectReducer }) => ({
+  activeTask: projectReducer.activeTask
+})
+
+export default connect(mapStateToProps, { setTaskActive, updateTaskStatus, deleteTask })(TaskDetail)
