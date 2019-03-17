@@ -60,10 +60,8 @@ TaskDetail.propTypes = {
   })
 }
 
-const mapStateToProps = ({ projectReducer }) => {
-  console.log('task detail ', projectReducer)
-  return {
-    activeTask: projectReducer.activeTask
-  }
-}
+const mapStateToProps = ({ projectReducer }) => ({
+  activeTask: projectReducer.activeTask
+})
+
 export default connect(mapStateToProps, { setTaskActive, updateTaskStatus, deleteTask })(TaskDetail)

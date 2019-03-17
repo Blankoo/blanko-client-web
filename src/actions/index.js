@@ -175,7 +175,6 @@ export function deleteTask(taskId) {
 }
 
 export function deleteProject(projectId) {
-  console.log('selectd project id: ', projectId)
   return dispatch =>
   http.delete(`${config.apiUrl}/projects/${projectId}`)
     .then((resolved) => {
@@ -211,7 +210,6 @@ export function updateProject(projectId, updateObject) {
 
     http.put(`${config.apiUrl}/projects/${projectId}`, updateObject)
       .then(resolved => {
-        console.log('update project: ', { resolved })
         dispatch({
           type: types.UPDATE_PROJECT,
           payload: {
