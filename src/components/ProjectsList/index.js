@@ -1,7 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchTasks, toggleAddProjectModal, setSelectedProject } from '../../actions'
+import {
+  fetchTasks,
+  toggleAddProjectModal,
+  setSelectedProject,
+  deleteProject,
+  updateProject
+} from '../../actions'
 
 // Styles
 import './ProjectsList.scss'
@@ -22,7 +28,9 @@ class ProjectsList extends React.PureComponent {
       toggleAddProjectModal,
       label,
       isFavorite,
-      activeProjectId
+      activeProjectId,
+      deleteProject,
+      updateProject
     } = this.props
 
     return (
@@ -48,10 +56,11 @@ class ProjectsList extends React.PureComponent {
               return (
                 <li
                   key={idx}
-                  onClick={() => this.selectProject(project)}
                   className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
-                  <span>{ projectTitle }</span>
+                  <span onClick={() => this.selectProject(project)} >{ projectTitle }</span>
+                  <span onClick={() => deleteProject(project._id) }>DELETE</span>
+                  <span onClick={() => updateProject(project._id) }>FAV</span>
                 </li>
               )
             })
@@ -83,4 +92,10 @@ ProjectsList.propTypes = {
   activeProjectId: PropTypes.string
 }
 
-export default connect(mapStateToProps, { fetchTasks, toggleAddProjectModal, setSelectedProject })(ProjectsList)
+export default connect(mapStateToProps, {
+  fetchTasks,
+  toggleAddProjectModal,
+  setSelectedProject,
+  deleteProject,
+  updateProject
+})(ProjectsList)

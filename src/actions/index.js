@@ -71,7 +71,6 @@ export const addTask = (taskData, activeProjectId) => dispatch => http.post(`${c
   })
 
 export function setTaskActive(task) {
-  console.log('set task active')
   return (dispatch, getState) => {
     const thereIsNoActiveMeasurement = getState().projectReducer.activeMeasurementId === undefined
 
@@ -175,16 +174,51 @@ export function deleteTask(taskId) {
     })
 }
 
+export function deleteProject(projectId) {
+  console.log('selectd project id: ', projectId)
+  return dispatch =>
+  http.delete(`${config.apiUrl}/projects/${projectId}`)
+    .then((resolved) => {
+      dispatch({
+        type: types.DELETE_PROJECT,
+        payload: { id: projectId }
+      })
+      window.localStorage.removeItem('PROJ_ID')
+    })
+}
 
+export function updateProject(projectId, updateObject) {
+  return (dispatch, getState) => {
+    if(updateObject === undefined) {
+      const currentFavStatus = getState().projectReducer.activeProject.favorite
+      updateObject = {
+        favorite: !currentFavStatus
+      }
+    }
 
-// export function deleteTask(taskId) {
-//   if(taskId !== undefined) {
-//     return dispatch => http.delete()
-//       .then(resolved => {
-//         console.log('task deleted: ', resolved)
-//         dispatch({
-//           type: types.DELETE_TASK
-//         })
-//       })
-//   }
-// }
+    const oldProjects = getState().projectReducer.projects
+    const newProjects = oldProjects.map(project => {
+      if(project._id === projectId) {
+        const updatedproject = {
+          ...project,
+          favorite: !project.favorite
+        }
+        return updatedproject
+      } else {
+        return project
+      }
+    })
+
+    http.put(`${config.apiUrl}/projects/${projectId}`, updateObject)
+      .then(resolved => {
+        console.log('update project: ', { resolved })
+        dispatch({
+          type: types.UPDATE_PROJECT,
+          payload: {
+            projects: newProjects,
+            res: resolved.data
+          }
+        })
+      })
+  }
+}

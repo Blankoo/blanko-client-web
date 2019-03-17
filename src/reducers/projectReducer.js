@@ -36,8 +36,8 @@ export default function projectsReducer(state = initialState, action) {
         tasks: [...state.tasks, action.payload.body]
       }
     case types.DELETE_TASK:
-      const deletedId = action.payload.id
-      const deletedTasks = [...state.tasks].filter(task => task._id !== deletedId)
+      const deletedTaskId = action.payload.id
+      const deletedTasks = [...state.tasks].filter(task => task._id !== deletedTaskId)
 
       return {
         ...state,
@@ -77,6 +77,23 @@ export default function projectsReducer(state = initialState, action) {
       return {
         ...state,
         isSidebarShown: !state.isSidebarShown,
+      }
+    case types.DELETE_PROJECT:
+      const deletedProjectId = action.payload.id
+      const deletedProjects = [...state.projects].filter(project => project._id !== deletedProjectId)
+
+      return {
+        ...state,
+        projects: deletedProjects,
+        activeProject: {},
+        tasks: undefined,
+        activeTask: undefined,
+        measurements: undefined
+      }
+    case types.UPDATE_PROJECT:
+      return {
+        ...state,
+        projects: action.payload.projects
       }
     default:
       return state
