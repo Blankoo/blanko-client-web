@@ -7,6 +7,7 @@
   padding-left: 32px;
   display: flex;
   align-items: center;
+  z-index: 5;
 
   &.sticky {
     top: 0;

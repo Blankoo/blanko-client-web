@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { setTaskActive, updateTaskStatus, deleteTask } from '../../actions'
+import {
+  setTaskActive,
+  updateTaskStatus,
+  deleteTask,
+  toggleModal,
+} from '../../actions'
 import TimeMeasuring from '../TimeMeasuring'
+import { DELETE_TASK } from '../../contstants/actionTypes'
 
 // Components
 import Checkbox from '../Checkbox'
@@ -16,7 +22,7 @@ const TaskDetail = (props) => {
     activeTask,
     setTaskActive,
     updateTaskStatus,
-    deleteTask
+    toggleModal
   } = props
 
   const isThereAnActiveTask = activeTask !== undefined
@@ -47,7 +53,7 @@ const TaskDetail = (props) => {
 
       <div className="task-detail-bottom">
         <Button text="Edit" variant="secondary" size="md"/>
-        <Button text="Delete" variant="danger secondary" size="md" onClick={() => deleteTask(activeTask._id)}/>
+        <Button text="Delete" variant="danger secondary" size="md" onClick={() => toggleModal('isVerificationShown', true, DELETE_TASK)}/>
       </div>
     </div>
   )
@@ -64,4 +70,4 @@ const mapStateToProps = ({ projectReducer }) => ({
   activeTask: projectReducer.activeTask
 })
 
-export default connect(mapStateToProps, { setTaskActive, updateTaskStatus, deleteTask })(TaskDetail)
+export default connect(mapStateToProps, { setTaskActive, updateTaskStatus, deleteTask, toggleModal })(TaskDetail)

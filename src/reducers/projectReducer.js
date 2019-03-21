@@ -1,5 +1,6 @@
 import initialState from './initialState'
 import * as types from '../contstants/actionTypes'
+import { bindActionCreators } from '../../../../../Library/Caches/typescript/3.3/node_modules/redux';
 
 export default function projectsReducer(state = initialState, action) {
   switch (action.type) {
@@ -36,8 +37,7 @@ export default function projectsReducer(state = initialState, action) {
         tasks: [...state.tasks, action.payload.body]
       }
     case types.DELETE_TASK:
-      const deletedTaskId = action.payload.id
-      const deletedTasks = [...state.tasks].filter(task => task._id !== deletedTaskId)
+      const deletedTasks = [...state.tasks].filter(task => task._id !== state.activeTask._id)
 
       return {
         ...state,
@@ -79,8 +79,7 @@ export default function projectsReducer(state = initialState, action) {
         isSidebarShown: !state.isSidebarShown,
       }
     case types.DELETE_PROJECT:
-      const deletedProjectId = action.payload.id
-      const deletedProjects = [...state.projects].filter(project => project._id !== deletedProjectId)
+      const deletedProjects = [...state.projects].filter(project => project._id !== state.activeProject._id)
 
       return {
         ...state,
@@ -94,6 +93,12 @@ export default function projectsReducer(state = initialState, action) {
       return {
         ...state,
         projects: action.payload.projects
+      }
+    case types.TOGGLE_MODAL:
+      return {
+        ...state,
+        [action.payload.key]: action.payload.value,
+        modalAction: action.payload.followingAction
       }
     default:
       return state
