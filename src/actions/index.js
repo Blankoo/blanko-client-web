@@ -188,28 +188,24 @@ export function showSidebar() {
 }
 
 export function deleteTask(taskId) {
-  console.log("DELETING TASK G")
-  return (dispatch, getState) => http.delete(`${config.apiUrl}/tasks/${taskId}`)
-    .then((resolved) => {
-      const activeTaskId = getState().projectReducer.activeTask._id
-      console.log({ activeTaskId    })
-      dispatch({
-        type: types.DELETE_TASK,
-        payload: {
-          activeTaskId,
-          resolved: resolved.data
-        }
+  return (dispatch, getState) => {
+    const activeTaskId = getState().projectReducer.activeTask._id || taskId
+    return http.delete(`${config.apiUrl}/tasks/${activeTaskId}`)
+      .then((resolved) => {
+        dispatch({
+          type: types.DELETE_TASK,
+          payload: {
+            activeTaskId,
+            resolved: resolved.data
+          }
+        })
       })
-    })
+  }
 }
 
-export function deleteProject() {
-  console.log('delete project ja toch niet dan')
+export function deleteProject(projectId) {
   return (dispatch, getState) => {
-    const projectId = getState().projectReducer.activeProject._id
-    console.log('komt hij hier wel?')
-    console.log('project id', projectId)
-
+    const projectId = getState().projectReducer.activeProject._id || projectId
     return http.delete(`${config.apiUrl}/projects/${projectId}`)
       .then(() => {
         dispatch({
