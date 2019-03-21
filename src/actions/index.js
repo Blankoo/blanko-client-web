@@ -46,6 +46,29 @@ export const toggleAddProjectModal = () => ({
   type: types.TOGGLE_ADDPROJECT,
 })
 
+export function toggleModal(key, value, followingAction) {
+  return dispatch => {
+    dispatch({
+      type: types.TOGGLE_MODAL,
+      payload: {
+        key,
+        value,
+        followingAction
+      }
+    })
+  }
+}
+
+export function dispatchAction(actionName, payload) {
+  return dispatch => {
+    if(actionName === types.DELETE_TASK) {
+      dispatch(deleteTask())
+    } else if(actionName === types.DELETE_PROJECT) {
+      dispatch(deleteProject())
+    }
+  }
+}
+
 export const addProject = projectData => dispatch => http.post(`${config.apiUrl}/projects/add/`, projectData)
   .then((resolved) => {
     dispatch({
@@ -165,25 +188,33 @@ export function showSidebar() {
 }
 
 export function deleteTask(taskId) {
-  return dispatch => http.delete(`${config.apiUrl}/tasks/${taskId}`)
-    .then((resolved) => {
-      dispatch({
-        type: types.DELETE_TASK,
-        payload: resolved.data
+  return (dispatch, getState) => {
+    const activeTaskId = getState().projectReducer.activeTask._id || taskId
+    return http.delete(`${config.apiUrl}/tasks/${activeTaskId}`)
+      .then((resolved) => {
+        dispatch({
+          type: types.DELETE_TASK,
+          payload: {
+            activeTaskId,
+            resolved: resolved.data
+          }
+        })
       })
-    })
+  }
 }
 
 export function deleteProject(projectId) {
-  return dispatch =>
-  http.delete(`${config.apiUrl}/projects/${projectId}`)
-    .then((resolved) => {
-      dispatch({
-        type: types.DELETE_PROJECT,
-        payload: { id: projectId }
+  return (dispatch, getState) => {
+    const projectId = getState().projectReducer.activeProject._id || projectId
+    return http.delete(`${config.apiUrl}/projects/${projectId}`)
+      .then(() => {
+        dispatch({
+          type: types.DELETE_PROJECT,
+          payload: { id: projectId }
+        })
+        window.localStorage.removeItem('PROJ_ID')
       })
-      window.localStorage.removeItem('PROJ_ID')
-    })
+  }
 }
 
 export function updateProject(projectId, updateObject) {

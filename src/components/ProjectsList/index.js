@@ -6,8 +6,13 @@ import {
   toggleAddProjectModal,
   setSelectedProject,
   deleteProject,
-  updateProject
+  updateProject,
+  toggleModal
 } from '../../actions'
+
+// Components
+import { DELETE_PROJECT } from '../../contstants/actionTypes'
+
 
 // Styles
 import './ProjectsList.scss'
@@ -29,13 +34,13 @@ class ProjectsList extends React.PureComponent {
       label,
       isFavorite,
       activeProjectId,
-      deleteProject,
-      updateProject
+      updateProject,
+      toggleModal
     } = this.props
 
     return (
       projects !== undefined && (
-      <ul className={`projects-list ${className}`}>
+      <div className={`projects-list ${className}`}>
         <div className="projects-list-title">
           <div className="label">{ label }</div>
           {
@@ -46,7 +51,7 @@ class ProjectsList extends React.PureComponent {
             )
           }
         </div>
-
+        <ul>
         {
           projects
             .filter(p => p.favorite === isFavorite)
@@ -59,13 +64,14 @@ class ProjectsList extends React.PureComponent {
                   className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
                   <span onClick={() => this.selectProject(project)} >{ projectTitle }</span>
-                  <span onClick={() => deleteProject(project._id) }>DELETE</span>
+                  <span onClick={() => toggleModal('isVerificationShown', true, DELETE_PROJECT) }>DELETE</span>
                   <span onClick={() => updateProject(project._id) }>FAV</span>
                 </li>
               )
             })
         }
-      </ul>
+        </ul>
+      </div>
       )
     )
   }
@@ -97,5 +103,6 @@ export default connect(mapStateToProps, {
   toggleAddProjectModal,
   setSelectedProject,
   deleteProject,
-  updateProject
+  updateProject,
+  toggleModal
 })(ProjectsList)

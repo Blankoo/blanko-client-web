@@ -6,6 +6,7 @@ export default {
   projects: [],
   tasks: [],
   isAddProjectShown: false,
+  isVerificationShown: false,
   activeTask: undefined,
   isSidebarShown: false
 }

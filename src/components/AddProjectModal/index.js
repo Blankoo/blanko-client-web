@@ -6,6 +6,9 @@ import { connect } from 'react-redux'
 import Button from '../Button'
 import Input from '../Input'
 
+// Actions
+import { toggleModal, addProject } from '../../actions'
+
 // Styles
 import './AddProjectModal.scss'
 
@@ -27,11 +30,11 @@ class AddProjectModal extends React.Component {
   }
 
   render() {
-    const { toggleAddProjectModal, isShown, addProject } = this.props
+    const { toggleModal, isShown, addProject } = this.props
     const { projectTitle, projectDescription } = this.state
 
     return isShown && (
-      <div className="add-project-modal">
+      <div className="modal add-project">
         <div className="modal-wrapper">
           <Input id="projectTitle" label="Project Title" onChange={this.onChange} />
 
@@ -39,7 +42,7 @@ class AddProjectModal extends React.Component {
 
           <div className="modal-wrapper-buttons">
             <Button
-              onClick={toggleAddProjectModal}
+              onClick={() => toggleModal('isAddProjectShown', false)}
               variant="secondary"
               text="Cancel"
               size="md"
@@ -60,7 +63,7 @@ class AddProjectModal extends React.Component {
 }
 
 AddProjectModal.propTypes = {
-  toggleAddProjectModal: PropTypes.func,
+  toggleModal: PropTypes.func,
   isShown: PropTypes.bool,
   addProject: PropTypes.func
 }
@@ -69,4 +72,4 @@ const mapStateToProps = ({ projectReducer }) => ({
   isShown: projectReducer.isAddProjectShown
 })
 
-export default connect(mapStateToProps)(AddProjectModal)
+export default connect(mapStateToProps, { toggleModal, addProject })(AddProjectModal)

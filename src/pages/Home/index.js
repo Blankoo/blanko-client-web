@@ -9,6 +9,7 @@ import Sidebar from '../../components/Sidebar'
 import TasksContainer from '../../components/TasksContainer'
 import AddProjectModal from '../../components/AddProjectModal'
 import TaskDetail from '../../components/TaskDetail'
+import VerificationModal from '../../components/VerificationModal'
 
 // Styles
 import './Home.scss'
@@ -20,20 +21,19 @@ class Home extends Component {
   }
 
   render() {
-    const { toggleAddProjectModal, addProject } = this.props
+    const {
+      activeProject,
+      deleteProject,
+    } = this.props
 
     return (
       <div className="home">
         <Sidebar />
         <TasksContainer />
         <TaskDetail />
+        <AddProjectModal/>
 
-        <AddProjectModal
-          {...{
-            toggleAddProjectModal,
-            addProject
-          }}
-        />
+        { activeProject !== undefined && <VerificationModal title="Are you sure?" handler={() => deleteProject(activeProject._id)}/> }
       </div>
     )
   }
@@ -45,4 +45,9 @@ Home.propTypes = {
   addProject: PropTypes.func
 }
 
-export default withRouter(connect(null, actions)(Home))
+const mapStateToProps = ({ projectReducer }) => ({
+  activeProject: projectReducer.activeProject,
+  activeTask: projectReducer.activeTask
+})
+
+export default withRouter(connect(mapStateToProps, actions)(Home))
