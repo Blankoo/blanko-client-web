@@ -66,11 +66,6 @@ export function dispatchAction(actionName, payload) {
     } else if(actionName === types.DELETE_PROJECT) {
       dispatch(deleteProject())
     }
-
-    dispatch({
-      type: actionName,
-      payload,
-    })
   }
 }
 
