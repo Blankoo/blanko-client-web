@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addTask } from '../../actions'
 
 // Components
-import Button from '../Button'
+// import Button from '../Button'
 import Input from '../Input'
 
 // Styles

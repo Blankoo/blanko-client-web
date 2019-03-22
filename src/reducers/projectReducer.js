@@ -1,6 +1,5 @@
 import initialState from './initialState'
 import * as types from '../contstants/actionTypes'
-import { bindActionCreators } from '../../../../../Library/Caches/typescript/3.3/node_modules/redux';
 
 export default function projectsReducer(state = initialState, action) {
   switch (action.type) {

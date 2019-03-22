@@ -150,7 +150,7 @@ export function updateTaskStatus(taskId, currentStatus) {
             data: resolved.data
           }
         })
-        if(getState().projectReducer.activeTask != undefined) {
+        if(getState().projectReducer.activeTask !== undefined) {
           dispatch(setTaskActive(updatedTaskGlob))
         }
       })
@@ -205,12 +205,12 @@ export function deleteTask(taskId) {
 
 export function deleteProject(projectId) {
   return (dispatch, getState) => {
-    const projectId = getState().projectReducer.activeProject._id || projectId
-    return http.delete(`${config.apiUrl}/projects/${projectId}`)
+    const activeProjectId = getState().projectReducer.activeProject._id || projectId
+    return http.delete(`${config.apiUrl}/projects/${activeProjectId}`)
       .then(() => {
         dispatch({
           type: types.DELETE_PROJECT,
-          payload: { id: projectId }
+          payload: { id: activeProjectId }
         })
         window.localStorage.removeItem('PROJ_ID')
       })

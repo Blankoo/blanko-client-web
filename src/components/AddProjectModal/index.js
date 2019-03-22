@@ -31,7 +31,7 @@ class AddProjectModal extends React.Component {
 
   render() {
     const { toggleModal, isShown, addProject } = this.props
-    const { projectTitle, projectDescription } = this.state
+    const { projectTitle } = this.state
 
     return isShown && (
       <div className="modal add-project">
