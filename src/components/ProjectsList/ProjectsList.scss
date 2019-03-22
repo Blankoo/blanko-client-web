@@ -29,6 +29,8 @@
     letter-spacing: 0;
     line-height: 32px;
     position: relative;
+    display: flex;
+    justify-content: space-between;
 
     &::before {
       content: '';

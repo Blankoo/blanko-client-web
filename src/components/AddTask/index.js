@@ -21,9 +21,9 @@ class AddTask extends React.Component {
   }
 
   setInputState = (e) => {
-    this.setState({
+    this.setState( prev => ({
       [e.target.id]: e.target.value
-    })
+    }))
   }
 
   addLocalTask = () => {

@@ -11,6 +11,8 @@ import {
 } from '../../actions'
 
 // Components
+import ProjectKebabMenu from './ProjectKebabMenu'
+
 import { DELETE_PROJECT } from '../../contstants/actionTypes'
 
 
@@ -64,8 +66,10 @@ class ProjectsList extends React.PureComponent {
                   className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
                   <span onClick={() => this.selectProject(project)} >{ projectTitle }</span>
-                  <span onClick={() => toggleModal('isVerificationShown', true, DELETE_PROJECT) }>DELETE</span>
-                  <span onClick={() => updateProject(project._id) }>FAV</span>
+
+                  <ProjectKebabMenu
+                    {...{toggleModal, updateProject, projectId: project._id, DELETE_PROJECT}}
+                  />
                 </li>
               )
             })
