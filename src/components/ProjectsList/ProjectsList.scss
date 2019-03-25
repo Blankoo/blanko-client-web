@@ -32,10 +32,18 @@
     display: flex;
     justify-content: space-between;
 
+    > span {
+      flex: 1;
+    }
+
     &::before {
       content: '';
       height: 16px;
       opacity: 0;
+    }
+
+    .project-kebab-menu {
+      display: none;
     }
     
     &.active {
@@ -54,6 +62,10 @@
         left: -46px;
         opacity: 1;
         transition: all ease-in-out .4s;
+      }
+
+      .project-kebab-menu {
+        display: block;
       }
     }
   }

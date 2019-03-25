@@ -21,9 +21,9 @@ class AddTask extends React.Component {
   }
 
   setInputState = (e) => {
-    this.setState( prev => ({
+    this.setState({
       [e.target.id]: e.target.value
-    }))
+    })
   }
 
   addLocalTask = () => {
@@ -48,14 +48,14 @@ class AddTask extends React.Component {
           type="text"
           id="title"
           value={title}
-          onChange={e => this.setInputState(e)}
+          onChange={this.setInputState}
         />
 
         <Input
           type="text"
           id="subTitle"
           value={subTitle}
-          onChange={e => this.setInputState(e)}
+          onChange={this.setInputState}
         />
 
         {/* <Button
