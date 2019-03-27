@@ -17,13 +17,14 @@ const Task = (props) => {
     updateTaskStatus
   } = props
   const isActive = activeTask !== undefined && activeTask._id === task._id
+  const isDone = task.status === 'DONE'
 
   return (
     <div
-      className={`task-small ${isActive ? 'active' : ''}`}
+      className={`task-small ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
       onClick={() => setTaskActive(task)}
     >
-      <Checkbox check={task.status === 'DONE'} onClick={(e) => {
+      <Checkbox check={isDone} onClick={(e) => {
         e.stopPropagation();
         updateTaskStatus(task._id, task.status)
       }} />
