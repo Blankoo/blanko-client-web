@@ -15,6 +15,7 @@
   --blanko-blue-light: #6EB3FF;
 
   --red-danger: #C23636;
+  --box-shadow: 0 5px 10px 0 #eeeef3;
 }
 
 @media screen and (min-width: 400px) and (max-width: 800px) {
@@ -144,4 +145,23 @@ img {
       min-width: inherit;
     }
   }
+}
+
+
+.fadeInUp-enter {
+  opacity: 0;
+  transform: translateY(10%);
+}
+.fadeInUp-enter-active {
+  opacity: 1;
+  transform: translateY(0%);
+  transition: 200ms;
+}
+.fadeInUp-exit {
+  opacity: 1;
+}
+.fadeInUp-exit-active {
+  opacity: 0;
+  transition: 200ms;
+  transform: translateY(10%);
 }

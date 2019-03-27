@@ -5,6 +5,7 @@
   border: none;
   cursor: pointer;
   transition: all .25s cubic-bezier(.23, 1, .32, 1);
+  user-select: none;
 
   &:disabled {
     cursor: not-allowed;

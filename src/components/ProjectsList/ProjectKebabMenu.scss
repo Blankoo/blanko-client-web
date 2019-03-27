@@ -1,0 +1,36 @@
+.project-kebab-menu {
+  position: relative;
+
+  * {
+    user-select: none;
+  }
+
+  &-trigger {
+    width: 16px;
+  }
+
+  &-content {
+    position: absolute;
+    top: 32px;
+    width: 64px;
+    right: -24px;
+    text-align: center;
+    background-color: var(--strong-white);
+    border-radius: 4px;
+    box-shadow: var(--box-shadow);
+    padding: 8px;
+    z-index: 5;
+    font-size: 12px;
+    color: var(--text-color-secondary);
+
+    div {
+      &:hover {
+        color: var(--blanko-blue)
+      }
+
+      &.delete {
+        color: var(--red-danger);
+      }
+    }
+  }
+}
