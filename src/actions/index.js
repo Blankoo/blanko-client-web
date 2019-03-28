@@ -251,3 +251,18 @@ export function updateProject(projectId, updateObject) {
       })
   }
 }
+
+export function updateTask(bodyToUpdate) {
+  console.log({ bodyToUpdate })
+  return (dispatch, getState) => {
+    const activeTaskId = getState().projectReducer.activeTask._id
+    http.put(`${config.apiUrl}/tasks/update/${activeTaskId}`, bodyToUpdate)
+      .then(resolved => {
+        console.log('updated new task description', resolved)
+        dispatch({
+          type: types.UPDATE_TASK
+        })
+      })
+  }
+
+}

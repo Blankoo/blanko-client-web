@@ -13,6 +13,7 @@ import { DELETE_TASK } from '../../contstants/actionTypes'
 // Components
 import Checkbox from '../Checkbox'
 import Button from '../Button'
+import TaskDescription from './TaskDescription'
 
 // Styles
 import './TaskDetail.scss'
@@ -43,8 +44,9 @@ const TaskDetail = (props) => {
               <Checkbox check={activeTask.status === 'DONE'} onClick={(e) => updateTaskStatus(activeTask._id, activeTask.status)} />
                 <h1>{activeTask.title}</h1>
               </div>
-              <p>{activeTask.subTitle}</p>
             </div>
+
+            <TaskDescription currentDescription={activeTask.subTitle}/>
             <TimeMeasuring/>
           </>
         )

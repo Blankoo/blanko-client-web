@@ -59,7 +59,7 @@ class TimeMeasuring extends React.Component {
 				isFinished: true
 			}
       this.props.stopTimeMeasurement(taskId, this.props.activeMeasurementId , putMeasurement)
-			clearInterval(this.interval)
+    clearInterval(this.interval)
 		})
 	}
 

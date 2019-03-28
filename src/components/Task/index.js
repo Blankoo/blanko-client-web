@@ -31,11 +31,11 @@ const Task = (props) => {
 
       <div>
         <div className="task-small-title">{task.title}</div>
-        {
+        {/* {
           task.subTitle !== '' && (
             <div className="task-small-sub">{task.subTitle}</div>
           )
-        }
+        } */}
       </div>
     </div>
   )

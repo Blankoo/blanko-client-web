@@ -99,6 +99,12 @@ export default function projectsReducer(state = initialState, action) {
         [action.payload.key]: action.payload.value,
         modalAction: action.payload.followingAction
       }
+    case types.UPDATE_TASK:
+      console.log('update task project reducer')
+      return {
+        ...state,
+        // [action.payload.key]: action.payload[action.payload.key]
+      }
     default:
       return state
   }
