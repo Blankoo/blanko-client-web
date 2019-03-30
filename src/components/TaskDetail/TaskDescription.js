@@ -8,7 +8,7 @@ const autoExpandTextarea = areaNode => areaNode.current.value.split('\n').length
 function TaskDescription(props) {
   const { updateTask, currentDescription } = props
   const [ description, setDescription ] = useState('')
-  const [ areaHeight, setAreaHeight] = useState(INIT_ROW_HEIGHT)
+  const [ textAreaRowAmount, setTextAreaRowAmount] = useState(INIT_ROW_HEIGHT)
   const areaRef = useRef()
 
   useEffect(() => {
@@ -19,15 +19,13 @@ function TaskDescription(props) {
     <div className="task-description">
       <span className="label">Description:</span>
       <textarea
-        rows={areaHeight}
+        value={description}
+        rows={textAreaRowAmount}
+        ref={areaRef}
         onChange={e => {
           setDescription(e.target.value)
-          setAreaHeight(autoExpandTextarea(areaRef))
-          console.log({ja: autoExpandTextarea(areaRef)})
+          setTextAreaRowAmount(autoExpandTextarea(areaRef))
         }}
-        value={description}
-        ref={areaRef}
-        // style={{ height: areaHeight }}
       />
 
       <button onClick={() => updateTask({ subTitle: description }) }>Save</button>
