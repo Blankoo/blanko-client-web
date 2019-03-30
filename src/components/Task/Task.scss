@@ -1,7 +1,7 @@
 .task-small {
   $transitionTime: .15s;
 
-  background: #FFFFFF;
+  background: var(--strong-white);
   box-shadow: 0 5px 10px 0 #eeeef3;
   padding: 16px;
   border-radius: 4px;
@@ -11,8 +11,7 @@
   transition: all ease-in-out $transitionTime;
 
   &.active {
-    background: #FFFFFF;
-    box-shadow: 0 5px 20px 0 #D5D5DD;
+    box-shadow: 0 5px 20px 0 #D5D5DD !important;
   }
 
   &.done {
