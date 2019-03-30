@@ -91,12 +91,13 @@
       border-radius: 4px;
       background: var(--white-second);
       font-weight: 600;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--text-color-secondary);
       outline: none;
       width: 100%;
       padding: 8px;
-      min-height: 140px;
+      // height: inherit
+      // min-height: 126px;
     }
   }
 

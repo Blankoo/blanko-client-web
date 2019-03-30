@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { updateTask } from '../../actions'
 
+const INIT_ROW_HEIGHT = 3
+const autoExpandTextarea = areaNode => areaNode.current.value.split('\n').length + (INIT_ROW_HEIGHT - 1)
+
 function TaskDescription(props) {
   const { updateTask, currentDescription } = props
-  const [description, setDescription] = useState('')
+  const [ description, setDescription ] = useState('')
+  const [ areaHeight, setAreaHeight] = useState(INIT_ROW_HEIGHT)
+  const areaRef = useRef()
 
   useEffect(() => {
     setDescription(currentDescription)
@@ -13,10 +18,19 @@ function TaskDescription(props) {
   return (
     <div className="task-description">
       <span className="label">Description:</span>
-      <textarea onChange={e => setDescription(e.target.value) } value={description}/>
-      <button onClick={() => updateTask({
-        subTitle: description
-      }) }>Save</button>
+      <textarea
+        rows={areaHeight}
+        onChange={e => {
+          setDescription(e.target.value)
+          setAreaHeight(autoExpandTextarea(areaRef))
+          console.log({ja: autoExpandTextarea(areaRef)})
+        }}
+        value={description}
+        ref={areaRef}
+        // style={{ height: areaHeight }}
+      />
+
+      <button onClick={() => updateTask({ subTitle: description }) }>Save</button>
     </div>
   )
 }
