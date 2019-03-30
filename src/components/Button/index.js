@@ -43,6 +43,4 @@ Button.defaultProps = {
   size: 'md'
 }
 
-
-
 export default Button

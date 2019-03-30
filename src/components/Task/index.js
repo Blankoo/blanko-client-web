@@ -25,18 +25,11 @@ const Task = (props) => {
       onClick={() => setTaskActive(task)}
     >
       <Checkbox check={isDone} onClick={(e) => {
-        e.stopPropagation();
+        e.stopPropagation()
         updateTaskStatus(task._id, task.status)
       }} />
 
-      <div>
-        <div className="task-small-title">{task.title}</div>
-        {/* {
-          task.subTitle !== '' && (
-            <div className="task-small-sub">{task.subTitle}</div>
-          )
-        } */}
-      </div>
+      <div className="task-small-title">{task.title}</div>
     </div>
   )
 }

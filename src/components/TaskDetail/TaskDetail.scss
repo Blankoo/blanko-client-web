@@ -70,6 +70,7 @@
   }
 
   &-bottom {
+    margin-top: 16px;
     button:first-child {
       margin-right: 8px;
     }
@@ -78,6 +79,13 @@
   .task-description {
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    .button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
 
     .label {
       margin-bottom: 8px;
@@ -96,8 +104,6 @@
       outline: none;
       width: 100%;
       padding: 8px;
-      // height: inherit
-      // min-height: 126px;
     }
   }
 
