@@ -99,6 +99,11 @@ export default function projectsReducer(state = initialState, action) {
         [action.payload.key]: action.payload.value,
         modalAction: action.payload.followingAction
       }
+    case types.RENEW_TASK_ARRAY:
+      return {
+        ...state,
+        tasks: action.payload.newTasks
+      }
     default:
       return state
   }

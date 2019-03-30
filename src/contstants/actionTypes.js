@@ -20,3 +20,6 @@ export const STOP_MES = 'STOP_MES'
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 export const UPDATE_PROJECT = 'UPDATE_PROJECT'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
+export const UPDATE_TASK= 'UPDATE_TASK'
+export const RENEW_TASK_ARRAY= 'RENEW_TASK_ARRAY'
+

@@ -59,7 +59,7 @@ class TimeMeasuring extends React.Component {
 				isFinished: true
 			}
       this.props.stopTimeMeasurement(taskId, this.props.activeMeasurementId , putMeasurement)
-			clearInterval(this.interval)
+    clearInterval(this.interval)
 		})
 	}
 
@@ -85,21 +85,23 @@ class TimeMeasuring extends React.Component {
 					</div>
 				</div>
 
-        <div className="total-measured mono">
-          <span className="label">Total measured time:</span>
-          <span className="mono">{ totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }</span>
-        </div>
-        <div>
+        { measurements.length > 0 &&
+          <>
+            <div className="total-measured mono">
+              <span className="label">Total measured time:</span>
+              <span className="mono">{ totalMeasuredTime !== isNaN &&  secondsToHourMinuteSecond(totalMeasuredTime / 1000) }</span>
+            </div>
 
-        </div>
-        <div>
-          <span className="label">All measurements:</span>
-          {
-            measurements
-              .filter(m => m.isFinished)
-              .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx}/>)
-          }
-        </div>
+            <div>
+              <span className="label">All measurements:</span>
+              {
+                measurements
+                  .filter(m => m.isFinished)
+                  .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx}/>)
+              }
+            </div>
+          </>
+        }
 			</div>
 		)
 	}
