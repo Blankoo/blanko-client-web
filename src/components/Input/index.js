@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 // Styles
 import './Input.scss'
 
-const Input = (props) => {
+function Input(props){
   const {
     icon,
     placeholder,
@@ -18,9 +18,7 @@ const Input = (props) => {
   return (
     <div className="input">
       {
-        label && (
-          <label htmlFor={id} className="label">{label}</label>
-        )
+        label && <label htmlFor={id} className="label">{label}</label>
       }
 
       <div className="input-wrapper">

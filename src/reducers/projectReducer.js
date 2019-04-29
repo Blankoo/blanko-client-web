@@ -104,6 +104,11 @@ export default function projectsReducer(state = initialState, action) {
         ...state,
         tasks: action.payload.newTasks
       }
+    case types.NEW_MES:
+      return {
+        ...state,
+        measurements: [...state.measurements, action.payload.newMeasurement]
+      }
     default:
       return state
   }

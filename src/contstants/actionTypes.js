@@ -17,6 +17,7 @@ export const CHANGE_TASK_STATUS = 'CHANGE_TASK_STATUS'
 
 export const START_MES = 'START_MES'
 export const STOP_MES = 'STOP_MES'
+export const NEW_MES = 'NEW_MES'
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 export const UPDATE_PROJECT = 'UPDATE_PROJECT'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'

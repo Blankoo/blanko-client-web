@@ -276,9 +276,23 @@ export function updateTask(bodyToUpdate) {
     const activeTaskId = getState().projectReducer.activeTask._id
     http.put(`${config.apiUrl}/tasks/update/${activeTaskId}`, bodyToUpdate)
       .then(resolved => {
-        console.log('updated new task description', resolved)
         dispatch(renewTasksArray(resolved.data.task))
       })
   }
 
+}
+
+export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
+  const newMesBody = {
+    total: totalTimeInSeconds,
+    isFinished: true
+  }
+
+  return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, newMesBody)
+    .then(resolved => {
+      dispatch({
+        type: types.NEW_MES,
+        payload: resolved.data
+      })
+    })
 }
