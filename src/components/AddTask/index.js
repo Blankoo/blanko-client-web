@@ -50,20 +50,6 @@ class AddTask extends React.Component {
           value={title}
           onChange={this.setInputState}
         />
-
-        {/* <Input
-          type="text"
-          id="subTitle"
-          value={subTitle}
-          onChange={this.setInputState}
-        /> */}
-
-        {/* <Button
-          onClick={this.addLocalTask}
-          text="Add Task"
-          variant="primary"
-          size="md"
-        /> */}
       </div>
     )
   }

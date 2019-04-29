@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import './timeMeasuringStyle.scss'
 
 import {
@@ -9,17 +10,19 @@ import {
 
 import SingleMeasurement from './SingleMeasurement'
 import Button from '../Button'
+import NewMeasurement from './NewMeasurement'
 import {
   secondsToHourMinuteSecond,
   totalInSeconds
-} from './actions'
+} from './measurementActions'
 
 class TimeMeasuring extends React.Component {
 	state = {
 		isMeasuring: false,
 		currenTime: null,
 		startTime: null,
-		endTime: null,
+    endTime: null,
+    isAddNewMeasurementShown: false
 	}
 
 	currenTime = () => new Date().getTime()
@@ -61,15 +64,33 @@ class TimeMeasuring extends React.Component {
       this.props.stopTimeMeasurement(taskId, this.props.activeMeasurementId , putMeasurement)
     clearInterval(this.interval)
 		})
-	}
+  }
+
+  toggleIsAddNewMeasurementShown = () => {
+    this.setState(({ isAddNewMeasurementShown }) => ({
+      isAddNewMeasurementShown: !isAddNewMeasurementShown
+    }))
+  }
 
 	render() {
     const { activeTaskId, measurements } = this.props
-    const { startTime, currenTime, isMeasuring } = this.state
+    const { startTime, currenTime, isMeasuring, isAddNewMeasurementShown} = this.state
     const totalMeasuredTime = measurements.filter(m => m.isFinished).reduce((zero, { total }) => zero + total, 0)
 
 		return (
 			<div className="time-measurements">
+        <div className="new-measurement">
+          <Button onClick={this.toggleIsAddNewMeasurementShown} text="New" variant="primary" />
+          <CSSTransition
+            in={isAddNewMeasurementShown}
+            timeout={200}
+            classNames="fadeInUp"
+            unmountOnExit
+          >
+            <NewMeasurement toggleIsAddNewMeasurementShown={this.toggleIsAddNewMeasurementShown} />
+          </CSSTransition>
+        </div>
+
 				<div className="current-measurement">
           {
             isMeasuring
@@ -96,7 +117,7 @@ class TimeMeasuring extends React.Component {
               <span className="label">All measurements:</span>
               {
                 measurements
-                  .filter(m => m.isFinished)
+                  // .filter(m => m.isFinished)
                   .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx}/>)
               }
             </div>

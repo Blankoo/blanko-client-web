@@ -1,5 +1,5 @@
 import React from 'react'
-import { secondsToHourMinuteSecond } from './actions'
+import { secondsToHourMinuteSecond } from './measurementActions'
 
 const SingleMeasurment = ({ total }) => (
   <div className="single-measurement">
