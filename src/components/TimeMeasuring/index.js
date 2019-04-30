@@ -80,7 +80,6 @@ class TimeMeasuring extends React.Component {
 		return (
 			<div className="time-measurements">
         <div className="new-measurement">
-          <Button onClick={this.toggleIsAddNewMeasurementShown} text="New" variant="primary" />
           <CSSTransition
             in={isAddNewMeasurementShown}
             timeout={200}
@@ -95,7 +94,14 @@ class TimeMeasuring extends React.Component {
           {
             isMeasuring
             ? <Button onClick={() => this.stopMeasurement(activeTaskId)} text="Stop" variant="danger" />
-            : <Button onClick={() => this.startMeasurement(activeTaskId)} text="Start" variant="primary" />
+            : (
+              <div className="plus-measurement">
+                <span onClick={this.toggleIsAddNewMeasurementShown} className="plus-measurement-btn">
+                  <img src={require('../../assets/icons/plus.svg')} />
+                </span>
+                <Button onClick={() => this.startMeasurement(activeTaskId)} text="Start" variant="primary" />
+              </div>
+            )
           }
 					<div className="numbers mono">
 					{
@@ -117,7 +123,7 @@ class TimeMeasuring extends React.Component {
               <span className="label">All measurements:</span>
               {
                 measurements
-                  // .filter(m => m.isFinished)
+                  .filter(m => m.isFinished)
                   .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx}/>)
               }
             </div>
