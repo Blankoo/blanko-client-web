@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import Input from '../Input'
 import Button from '../Button'
@@ -13,11 +13,23 @@ function NewMeasurement(props) {
   const { addNewTimeMeasurement, taskId, toggleIsAddNewMeasurementShown } = props
   const [minutes, setMinutes] = useState(0)
   const [hours, setHours] = useState(0)
+  const container = useRef()
 
   const totalSeconds = (hoursToSeconds(hours) + minutesToSeconds(minutes)) * 1000
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  })
+
+   const handleClickOutside = e => {
+    if (container && !container.current.contains(e.target)) {
+      toggleIsAddNewMeasurementShown()
+    }
+  }
+
   return (
-    <div className="new-measurement-container">
+    <div className="new-measurement-container" ref={container}>
       <div className="new-measurement-container-content">
         <Input
           type="number"
