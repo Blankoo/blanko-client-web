@@ -25,7 +25,7 @@ class TimeMeasuring extends React.Component {
     isAddNewMeasurementShown: false
 	}
 
-	currenTime = () => new Date().getTime()
+  currenTime = () => new Date().getTime()
 
 	startMeasurement = taskId => {
 		this.setState({
@@ -76,7 +76,7 @@ class TimeMeasuring extends React.Component {
     const { activeTaskId, measurements } = this.props
     const { startTime, currenTime, isMeasuring, isAddNewMeasurementShown} = this.state
     const totalMeasuredTime = measurements.filter(m => m.isFinished).reduce((zero, { total }) => zero + total, 0)
-
+    
 		return (
 			<div className="time-measurements">
         <div className="new-measurement">
