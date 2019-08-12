@@ -33,13 +33,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-color-primary: red; 
-    --text-color-secondary: red;
-    --text-color-tertiary: red;
-    --text-color-quaternary: red;
+  // Colors
+  --text-color-primary: #fff;
+  --text-color-secondary: #fff;
+  --white: #232323;
+  --white-second: #333333;
+  --strong-white: #424242;
+  --blanko-blue: #007aff;
+  --box-shadow: 0 5px 10px 0 #333333;
 
-    --white: #FBFBFD;
-    --white-second: #F3F3F3;
+  --red-danger: #C23636;
+  // --box-shadow: 0 5px 10px 0 #eeeef3;
+  --box-shadow: 0 5px 10px 0 #C9C9CE;
   }
 }
 
