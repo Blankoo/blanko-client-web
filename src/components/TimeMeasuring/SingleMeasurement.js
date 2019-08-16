@@ -8,5 +8,4 @@ const SingleMeasurment = ({ total }) => (
   </div>
 )
 
-
 export default SingleMeasurment

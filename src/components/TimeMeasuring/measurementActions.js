@@ -6,7 +6,6 @@ export function secondsToHourMinuteSecond(totalSeconds) {
   return `${('0' + hour).slice(-2)}:${('0' + minute).slice(-2)}:${('0' + seconds).slice(-2)}`
 }
 
-
 export function totalInMiliSeconds(endTime, startTime) {
   return  Math.floor(endTime - startTime)
 }

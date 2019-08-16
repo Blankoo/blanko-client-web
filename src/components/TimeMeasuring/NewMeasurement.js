@@ -15,7 +15,7 @@ function NewMeasurement(props) {
   const [hours, setHours] = useState(0)
   const container = useRef()
 
-  const totalSeconds = (hoursToSeconds(hours) + minutesToSeconds(minutes)) * 1000
+  const totalSeconds = (hoursToSeconds(hours > 0 ? hours : 0) + minutesToSeconds(minutes)) * 1000
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
