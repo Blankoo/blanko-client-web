@@ -2,22 +2,22 @@
   $transitionTime: .15s;
 
   background: var(--strong-white);
-  box-shadow: 0 5px 10px 0 #eeeef3;
+  box-shadow: var(--box-shadow) !important;
   padding: 16px;
   border-radius: 4px;
   margin-bottom: 8px;
   display: flex;
   cursor: pointer;
   transition: all ease-in-out $transitionTime;
-
+  
   &.active {
-    box-shadow: 0 5px 20px 0 #D5D5DD !important;
+    box-shadow: var(--box-shadow-active) !important;
   }
 
   &.done {
     opacity: 1;
-    box-shadow: none;
-    background: #FEFEFE;
+    box-shadow: none !important;
+    background: var(--white-third);
 
     .task-small-title,
     .task-small-sub {
@@ -28,14 +28,14 @@
 
   &-title {
     font-size: 14px;
-    color: #424459;
+    color: var(text-color-secondary);
     letter-spacing: 0;
     transition: all ease-in-out $transitionTime;
   }
 
   &-sub {
     font-size: 12px;
-    color: #7D7D7D;
+    color: var(text-color-tertiary);
     letter-spacing: 0;
     margin-top: 8px;
     transition: all ease-in-out $transitionTime;
