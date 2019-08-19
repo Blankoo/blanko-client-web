@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Task from '../Task'
 import AddTask from '../AddTask'
+
 
 class TaskList extends React.Component {
   filterByQuery = (task) => {
@@ -21,46 +23,45 @@ class TaskList extends React.Component {
 
   render() {
     const { tasks, isFilterBarSticky } = this.props
-    // return (
-    //   <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
-    //   {
-    //     tasks !== undefined && (
-    //       tasks
-    //         .filter(this.filterByQuery)
-    //         .map(task => (
-    //           <CSSTransition
-    //             key={task._id}
-    //             timeout={250}
-    //             classNames="fade"
-    //           >
-    //             <Task task={task} />
-    //           </CSSTransition>
-    //         ))
-    //     )
-    //   }
-    //   </TransitionGroup>
-    // )
 
     return (
-      <>
-       {
-        tasks !== undefined && (
-          tasks
-            .filter(this.filterByQuery)
-            .map(task => (
-              <CSSTransition
-                key={task._id}
-                timeout={250}
-                classNames="fade"
-              >
-                <Task task={task} />
-              </CSSTransition>
-            ))
-        )
-      }
-
+      <DragDropContext>
+        <Droppable droppableId="droppable">
+        { 
+          (provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {tasks !== undefined && (
+                tasks
+                  .filter(this.filterByQuery)
+                  .map((task, idx) => (
+                    <CSSTransition
+                      key={task._id}
+                      timeout={250}
+                      classNames="fade"
+                    >
+                      <Draggable key={task._id} draggableId={task._id} index={idx}>
+                      {(provided, snapshot) => (
+                        <span
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Task task={task} />
+                        </span>
+                      )}
+                      </Draggable>
+                    </CSSTransition>
+                  ))
+              )}
+            </div>
+          )
+        }
+        </Droppable>
       <AddTask/>
-      </>
+      </DragDropContext>
     )
   }
 }
