@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CSSTransition } from 'react-transition-group'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import { reorderTasks } from '../../actions/'
 
 import Task from '../Task'
 import AddTask from '../AddTask'
 
-
 class TaskList extends React.Component {
+  constructor(props) {
+    super(props)
+  } 
+
   filterByQuery = (task) => {
     const { title, subTitle, status } = task
     const { searchQuery, filterStatus } = this.props
@@ -21,12 +25,22 @@ class TaskList extends React.Component {
     }
   }
 
+  reOrderOnDragEnd = (draggingResources) => {
+    const { source, destination, reason, draggableId } = draggingResources
+
+    if(!draggingResources.destination) {
+      return
+    } else if(reason === 'DROP') {
+      this.props.reorderTasks(this.props.tasks, source.index, destination.index, draggableId)
+    }
+  }
+
   render() {
-    const { tasks, isFilterBarSticky } = this.props
+    const { isFilterBarSticky, tasks } = this.props
 
     return (
-      <DragDropContext>
-        <Droppable droppableId="droppable">
+      <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
+        <Droppable droppableId="droppable-1">
         { 
           (provided, snapshot) => (
             <div
@@ -37,25 +51,18 @@ class TaskList extends React.Component {
                 tasks
                   .filter(this.filterByQuery)
                   .map((task, idx) => (
-                    <CSSTransition
-                      key={task._id}
-                      timeout={250}
-                      classNames="fade"
-                    >
                       <Draggable key={task._id} draggableId={task._id} index={idx}>
-                      {(provided, snapshot) => (
-                        <span
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <Task task={task} />
-                        </span>
+                      {(provided, { isDragging }) => (
+                        <Task
+                          isDragging={isDragging}
+                          task={task}
+                          provided={provided}
+                        />
                       )}
                       </Draggable>
-                    </CSSTransition>
                   ))
               )}
+              {provided.placeholder}
             </div>
           )
         }
@@ -81,4 +88,4 @@ const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
 })
 
-export default connect(mapStateToProps)(TaskList)
+export default connect(mapStateToProps, { reorderTasks })(TaskList)

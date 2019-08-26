@@ -34,6 +34,7 @@ class TimeMeasuring extends React.Component {
 		}, () => {
 			this.setSpendedTimeValue()
 			const inititalMeasurement = {
+        projectId: this.props.activeProjectId,
 				startTime: this.state.startTime,
       }
       this.props.startTimeMeasurement(taskId, inititalMeasurement)
@@ -138,7 +139,8 @@ function mapStateToProps({ projectReducer }) {
   return {
     activeTaskId: projectReducer.activeTask._id,
     measurements: projectReducer.measurements,
-    activeMeasurementId: projectReducer.activeMeasurementId
+    activeMeasurementId: projectReducer.activeMeasurementId,
+    activeProjectId: projectReducer.activeProject._id
   }
 }
 

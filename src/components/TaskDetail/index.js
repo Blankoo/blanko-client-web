@@ -46,7 +46,7 @@ const TaskDetail = (props) => {
               </div>
             </div>
 
-            <TaskDescription currentDescription={activeTask.subTitle}/>
+            <TaskDescription currentDescription={activeTask.subTitle} taskId={activeTask._id}/>
             <TimeMeasuring/>
           </>
         )
