@@ -42,6 +42,20 @@ export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/pr
     })
   })
 
+export function setAllTasks(k) {
+  return (dispatch) => {
+    http.get(`${config.apiUrl}/tasks`)
+      .then(resolved => {
+        dispatch({
+          type: types.FETCH_TASKS,
+          payload: {
+            data: resolved.data
+          }
+        })
+      })
+  }
+}
+
 export const toggleAddProjectModal = () => ({
   type: types.TOGGLE_ADDPROJECT,
 })

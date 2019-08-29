@@ -5,7 +5,7 @@ import { updateTask } from '../../actions'
 import Button from '../Button'
 import { ReadStream } from 'tty';
 
-const INIT_ROW_HEIGHT = 2
+const INIT_ROW_HEIGHT = 5
 const autoExpandTextarea = areaNode => areaNode.current.value.split('\n').length + (INIT_ROW_HEIGHT - 1)
 
 function TaskDescription(props) {
