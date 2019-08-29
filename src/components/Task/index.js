@@ -27,7 +27,6 @@ const Task = (props) => {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      // style={{ transitionDuration: `0.001s` }}
     >
       <Checkbox
         check={isDone}

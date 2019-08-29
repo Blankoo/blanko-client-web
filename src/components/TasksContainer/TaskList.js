@@ -1,28 +1,24 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-import { reorderTasks } from '../../actions/'
+import { reorderTasks } from '../../actions'
 
 import Task from '../Task'
 import AddTask from '../AddTask'
 
 class TaskList extends React.Component {
-  constructor(props) {
-    super(props)
-  } 
-
   filterByQuery = (task) => {
     const { title, subTitle, status } = task
     const { searchQuery, filterStatus } = this.props
     const showAllTasks = filterStatus === 'ALL'
 
-    if(showAllTasks) {
+    if (showAllTasks) {
       return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
-    } else {
-      return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
     }
+
+    return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
   }
 
   reOrderOnDragEnd = (draggingResources) => {
@@ -34,6 +30,8 @@ class TaskList extends React.Component {
       this.props.reorderTasks(this.props.tasks, source.index, destination.index, draggableId)
     }
   }
+
+  sortTasksByOrder = (a, b) => a.order - b.order
 
   render() {
     const { isFilterBarSticky, tasks } = this.props
@@ -50,6 +48,7 @@ class TaskList extends React.Component {
               {tasks !== undefined && (
                 tasks
                   .filter(this.filterByQuery)
+                  .sort(this.sortTasksByOrder)
                   .map((task, idx) => (
                       <Draggable key={task._id} draggableId={task._id} index={idx}>
                       {(provided, { isDragging }) => (

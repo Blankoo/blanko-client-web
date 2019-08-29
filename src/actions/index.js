@@ -297,10 +297,19 @@ export function reorderTasks(tasks, source, destination) {
   const [removedTask] = newTasksList.splice(source, 1)
   newTasksList.splice(destination, 0, removedTask)
 
+  console.log({ tasks, newTasksList })
+
+  persistNewListOrder()
+
   return {
     type: types.REORDER_TASKS,
     payload: { newTasksList }
   }
+}
+
+function persistNewListOrder() {
+  console.log('persist new order')
+
 }
 
 export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
