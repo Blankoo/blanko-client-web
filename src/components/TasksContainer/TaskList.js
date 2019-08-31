@@ -27,14 +27,14 @@ class TaskList extends React.Component {
     if(!draggingResources.destination) {
       return
     } else if(reason === 'DROP') {
-      this.props.reorderTasks(this.props.tasks, source.index, destination.index, draggableId)
+      this.props.reorderTasks(this.props.tasks, source, destination, draggableId, this.props.projectId)
     }
   }
 
   sortTasksByOrder = (a, b) => a.order - b.order
 
   render() {
-    const { isFilterBarSticky, tasks } = this.props
+    const { tasks } = this.props
 
     return (
       <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
@@ -85,6 +85,7 @@ TaskList.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
+  projectId: projectReducer.activeProject._id
 })
 
 export default connect(mapStateToProps, { reorderTasks })(TaskList)

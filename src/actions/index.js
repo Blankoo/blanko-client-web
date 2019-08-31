@@ -305,25 +305,43 @@ export function updateTask(bodyToUpdate, taskId) {
   }
 }
 
-export function reorderTasks(tasks, source, destination) {
-  console.log('reorder action')
-  const newTasksList = [...tasks]
-  const [removedTask] = newTasksList.splice(source, 1)
-  newTasksList.splice(destination, 0, removedTask)
+export function reorderTasks(tasks, source, destination, taskId, projectId) {
+    console.log('reorder action')
+    const newTasksList = [...tasks]
+    const [removedTask] = newTasksList.splice(source.index, 1)
+    newTasksList.splice(destination.index, 0, removedTask)
 
-  console.log({ tasks, newTasksList })
+  const orderedTaskList = newTasksList.map((task, idx) => {
+    task.order = idx
+    return task
+  })
 
-  persistNewListOrder()
+  console.log({
+    orderedTaskList,
+    newTasksList,
+    tasks
+  })
+
+  persistNewListOrder({
+    taskId,
+    source,
+    destination,
+    projectId,
+    tasks: orderedTaskList
+  })
 
   return {
     type: types.REORDER_TASKS,
-    payload: { newTasksList }
+    payload: {
+      tasks: orderedTaskList
+    }
   }
 }
 
-function persistNewListOrder() {
-  console.log('persist new order')
-
+function persistNewListOrder(body) {
+  http.put(`${config.apiUrl}/tasks/reorder`, body)
+    .then(a => a)
+    .catch(err => console.error({ err }))
 }
 
 export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {

@@ -36,7 +36,7 @@ const Task = (props) => {
         }}
       />
 
-      <div className="task-small-title">{task.title} {task.order }</div>
+      <div className="task-small-title">{task.title}</div>
     </div>
   )
 }

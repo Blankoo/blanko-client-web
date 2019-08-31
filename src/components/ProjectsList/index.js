@@ -49,7 +49,7 @@ class ProjectsList extends React.PureComponent {
         { 
           isFavorite && 
             <button 
-              class = "button tertiary lg full-width inbox-btn"
+              className="button tertiary lg full-width inbox-btn"
               type="button"
               onClick={setAllTasks}
             >
