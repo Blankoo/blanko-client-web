@@ -26,10 +26,12 @@ export const fetchProjects = () => dispatch => http.get(`${config.apiUrl}/projec
     })
   })
 
-export const setSelectedProject = project => ({
-  type: types.SET_PROJECT_DATA,
-  payload: project
-})
+export const setSelectedProject = project => {
+  return ({
+    type: types.SET_PROJECT_DATA,
+    payload: project
+  })
+}
 
 export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/projects/${projectID}/tasks`)
   .then((resolved) => {
@@ -41,6 +43,27 @@ export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/pr
       }
     })
   })
+
+export function setAllTasks(k) {
+  return (dispatch) => {
+    http.get(`${config.apiUrl}/tasks`)
+      .then(resolved => {
+        dispatch({
+          type: types.FETCH_TASKS,
+          payload: {
+            data: resolved.data
+          }
+        })
+        dispatch({
+          type: types.SET_PROJECT_DATA,
+          payload: {
+            _id: 'all',
+            projectTitle: 'All Tasks'
+          }
+        })
+      })
+  }
+}
 
 export const toggleAddProjectModal = () => ({
   type: types.TOGGLE_ADDPROJECT,
@@ -158,6 +181,7 @@ export function updateTaskStatus(taskId, currentStatus) {
 }
 
 export const startTimeMeasurement = (taskId, startMesObj) => {
+  console.log({ startMesObj })
   if(taskId !== undefined) {
     return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, startMesObj)
     .then(resolved => {
@@ -220,13 +244,12 @@ export function deleteProject(projectId) {
 export function renewTasksArray(newTask) {
   return (dispatch, getState) => {
     const oldTasks = getState().projectReducer.tasks
-    const newTasks = oldTasks.map(task => {
-      if(task._id === newTask._id ) {
+    const newTasks = oldTasks.map((task) => {
+      if (task._id === newTask._id) {
         task = newTask
         return task
-      } else {
-        return task
       }
+      return task
     })
 
     dispatch({
@@ -238,7 +261,7 @@ export function renewTasksArray(newTask) {
 
 export function updateProject(projectId, updateObject) {
   return (dispatch, getState) => {
-    if(updateObject === undefined) {
+    if (updateObject === undefined) {
       const currentFavStatus = getState().projectReducer.activeProject.favorite
       updateObject = {
         favorite: !currentFavStatus
@@ -246,20 +269,19 @@ export function updateProject(projectId, updateObject) {
     }
 
     const oldProjects = getState().projectReducer.projects
-    const newProjects = oldProjects.map(project => {
-      if(project._id === projectId) {
+    const newProjects = oldProjects.map((project) => {
+      if (project._id === projectId) {
         const updatedproject = {
           ...project,
           favorite: !project.favorite
         }
         return updatedproject
-      } else {
-        return project
       }
+      return project
     })
 
     http.put(`${config.apiUrl}/projects/${projectId}`, updateObject)
-      .then(resolved => {
+      .then((resolved) => {
         dispatch({
           type: types.UPDATE_PROJECT,
           payload: {
@@ -271,15 +293,52 @@ export function updateProject(projectId, updateObject) {
   }
 }
 
-export function updateTask(bodyToUpdate) {
-  return (dispatch, getState) => {
-    const activeTaskId = getState().projectReducer.activeTask._id
-    http.put(`${config.apiUrl}/tasks/update/${activeTaskId}`, bodyToUpdate)
-      .then(resolved => {
+export function updateTask(bodyToUpdate, taskId) {
+  return (dispatch) => {
+    http.put(`${config.apiUrl}/tasks/update/${taskId}`, bodyToUpdate)
+      .then((resolved) => {
         dispatch(renewTasksArray(resolved.data.task))
       })
   }
+}
 
+export function reorderTasks(tasks, source, destination, taskId, projectId) {
+    console.log('reorder action')
+    const newTasksList = [...tasks]
+    const [removedTask] = newTasksList.splice(source.index, 1)
+    newTasksList.splice(destination.index, 0, removedTask)
+
+  const orderedTaskList = newTasksList.map((task, idx) => {
+    task.order = idx
+    return task
+  })
+
+  console.log({
+    orderedTaskList,
+    newTasksList,
+    tasks
+  })
+
+  persistNewListOrder({
+    taskId,
+    source,
+    destination,
+    projectId,
+    tasks: orderedTaskList
+  })
+
+  return {
+    type: types.REORDER_TASKS,
+    payload: {
+      tasks: orderedTaskList
+    }
+  }
+}
+
+function persistNewListOrder(body) {
+  http.put(`${config.apiUrl}/tasks/reorder`, body)
+    .then(a => a)
+    .catch(err => console.error({ err }))
 }
 
 export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
@@ -289,7 +348,7 @@ export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
   }
 
   return dispatch => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, newMesBody)
-    .then(resolved => {
+    .then((resolved) => {
       dispatch({
         type: types.NEW_MES,
         payload: resolved.data

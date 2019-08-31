@@ -1,6 +1,4 @@
 .task-small {
-  $transitionTime: .15s;
-
   background: var(--strong-white);
   box-shadow: var(--box-shadow) !important;
   padding: 16px;
@@ -8,7 +6,6 @@
   margin-bottom: 8px;
   display: flex;
   cursor: pointer;
-  transition: all ease-in-out $transitionTime;
   
   &.active {
     box-shadow: var(--box-shadow-active) !important;
@@ -30,7 +27,6 @@
     font-size: 14px;
     color: var(text-color-secondary);
     letter-spacing: 0;
-    transition: all ease-in-out $transitionTime;
   }
 
   &-sub {
@@ -38,6 +34,5 @@
     color: var(text-color-tertiary);
     letter-spacing: 0;
     margin-top: 8px;
-    transition: all ease-in-out $transitionTime;
   }
 }

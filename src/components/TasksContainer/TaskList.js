@@ -1,7 +1,9 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CSSTransition } from 'react-transition-group'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
+import { reorderTasks } from '../../actions'
 
 import Task from '../Task'
 import AddTask from '../AddTask'
@@ -12,55 +14,60 @@ class TaskList extends React.Component {
     const { searchQuery, filterStatus } = this.props
     const showAllTasks = filterStatus === 'ALL'
 
-    if(showAllTasks) {
+    if (showAllTasks) {
       return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
-    } else {
-      return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
+    }
+
+    return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
+  }
+
+  reOrderOnDragEnd = (draggingResources) => {
+    const { source, destination, reason, draggableId } = draggingResources
+
+    if(!draggingResources.destination) {
+      return
+    } else if(reason === 'DROP') {
+      this.props.reorderTasks(this.props.tasks, source, destination, draggableId, this.props.projectId)
     }
   }
 
+  sortTasksByOrder = (a, b) => a.order - b.order
+
   render() {
-    const { tasks, isFilterBarSticky } = this.props
-    // return (
-    //   <TransitionGroup className={`tasks-list ${isFilterBarSticky ? 'sticky' : ''}`}>
-    //   {
-    //     tasks !== undefined && (
-    //       tasks
-    //         .filter(this.filterByQuery)
-    //         .map(task => (
-    //           <CSSTransition
-    //             key={task._id}
-    //             timeout={250}
-    //             classNames="fade"
-    //           >
-    //             <Task task={task} />
-    //           </CSSTransition>
-    //         ))
-    //     )
-    //   }
-    //   </TransitionGroup>
-    // )
+    const { tasks } = this.props
 
     return (
-      <>
-       {
-        tasks !== undefined && (
-          tasks
-            .filter(this.filterByQuery)
-            .map(task => (
-              <CSSTransition
-                key={task._id}
-                timeout={250}
-                classNames="fade"
-              >
-                <Task task={task} />
-              </CSSTransition>
-            ))
-        )
-      }
-
+      <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
+        <Droppable droppableId="droppable-1">
+        { 
+          (provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {tasks !== undefined && (
+                tasks
+                  .filter(this.filterByQuery)
+                  .sort(this.sortTasksByOrder)
+                  .map((task, idx) => (
+                      <Draggable key={task._id} draggableId={task._id} index={idx}>
+                      {(provided, { isDragging }) => (
+                        <Task
+                          isDragging={isDragging}
+                          task={task}
+                          provided={provided}
+                        />
+                      )}
+                      </Draggable>
+                  ))
+              )}
+              {provided.placeholder}
+            </div>
+          )
+        }
+        </Droppable>
       <AddTask/>
-      </>
+      </DragDropContext>
     )
   }
 }
@@ -78,6 +85,7 @@ TaskList.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
+  projectId: projectReducer.activeProject._id
 })
 
-export default connect(mapStateToProps)(TaskList)
+export default connect(mapStateToProps, { reorderTasks })(TaskList)

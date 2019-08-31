@@ -7,7 +7,8 @@ import {
   setSelectedProject,
   deleteProject,
   updateProject,
-  toggleModal
+  toggleModal,
+  setAllTasks
 } from '../../actions'
 
 // Components
@@ -23,7 +24,6 @@ class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
     const { fetchTasks, setSelectedProject } = this.props
 
-    window.localStorage.setItem('PROJ_ID', project._id)
     fetchTasks(project._id)
     setSelectedProject(project)
   }
@@ -37,12 +37,25 @@ class ProjectsList extends React.PureComponent {
       isFavorite,
       activeProjectId,
       updateProject,
-      toggleModal
+      toggleModal,
+      setAllTasks
     } = this.props
 
     return (
       projects !== undefined && (
-      <div className={`projects-list ${className}`}>
+        
+        <div className={`projects-list ${className}`}>
+        { 
+          isFavorite && 
+            <button 
+              className={`button tertiary lg full-width inbox-btn ${activeProjectId === 'all' ? 'active' : ''}`}
+              type="button"
+              onClick={setAllTasks}
+            >
+              All
+            </button>
+        }
+
         <div className="projects-list-title">
           <div className="label">{ label }</div>
           {
@@ -56,7 +69,7 @@ class ProjectsList extends React.PureComponent {
         <ul>
         {
           projects
-            .filter(p => p.favorite === isFavorite)
+            .filter(project => project.favorite === isFavorite)
             .map((project, idx) => {
               const { projectTitle } = project
 
@@ -68,7 +81,12 @@ class ProjectsList extends React.PureComponent {
                   <span onClick={() => this.selectProject(project)} >{ projectTitle }</span>
 
                   <ProjectKebabMenu
-                    {...{toggleModal, updateProject, projectId: project._id, DELETE_PROJECT}}
+                    {...{
+                      toggleModal,
+                      updateProject,
+                      projectId: project._id,
+                      DELETE_PROJECT
+                    }}
                   />
                 </li>
               )
@@ -108,5 +126,6 @@ export default connect(mapStateToProps, {
   setSelectedProject,
   deleteProject,
   updateProject,
-  toggleModal
+  toggleModal,
+  setAllTasks
 })(ProjectsList)
