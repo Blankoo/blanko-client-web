@@ -18,7 +18,7 @@ class TasksContainer extends Component {
     this.state = {
       isFilterBarSticky: false,
       searchQuery: '',
-      filterStatus: 'ALL'
+      filterStatus: 'TODO'
     }
 
     this.filterBar = React.createRef()

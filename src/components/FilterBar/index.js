@@ -8,60 +8,47 @@ import Input from '../Input'
 // Styles
 import './FilterBar.scss'
 
-class FilterBar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+function FilterBar(props) {
+  const {
+    isSticky,
+    handleTaskSearch,
+    handleTaskStatusFilter,
+    filterStatus
+  } = props
 
+  const filterButtons = [
+    {
+      text: 'To do',
+      value: 'TODO',
+    },
+    {
+      text: 'Done',
+      value: 'DONE',
+    },
+    {
+      text: 'All',
+      value: 'ALL',
     }
-  }
+  ]
 
-  render() {
-    const {
-      isSticky,
-      handleTaskSearch,
-      handleTaskStatusFilter,
-      filterStatus
-    } = this.props
-
-    const filterButtons = [
+  return (
+    <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
       {
-        text: 'All',
-        value: 'ALL',
-      },
-      {
-        text: 'To do',
-        value: 'TODO',
-      },
-      {
-        text: 'Done',
-        value: 'DONE',
+        filterButtons.map(({ text, value }, idx) => (
+          <Button
+            text={text}
+            size="md"
+            value={value}
+            variant={value === filterStatus ? 'primary' : 'secondary'}
+            onClick={handleTaskStatusFilter}
+            key={idx}
+          />
+        ))
       }
-    ]
 
-    return (
-      <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
-        {/* <span className="add-project-button">
-          <img src={require('../../assets/icons/plus.svg')} alt="Add task" />
-        </span> */}
-
-        {
-          filterButtons.map(({ text, value }, idx) => (
-            <Button
-              text={text}
-              size="md"
-              value={value}
-              variant={value === filterStatus ? 'primary' : 'secondary'}
-              onClick={handleTaskStatusFilter}
-              key={idx}
-            />
-          ))
-        }
-
-        { window.innerWidth > 400 && <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} /> }
-      </div>
-    )
-  }
+      { window.innerWidth > 400 && <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} /> }
+    </div>
+  )
 }
 
 FilterBar.propTypes = {

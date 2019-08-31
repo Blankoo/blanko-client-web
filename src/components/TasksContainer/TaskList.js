@@ -34,7 +34,10 @@ class TaskList extends React.Component {
   sortTasksByOrder = (a, b) => a.order - b.order
 
   render() {
-    const { tasks } = this.props
+    const {
+      tasks,
+      projectId
+    } = this.props
 
     return (
       <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
@@ -50,7 +53,7 @@ class TaskList extends React.Component {
                   .filter(this.filterByQuery)
                   .sort(this.sortTasksByOrder)
                   .map((task, idx) => (
-                      <Draggable key={task._id} draggableId={task._id} index={idx}>
+                      <Draggable key={task._id} draggableId={task._id} index={idx} isDragDisabled={projectId === 'all'}>
                       {(provided, { isDragging }) => (
                         <Task
                           isDragging={isDragging}
@@ -85,7 +88,7 @@ TaskList.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
-  projectId: projectReducer.activeProject._id
+  projectId: projectReducer.activeProjectId
 })
 
 export default connect(mapStateToProps, { reorderTasks })(TaskList)
