@@ -107,18 +107,6 @@ export const addTask = (taskData, activeProjectId) => dispatch => http.post(`${c
     })
   })
 
-// export function updateTask(newTaskObj) {
-//   return dispatch => {
-//     http.put(`${config.apiUrl}/tasks/update/${newTaskObj._id}`)
-//       .then(response => {
-//         dispatch({
-//           type: types.UPDATE_TASK,
-//           payload: response.data
-//         })
-//       })
-//   }
-// }
-
 export function setTaskActive(task) {
   return (dispatch, getState) => {
     const thereIsNoActiveMeasurement = getState().projectReducer.activeMeasurementId === undefined

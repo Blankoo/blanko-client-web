@@ -35,7 +35,6 @@ const Task = (props) => {
           updateTaskStatus(task._id, task.status)
         }}
       />
-
       <div className="task-small-title">{task.title}</div>
     </div>
   )
