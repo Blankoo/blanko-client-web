@@ -61,6 +61,11 @@ export default function projectsReducer(state = initialState, action) {
         ...state,
         tasks: action.payload.newTasks
       }
+    case types.REORDER_TASKS:
+      return {
+        ...state,
+        tasks: action.payload.tasks
+      }
     case types.START_MES:
       return {
         ...state,

@@ -14,7 +14,8 @@ const Task = (props) => {
     setTaskActive,
     activeTask,
     task,
-    updateTaskStatus
+    updateTaskStatus,
+    provided
   } = props
   const isActive = activeTask !== undefined && activeTask._id === task._id
   const isDone = task.status === 'DONE'
@@ -23,12 +24,17 @@ const Task = (props) => {
     <div
       className={`task-small ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
       onClick={() => setTaskActive(task)}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
     >
-      <Checkbox check={isDone} onClick={(e) => {
-        e.stopPropagation()
-        updateTaskStatus(task._id, task.status)
-      }} />
-
+      <Checkbox
+        check={isDone}
+        onClick={(e) => {
+          e.stopPropagation()
+          updateTaskStatus(task._id, task.status)
+        }}
+      />
       <div className="task-small-title">{task.title}</div>
     </div>
   )
