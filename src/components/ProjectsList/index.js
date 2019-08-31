@@ -24,7 +24,6 @@ class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
     const { fetchTasks, setSelectedProject } = this.props
 
-    window.localStorage.setItem('PROJ_ID', project._id)
     fetchTasks(project._id)
     setSelectedProject(project)
   }
@@ -49,7 +48,7 @@ class ProjectsList extends React.PureComponent {
         { 
           isFavorite && 
             <button 
-              className="button tertiary lg full-width inbox-btn"
+              className={`button tertiary lg full-width inbox-btn ${activeProjectId === 'all' ? 'active' : ''}`}
               type="button"
               onClick={setAllTasks}
             >
