@@ -18,7 +18,8 @@ export default function projectsReducer(state = initialState, action) {
     case types.FETCH_TASKS:
       return {
         ...state,
-        tasks: action.payload.data,
+        tasks: action.payload.data.filter(t => t.status !== 'DONE'),
+        archivedTasks: action.payload.data.filter(t => t.status === 'DONE'),
       }
     case types.TOGGLE_ADDPROJECT:
       return {
@@ -60,7 +61,8 @@ export default function projectsReducer(state = initialState, action) {
     case types.CHANGE_TASK_STATUS:
       return {
         ...state,
-        tasks: action.payload.newTasks
+        tasks: action.payload.tasks,
+        archivedTasks: action.payload.archivedTasks
       }
     case types.REORDER_TASKS:
       return {

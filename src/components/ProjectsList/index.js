@@ -43,11 +43,11 @@ class ProjectsList extends React.PureComponent {
 
     return (
       projects !== undefined && (
-        
+
         <div className={`projects-list ${className}`}>
-        { 
-          isFavorite && 
-            <button 
+        {
+          isFavorite &&
+            <button
               className={`button tertiary lg full-width inbox-btn ${activeProjectId === 'all' ? 'active' : ''}`}
               type="button"
               onClick={setAllTasks}

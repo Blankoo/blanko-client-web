@@ -142,40 +142,38 @@ export function setTaskActive(task) {
   }
 }
 
-export function updateTaskStatus(taskId, currentStatus) {
+export function updateTaskStatus(taskId, currentStatus, archived) {
   const newStatus = {
     status: currentStatus === 'TODO' ? 'DONE' : 'TODO'
   }
-  let updatedTaskGlob = {}
 
   if(taskId !== undefined) {
     return (dispatch, getState) => http.put(`${config.apiUrl}/tasks/update/${taskId}`, newStatus)
       .then(resolved => {
+        const tasksClone = [...getState().projectReducer.tasks]
+        const archivedTasksClone = [...getState().projectReducer.archivedTasks]
 
-        const oldTasks = getState().projectReducer.tasks
-        const newTasks = oldTasks.map(task => {
-          if(task._id === taskId ) {
-            const updatedTask = {
-              ...task,
-              status: (task.status === 'TODO') ? 'DONE' : 'TODO'
-            }
-            updatedTaskGlob = updatedTask
-            return updatedTask
-          } else {
-            return task
-          }
-        })
+        // clean this up. only the array is different...
+        if(archived) {
+          const taskIndex = archivedTasksClone.map(t => t._id).indexOf(taskId)
+          const [removedTask] = archivedTasksClone.splice(taskIndex, 1)
+          removedTask.status = currentStatus === 'TODO' ? 'DONE' : 'TODO'
+          tasksClone.push(removedTask)
+        } else {
+          const taskIndex = tasksClone.map(t => t._id).indexOf(taskId)
+          const [removedTask] = tasksClone.splice(taskIndex, 1)
+          removedTask.status = currentStatus === 'TODO' ? 'DONE' : 'TODO'
+          archivedTasksClone.push(removedTask)
+        }
 
         dispatch({
           type: types.CHANGE_TASK_STATUS,
           payload: {
-            newTasks,
+            tasks: tasksClone,
+            archivedTasks: archivedTasksClone,
             data: resolved.data
           }
         })
-        if(getState().projectReducer.activeTask !== undefined) {
-          dispatch(setTaskActive(updatedTaskGlob))
-        }
       })
   }
 }
@@ -302,35 +300,33 @@ export function updateTask(bodyToUpdate, taskId) {
   }
 }
 
-export function reorderTasks(tasks, source, destination, taskId, projectId) {
-    console.log('reorder action')
+export function reorderTasks(taskListType, tasks, source, destination, taskId, projectId) {
+    console.log('reorder action', tasks, source, destination, taskId, projectId)
     const newTasksList = [...tasks]
-    const [removedTask] = newTasksList.splice(source.index, 1)
+    const removedTask = newTasksList.splice(source.index, 1)[0]
     newTasksList.splice(destination.index, 0, removedTask)
 
-  const orderedTaskList = newTasksList.map((task, idx) => {
-    task.order = idx
-    return task
-  })
+  const orderedTaskList = newTasksList
+    .filter(task => taskListType ? task.status === 'DONE' : task.status !== 'DONE')
+    .map((task, idx) => {
+      task.order = idx
+      return task
+    })
 
-  console.log({
-    orderedTaskList,
-    newTasksList,
-    tasks
-  })
+  console.log({ orderedTaskList: orderedTaskList.map(t => ({ title: t.title, order: t.order})) })
 
-  persistNewListOrder({
-    taskId,
-    source,
-    destination,
-    projectId,
-    tasks: orderedTaskList
-  })
+  // persistNewListOrder({
+  //   taskId,
+  //   source,
+  //   destination,
+  //   projectId,
+  //   [taskListType ? 'archiveTasks' : 'tasks']: orderedTaskList
+  // })
 
   return {
     type: types.REORDER_TASKS,
     payload: {
-      tasks: orderedTaskList
+      [taskListType ? 'archivedTasks' : 'tasks']: orderedTaskList
     }
   }
 }

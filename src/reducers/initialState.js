@@ -5,6 +5,7 @@ export default {
   user: '',
   projects: [],
   tasks: [],
+  archivedTasks: [],
   isAddProjectShown: false,
   isVerificationShown: false,
   activeTask: undefined,

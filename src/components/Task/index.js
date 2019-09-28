@@ -15,7 +15,8 @@ const Task = (props) => {
     activeTask,
     task,
     updateTaskStatus,
-    provided
+    provided,
+    archived
   } = props
   const isActive = activeTask !== undefined && activeTask._id === task._id
   const isDone = task.status === 'DONE'
@@ -32,7 +33,7 @@ const Task = (props) => {
         check={isDone}
         onClick={(e) => {
           e.stopPropagation()
-          updateTaskStatus(task._id, task.status)
+          updateTaskStatus(task._id, task.status, archived)
         }}
       />
       <div className="task-small-title">{task.title}</div>
