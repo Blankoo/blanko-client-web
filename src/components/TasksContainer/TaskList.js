@@ -55,6 +55,7 @@ class TaskList extends React.Component {
                 ref={provided.innerRef}
               >
                 {
+                  taskList !== undefined &&
                   taskList
                     .filter(task => deleted ? task.status === 'DONE' : task.status !== 'DONE')
                     .filter(this.filterByQuery)

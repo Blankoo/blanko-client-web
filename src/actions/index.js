@@ -301,11 +301,13 @@ export function updateTask(bodyToUpdate, taskId) {
 }
 
 export function reorderTasks(taskListType, tasks, source, destination, taskId, projectId) {
-    console.log('reorder action', tasks, source, destination, taskId, projectId)
-    const newTasksList = [...tasks]
-    const removedTask = newTasksList.splice(source.index, 1)[0]
-    newTasksList.splice(destination.index, 0, removedTask)
-
+  console.log('reorder action', tasks, source, destination, taskId, projectId)
+  const newTasksList = [...tasks]
+  const removedTask = newTasksList.splice(source.index, 1)[0]
+  newTasksList.splice(destination.index, 0, removedTask)
+  console.log({
+    newTasksList
+   })
   const orderedTaskList = newTasksList
     .filter(task => taskListType ? task.status === 'DONE' : task.status !== 'DONE')
     .map((task, idx) => {
@@ -315,13 +317,13 @@ export function reorderTasks(taskListType, tasks, source, destination, taskId, p
 
   console.log({ orderedTaskList: orderedTaskList.map(t => ({ title: t.title, order: t.order})) })
 
-  // persistNewListOrder({
-  //   taskId,
-  //   source,
-  //   destination,
-  //   projectId,
-  //   [taskListType ? 'archiveTasks' : 'tasks']: orderedTaskList
-  // })
+  persistNewListOrder({
+    taskId,
+    source,
+    destination,
+    projectId,
+    tasks: orderedTaskList
+  })
 
   return {
     type: types.REORDER_TASKS,
