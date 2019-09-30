@@ -24,7 +24,14 @@ class TaskList extends React.Component {
     if(!draggingResources.destination) {
       return
     } else if(reason === 'DROP') {
-      this.props.reorderTasks(this.props.deleted, this.props.tasks, source, destination, draggableId, this.props.projectId)
+      this.props.reorderTasks(
+        this.props.deleted,
+        this.props.deleted ? this.props.archivedTasks : this.props.tasks,
+        source,
+        destination,
+        draggableId,
+        this.props.projectId
+      )
     }
   }
 
@@ -40,8 +47,6 @@ class TaskList extends React.Component {
     } = this.props
 
     const taskList = deleted ? archivedTasks : tasks
-
-    console.log({ deleted, taskList})
 
     return (
       <div className="task-list-container">

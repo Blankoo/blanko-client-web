@@ -65,9 +65,11 @@ export default function projectsReducer(state = initialState, action) {
         archivedTasks: action.payload.archivedTasks
       }
     case types.REORDER_TASKS:
+      console.log('REORDER_TASKS...', action.payload)
       return {
         ...state,
-        tasks: action.payload.tasks
+        tasks: action.payload.tasks,
+        archivedTasks: action.payload.archivedTasks
       }
     case types.START_MES:
       return {

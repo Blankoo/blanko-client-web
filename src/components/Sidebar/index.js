@@ -9,8 +9,9 @@ import ProjectsList from '../ProjectsList'
 // Stlyes
 import './Sidebar.scss'
 
-const SideBar = ({ isSidebarShown, showSidebar }) => (
+const SideBar = ({ isSidebarShown, showSidebar, userId }) => (
   <div className={`sidebar ${isSidebarShown ? 'open' : 'closed'}`}>
+    <span>{userId}</span>
     {
       window.innerWidth < 400 &&
       <span className="close-sidebar" onClick={showSidebar}>
@@ -40,7 +41,8 @@ const SideBar = ({ isSidebarShown, showSidebar }) => (
 
 const mapStateToProps = ({ projectReducer }) => ({
   projects: projectReducer.projects,
-  isSidebarShown: projectReducer.isSidebarShown
+  isSidebarShown: projectReducer.isSidebarShown,
+  userId: projectReducer.userId
 })
 
 export default connect(mapStateToProps, { showSidebar })(SideBar)

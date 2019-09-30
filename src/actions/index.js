@@ -301,41 +301,43 @@ export function updateTask(bodyToUpdate, taskId) {
 }
 
 export function reorderTasks(taskListType, tasks, source, destination, taskId, projectId) {
-  console.log('reorder action', tasks, source, destination, taskId, projectId)
-  const newTasksList = [...tasks]
-  const removedTask = newTasksList.splice(source.index, 1)[0]
-  newTasksList.splice(destination.index, 0, removedTask)
-  console.log({
-    newTasksList
-   })
-  const orderedTaskList = newTasksList
-    .filter(task => taskListType ? task.status === 'DONE' : task.status !== 'DONE')
-    .map((task, idx) => {
-      task.order = idx
-      return task
+  return (dispatch, getState) => {
+    console.log('reorder action', tasks, source, destination, taskId, projectId)
+    const newTasksList = [...tasks]
+    const removedTask = newTasksList.splice(source.index, 1)[0]
+    newTasksList.splice(destination.index, 0, removedTask)
+
+    const orderedTaskList = newTasksList
+      .filter(task => taskListType ? task.status === 'DONE' : task.status !== 'DONE')
+      .map((task, idx) => {
+        task.order = idx
+        return task
+      })
+
+    console.log({ orderedTaskList: orderedTaskList.map(t => ({ title: t.title, order: t.order})) })
+
+    persistNewListOrder({
+      tasks: orderedTaskList
     })
 
-  console.log({ orderedTaskList: orderedTaskList.map(t => ({ title: t.title, order: t.order})) })
-
-  persistNewListOrder({
-    taskId,
-    source,
-    destination,
-    projectId,
-    tasks: orderedTaskList
-  })
-
-  return {
-    type: types.REORDER_TASKS,
-    payload: {
-      [taskListType ? 'archivedTasks' : 'tasks']: orderedTaskList
+    console.log('archivedTasks...', {taskListType}, getState().projectReducer.archivedTasks, orderedTaskList)
+    const payload = {
+      archivedTasks: taskListType ? orderedTaskList : getState().projectReducer.archivedTasks,
+      tasks: taskListType ? getState().projectReducer.tasks : orderedTaskList,
     }
+
+    console.log('reorder_tasks...paylpoad...', payload)
+
+    dispatch({
+      type: types.REORDER_TASKS,
+      payload
+    })
   }
 }
 
 function persistNewListOrder(body) {
   http.put(`${config.apiUrl}/tasks/reorder`, body)
-    .then(a => a)
+    // .then(a => console.log({ persistNewListOrder: a}))
     .catch(err => console.error({ err }))
 }
 
