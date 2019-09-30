@@ -23,9 +23,11 @@ class TasksContainer extends Component {
 
     this.filterBar = React.createRef()
     this.tasksContainerTitle = React.createRef()
+    this.tasksContainer = React.createRef()
   }
 
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
     const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
     const { getSingleProject, fetchTasks } = this.props
 
@@ -34,7 +36,6 @@ class TasksContainer extends Component {
       fetchTasks(hasSelectedProject)
     }
 
-    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
@@ -42,22 +43,23 @@ class TasksContainer extends Component {
   }
 
   handleScroll = () => {
-    const scrollOffset = this.tasksContainerTitle.current.clientHeight
-    const outerHeights = 64
+    // const scrollOffset = this.tasksContainerTitle.current.clientHeight
+    // const outerHeights = 64
+    // const totalNodeOffset = scrollOffset + outerHeights
 
-    if (window.scrollY < scrollOffset + outerHeights) {
-      this.setState({
-        isFilterBarSticky: false
-      }, () => {
-        document.body.style.paddingTop = 0
-      })
-    } else if (window.scrollY > 146) {
-      this.setState({
-        isFilterBarSticky: true
-      }, () => {
-        document.body.style.paddingTop = 64
-      })
-    }
+    // if (window.scrollY < totalNodeOffset) {
+    //   this.setState({
+    //     isFilterBarSticky: false
+    //   }, () => {
+    //     document.body.style.paddingTop = 0
+    //   })
+    // } else if (window.scrollY > totalNodeOffset) {
+    //   this.setState({
+    //     isFilterBarSticky: true
+    //   }, () => {
+    //     document.body.style.paddingTop = outerHeights + 'px'
+    //   })
+    // }
   }
 
   handleTaskSearch = (e) => {
@@ -89,7 +91,7 @@ class TasksContainer extends Component {
     const isThereAnActiveTask = activeTask !== undefined
 
     return (
-      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`}>
+      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
         {
           window.innerWidth < 400 &&
           <div onClick={showSidebar} className="hamburger-icon-sidebar">
@@ -113,9 +115,18 @@ class TasksContainer extends Component {
             />
 
             <TaskList
+              label="Todo"
               isSticky={isFilterBarSticky}
               searchQuery={searchQuery}
               filterStatus={filterStatus}
+            />
+
+            <TaskList
+              label="Done"
+              isSticky={isFilterBarSticky}
+              searchQuery={searchQuery}
+              filterStatus={filterStatus}
+              deleted
             />
             </>
           : <div className="sadface-container">

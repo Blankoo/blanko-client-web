@@ -4,8 +4,15 @@
   padding: 32px 32px 24px 32px;
   flex: 2;
   background-color: var(--white);
-  height: 100vh;
   transition: margin ease-in-out .2s;
+
+  .task-list-container {
+    margin: 24px 0 0 0;
+    
+    .label {
+      margin-bottom: 12px;
+    }
+  }
 
   @media screen and (max-width: 400px) {
     margin-right: 0;

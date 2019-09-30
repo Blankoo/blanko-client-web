@@ -33,7 +33,7 @@ function FilterBar(props) {
 
   return (
     <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
-      {
+      {/* {
         filterButtons.map(({ text, value }, idx) => (
           <Button
             text={text}
@@ -44,7 +44,7 @@ function FilterBar(props) {
             key={idx}
           />
         ))
-      }
+      } */}
 
       { window.innerWidth > 400 && <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} /> }
     </div>

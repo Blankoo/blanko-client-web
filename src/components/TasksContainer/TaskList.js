@@ -11,14 +11,11 @@ import AddTask from '../AddTask'
 class TaskList extends React.Component {
   filterByQuery = (task) => {
     const { title, subTitle, status } = task
-    const { searchQuery, filterStatus } = this.props
-    const showAllTasks = filterStatus === 'ALL'
+    const { searchQuery } = this.props
 
-    if (showAllTasks) {
-      return (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
-    }
-
-    return status === filterStatus && (title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery))
+    return (
+      title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery)
+    )
   }
 
   reOrderOnDragEnd = (draggingResources) => {
@@ -27,7 +24,14 @@ class TaskList extends React.Component {
     if(!draggingResources.destination) {
       return
     } else if(reason === 'DROP') {
-      this.props.reorderTasks(this.props.tasks, source, destination, draggableId, this.props.projectId)
+      this.props.reorderTasks(
+        this.props.deleted,
+        this.props.deleted ? this.props.archivedTasks : this.props.tasks,
+        source,
+        destination,
+        draggableId,
+        this.props.projectId
+      )
     }
   }
 
@@ -35,48 +39,62 @@ class TaskList extends React.Component {
 
   render() {
     const {
+      projectId,
+      deleted,
+      label,
       tasks,
-      projectId
+      archivedTasks
     } = this.props
 
+    const taskList = deleted ? archivedTasks : tasks
+
     return (
-      <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
-        <Droppable droppableId="droppable-1">
-        { 
-          (provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {tasks !== undefined && (
-                tasks
-                  .filter(this.filterByQuery)
-                  .sort(this.sortTasksByOrder)
-                  .map((task, idx) => (
-                      <Draggable key={task._id} draggableId={task._id} index={idx} isDragDisabled={projectId === 'all'}>
-                      {(provided, { isDragging }) => (
-                        <Task
-                          isDragging={isDragging}
-                          task={task}
-                          provided={provided}
-                        />
-                      )}
-                      </Draggable>
-                  ))
-              )}
-              {provided.placeholder}
-            </div>
-          )
-        }
-        </Droppable>
-      <AddTask/>
-      </DragDropContext>
+      <div className="task-list-container">
+        <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
+          <div className="label">{ label }</div>
+          <Droppable droppableId="droppable-1">
+          {
+            (provided, snapshot) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {
+                  taskList !== undefined &&
+                  taskList
+                    .filter(task => deleted ? task.status === 'DONE' : task.status !== 'DONE')
+                    .filter(this.filterByQuery)
+                    .sort(this.sortTasksByOrder)
+                    .map((task, idx) => (
+                        <Draggable key={task._id} draggableId={task._id} index={idx} isDragDisabled={projectId === 'all'}>
+                        {(provided, { isDragging }) => (
+                          <Task
+                            isDragging={isDragging}
+                            task={task}
+                            provided={provided}
+                            archived={deleted}
+                          />
+                        )}
+                        </Draggable>
+                    ))
+                }
+                {provided.placeholder}
+              </div>
+            )
+          }
+          </Droppable>
+
+        { !deleted && <AddTask/>}
+        </DragDropContext>
+      </div>
     )
   }
 }
 
 TaskList.defaultProps = {
-  tasks: []
+  tasks: [],
+  archivedTasks: [],
+  deleted: false
 }
 
 TaskList.propTypes = {
@@ -88,6 +106,7 @@ TaskList.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
   tasks: projectReducer.tasks,
+  archivedTasks: projectReducer.archivedTasks,
   projectId: projectReducer.activeProjectId
 })
 
