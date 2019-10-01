@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import {
   fetchTasks,
   toggleAddProjectModal,
@@ -24,9 +23,9 @@ import './ProjectsList.scss'
 class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
     const { fetchTasks, setSelectedProject } = this.props
-    // this.props.history.push(`/p/${project._id}`)
-    // fetchTasks(project._id)
-    // setSelectedProject(project)
+
+    fetchTasks(project._id)
+    setSelectedProject(project)
   }
 
   render() {
@@ -79,8 +78,7 @@ class ProjectsList extends React.PureComponent {
                   key={idx}
                   className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                 >
-                  {/* <span onClick={() => this.selectProject(project)} >{ projectTitle }</span> */}
-                  <Link to={`/home/p/${project._id}`}>{projectTitle}</Link>
+                  <span onClick={() => this.selectProject(project)} >{ projectTitle }</span>
 
                   <ProjectKebabMenu
                     {...{

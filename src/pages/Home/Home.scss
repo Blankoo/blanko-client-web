@@ -2,31 +2,3 @@
   display: flex;
   justify-content: space-between
 }
-
-.home-container {
-    margin-left: var(--sidebar-width);
-    margin-right: 32px;
-    padding: 32px 32px 24px 32px;
-    flex: 2;
-    background-color: var(--white);
-    transition: margin ease-in-out .2s;
-
-    &-title {
-      margin-bottom: 32px;
-
-      h1 {
-        margin-bottom: 16px;
-      }
-
-      p {
-        max-width: 600px;
-      }
-    }
-}
-
-.sadface-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
