@@ -74,23 +74,31 @@
     padding-left:48px;
   }
   
-  .logout-icon {
-    display: block;
+  .bottom-bar {
     position: absolute;
-    bottom: 24px;
-    left: 12px;
-    width: 12px;
-    height: 12px;
-    object-fit: cover;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    border-top: 1px solid rgba(#7A848F, .2);
+    padding: 8px 12px;
+    justify-content: space-between;
 
-    &:hover svg g {
-      transition: 200ms ease;
-      fill:var(--red-danger);
-    }
+    .icon {
+      display: inline-flex;
+      width: 12px;
 
-    svg {
-      width: 100%;
-      transition: 200ms;
+      svg {
+        object-fit: cover;
+        transition: 200ms;
+      }
+
+      &.logout-icon {
+        &:hover svg g {
+          transition: 200ms ease;
+          fill: var(--red-danger);
+        }
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import configureStore from './store/configureStore'
 // import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Settings from './components/Settings'
 
 // Styles
 import './master.scss'
@@ -23,20 +24,21 @@ function isAuthenticated() {
 
 const GuardedRoute = ({ component: Component, ...rest }) => (
   <Route
-    exact {...rest}
+    {...rest}
     render={props => (
       isAuthenticated()
       ? <Component {...props} />
       : <Redirect to="/login" />
     )}
-  />
+  >
+  </Route>
 )
 
 ReactDOM.render(
   <Provider store={STORE}>
     <BrowserRouter>
       <>
-        <GuardedRoute path="/" component={Home} />
+        <GuardedRoute path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
       </>
     </BrowserRouter>
