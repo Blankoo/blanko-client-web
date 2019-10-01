@@ -27,27 +27,15 @@ class TasksContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('__________task container mount')
     window.addEventListener('scroll', this.handleScroll)
+    const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
     const { getSingleProject, fetchTasks } = this.props
-    const { projectId } = this.props.urlParams
 
-    // const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
-    // if (hasSelectedProject) {
-      getSingleProject(projectId)
-      fetchTasks(projectId)
-    // }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { getSingleProject, fetchTasks } = this.props
-    if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
-      console.log('IS OTHER PROJECT NEEF')
-      getSingleProject(this.props.urlParams.projectId)
-      fetchTasks(this.props.urlParams.projectId)
+    if (hasSelectedProject) {
+      getSingleProject(hasSelectedProject)
+      fetchTasks(hasSelectedProject)
     }
-    console.log('task container mount again', {prevProps, props: this.props})
-    return true
+
   }
 
   componentWillUnmount() {
@@ -103,7 +91,7 @@ class TasksContainer extends Component {
     const isThereAnActiveTask = activeTask !== undefined
 
     return (
-      <div className={`home-container tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
+      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
         {
           window.innerWidth < 400 &&
           <div onClick={showSidebar} className="hamburger-icon-sidebar">
@@ -114,7 +102,7 @@ class TasksContainer extends Component {
         {
           projectTitle !== undefined
           ? <>
-            <div className="home-container-title" ref={this.tasksContainerTitle}>
+            <div className="tasks-container-title" ref={this.tasksContainerTitle}>
               <h1>{projectTitle}</h1>
               <p>{projectDescription}</p>
             </div>
@@ -141,7 +129,9 @@ class TasksContainer extends Component {
               deleted
             />
             </>
-          : <div></div>
+          : <div className="sadface-container">
+            <SadFace/>
+          </div>
         }
       </div>
     )
