@@ -8,7 +8,18 @@ import { reorderTasks } from '../../actions'
 import Task from '../Task'
 import AddTask from '../AddTask'
 
+const ChevronRight = ({ size = 16, color = "#7A848F", className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={`chevron-right ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="3" strokeLinecap="square" strokeLinejoin="arcs"><path d="M9 18l6-6-6-6" /></svg>
+)
+
 class TaskList extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      open: !props.deleted
+    }
+  }
   filterByQuery = (task) => {
     const { title, subTitle, status } = task
     const { searchQuery } = this.props
@@ -37,6 +48,17 @@ class TaskList extends React.Component {
 
   sortTasksByOrder = (a, b) => a.order - b.order
 
+  toggleHeight = () => {
+    const { taskListContainer } = this.refs
+    const containerHeight = taskListContainer.clientHeight
+
+    this.setState(({open}) => ({
+      open: !open
+    }), () => {
+        taskListContainer.style.height = this.state.open ? 'auto' : 0;
+    })
+  }
+
   render() {
     const {
       projectId,
@@ -45,47 +67,56 @@ class TaskList extends React.Component {
       tasks,
       archivedTasks
     } = this.props
+    const { open } = this.state
 
     const taskList = deleted ? archivedTasks : tasks
 
     return (
       <div className="task-list-container">
-        <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
-          <div className="label">{ label }</div>
-          <Droppable droppableId="droppable-1">
-          {
-            (provided, snapshot) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {
-                  taskList !== undefined &&
-                  taskList
-                    .filter(task => deleted ? task.status === 'DONE' : task.status !== 'DONE')
-                    .filter(this.filterByQuery)
-                    .sort(this.sortTasksByOrder)
-                    .map((task, idx) => (
-                        <Draggable key={task._id} draggableId={task._id} index={idx} isDragDisabled={projectId === 'all'}>
-                        {(provided, { isDragging }) => (
-                          <Task
-                            isDragging={isDragging}
-                            task={task}
-                            provided={provided}
-                            archived={deleted}
-                          />
-                        )}
-                        </Draggable>
-                    ))
-                }
-                {provided.placeholder}
-              </div>
-            )
-          }
-          </Droppable>
+        <div className="toggle-height" onClick={this.toggleHeight}>
+          <div className="toggle-height-trigger">
+            <ChevronRight size={12} className={open ? 'open' : 'closed'} />
+          </div>
+          <div className="label">{label}</div>
+        </div>
 
-        { !deleted && <AddTask/>}
-        </DragDropContext>
+        <div className={`task-list ${open ? 'open ' : 'closed'}`} ref="taskListContainer">
+          <DragDropContext onDragEnd={this.reOrderOnDragEnd}>
+            <Droppable droppableId="droppable-1">
+              {
+                (provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {
+                      taskList !== undefined &&
+                      taskList
+                        .filter(task => deleted ? task.status === 'DONE' : task.status !== 'DONE')
+                        .filter(this.filterByQuery)
+                        .sort(this.sortTasksByOrder)
+                        .map((task, idx) => (
+                          <Draggable key={task._id} draggableId={task._id} index={idx} isDragDisabled={projectId === 'all'}>
+                            {(provided, { isDragging }) => (
+                              <Task
+                                isDragging={isDragging}
+                                task={task}
+                                provided={provided}
+                                archived={deleted}
+                              />
+                            )}
+                          </Draggable>
+                        ))
+                    }
+                    {provided.placeholder}
+                  </div>
+                )
+              }
+            </Droppable>
+
+            {!deleted && <AddTask />}
+          </DragDropContext>
+        </div>
       </div>
     )
   }
