@@ -28,7 +28,7 @@ class AddTask extends React.Component {
 
   addLocalTask = () => {
     const { title } = this.state
-    const { activeProjectId, addTask, tasksLength = 1 } = this.props
+    const { activeProjectId, addTask, tasksLength } = this.props
 
     const newTask = {
       ...this.state,
@@ -67,7 +67,7 @@ AddTask.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
   activeProjectId: projectReducer.activeProjectId,
-  // tasksLength: projectReducer.tasks.length
+  tasksLength: projectReducer.tasks.length
 })
 
 export default connect(mapStateToProps, { addTask })(AddTask)

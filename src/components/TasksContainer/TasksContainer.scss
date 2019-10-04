@@ -6,11 +6,33 @@
   background-color: var(--white);
   transition: margin ease-in-out .2s;
 
-  .task-list-container {
-    margin: 24px 0 0 0;
-    
+  .toggle-height {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    &-trigger {
+      margin-right: 4px;
+      line-height: 0;
+    }
+
     .label {
-      margin-bottom: 12px;
+      margin-bottom: 0 !important;
+    }
+  }
+  
+  .task-list {
+    &-container {
+      margin: 24px 0 24px 0;
+      overflow: hidden;
+
+      .label {
+        margin-bottom: 12px;
+      }
+    }
+
+    &.closed {
+      height: 0;
     }
   }
 
