@@ -191,9 +191,9 @@ export const startTimeMeasurement = (taskId, startMesObj) => {
   }
 }
 
-export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
-  if(taskId !== undefined) {
-    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/${measurementId}`, endMesObj)
+export function stopTimeMeasurement(projectId, measurementId, endMesObj) {
+  if (projectId !== undefined) {
+    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${projectId}/${measurementId}`, endMesObj)
       .then(resolved => {
         dispatch({
           type: types.STOP_MES,
@@ -230,11 +230,11 @@ export function deleteProject(projectId) {
     const activeProjectId = getState().projectReducer.activeProject._id || projectId
     return http.delete(`${config.apiUrl}/projects/${activeProjectId}`)
       .then(() => {
-        dispatch({
+        window.localStorage.removeItem('PROJ_ID')
+        return dispatch({
           type: types.DELETE_PROJECT,
           payload: { id: activeProjectId }
         })
-        window.localStorage.removeItem('PROJ_ID')
       })
   }
 }
