@@ -176,3 +176,12 @@ img {
   transition: 200ms;
   transform: translateY(10%);
 }
+
+
+.chevron-right {
+  transition: 200ms;
+
+  &.open {
+    transform: rotate(90deg);
+  }
+}
