@@ -46,7 +46,9 @@
     display: flex;
     justify-content: space-between;
 
-    > span {
+    > a {
+      color: inherit;
+      text-decoration: none;
       flex: 1;
     }
 
