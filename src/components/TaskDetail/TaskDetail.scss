@@ -9,7 +9,7 @@
   padding: 40px 24px 16px 24px;
   min-width: var(--task-detail-width);
   height: calc(100vh - 64px);
-  transition: 200ms;
+  transition: transform 200ms;
   position: fixed;
   right: 0;
   overflow-y: auto;

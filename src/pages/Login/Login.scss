@@ -100,7 +100,7 @@ $transitionDelay: 1200ms;
     position: absolute;
     top: 0;
     transform: translateX(40vw);
-    transition: $transitionDelay ease-out;
+    transition: transform $transitionDelay ease-out;
     will-change: transform;
 
     &.login-success {
