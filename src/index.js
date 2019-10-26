@@ -38,6 +38,7 @@ ReactDOM.render(
   <Provider store={STORE}>
     <BrowserRouter>
       <>
+        <Route path="/" render={() => <Redirect to="/home" />} />
         <GuardedRoute path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
       </>
