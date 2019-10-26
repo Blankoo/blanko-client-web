@@ -27,10 +27,11 @@ class TasksContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('__________task container mount')
     window.addEventListener('scroll', this.handleScroll)
     const { getSingleProject, fetchTasks } = this.props
     const { projectId } = this.props.urlParams
+
+    console.log({urlParams: this.props.urlParams})
 
     // const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
     // if (hasSelectedProject) {
@@ -41,37 +42,19 @@ class TasksContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const { getSingleProject, fetchTasks } = this.props
+
+    console.log({urlParams: this.props.urlParams})
+
     if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
-      console.log('IS OTHER PROJECT NEEF')
       getSingleProject(this.props.urlParams.projectId)
       fetchTasks(this.props.urlParams.projectId)
     }
-    console.log('task container mount again', {prevProps, props: this.props})
+
     return true
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  handleScroll = () => {
-    // const scrollOffset = this.tasksContainerTitle.current.clientHeight
-    // const outerHeights = 64
-    // const totalNodeOffset = scrollOffset + outerHeights
-
-    // if (window.scrollY < totalNodeOffset) {
-    //   this.setState({
-    //     isFilterBarSticky: false
-    //   }, () => {
-    //     document.body.style.paddingTop = 0
-    //   })
-    // } else if (window.scrollY > totalNodeOffset) {
-    //   this.setState({
-    //     isFilterBarSticky: true
-    //   }, () => {
-    //     document.body.style.paddingTop = outerHeights + 'px'
-    //   })
-    // }
   }
 
   handleTaskSearch = (e) => {
@@ -140,8 +123,9 @@ class TasksContainer extends Component {
               filterStatus={filterStatus}
               deleted
             />
+
             </>
-          : <div></div>
+          : <div>Project does not exist...</div>
         }
       </div>
     )

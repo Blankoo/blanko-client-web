@@ -46,7 +46,7 @@ class ProjectsList extends React.PureComponent {
       projects !== undefined && (
 
         <div className={`projects-list ${className}`}>
-        {
+        {/* {
           isFavorite &&
             <button
               className={`button tertiary lg full-width inbox-btn ${activeProjectId === 'all' ? 'active' : ''}`}
@@ -55,7 +55,7 @@ class ProjectsList extends React.PureComponent {
             >
               All
             </button>
-        }
+        } */}
 
         <div className="projects-list-title">
           <div className="label">{ label }</div>

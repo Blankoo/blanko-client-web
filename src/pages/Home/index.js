@@ -33,7 +33,7 @@ class Home extends Component {
         <Sidebar />
 
         {/* home routes for view */}
-        <Route path="/home/p/:projectId" render={props => <TasksContainer urlParams={props.match.params} />}/>
+        <Route exact path="/home/p/:projectId/" render={props => <TasksContainer urlParams={props.match.params} />}/>
         <Route exact path="/home/settings" render={props => <Settings />} />
         <Route exact path="/home" render={props => (
           <div className="home-container sadface-container">
