@@ -56,6 +56,18 @@
     }
   }
 
+  &-title {
+    margin-bottom: 32px;
+
+    h1 {
+      margin-bottom: 16px;
+    }
+
+    p {
+      max-width: 600px;
+    }
+  }
+
   .tasks-list {
     display: inline-flex;
     flex-direction: column;

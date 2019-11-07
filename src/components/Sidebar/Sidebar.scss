@@ -74,31 +74,23 @@
     padding-left:48px;
   }
   
-  .bottom-bar {
+  .logout-icon {
+    display: block;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    border-top: 1px solid rgba(#7A848F, .2);
-    padding: 8px 12px;
-    justify-content: space-between;
+    bottom: 24px;
+    left: 12px;
+    width: 12px;
+    height: 12px;
+    object-fit: cover;
 
-    .icon {
-      display: inline-flex;
-      width: 12px;
+    &:hover svg g {
+      transition: 200ms ease;
+      fill:var(--red-danger);
+    }
 
-      svg {
-        object-fit: cover;
-        transition: 200ms;
-      }
-
-      &.logout-icon {
-        &:hover svg g {
-          transition: 200ms ease;
-          fill: var(--red-danger);
-        }
-      }
+    svg {
+      width: 100%;
+      transition: 200ms;
     }
   }
 }

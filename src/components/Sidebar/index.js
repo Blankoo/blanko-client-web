@@ -32,13 +32,6 @@ return (
       </span>
     }
 
-    <div className="blanko">Blanko.</div>
-    <div className="blanko-small">B.</div>
-
-    <ProjectsList isFavorite className="favorite" label="favorites" />
-    <ProjectsList label="projects" />
-
-    <div className="bottom-bar">
       {/* eslint-disable */}
       <span className="icon logout-icon" onClick={logout}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A848F" strokeWidth="3" strokeLinecap="square" strokeLinejoin="arcs"><path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9"/></svg>
@@ -50,14 +43,13 @@ return (
       </Link>
       {/* eslint-enable */}
     </div>
-</div>
-)
+  )
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-projects: projectReducer.projects,
-isSidebarShown: projectReducer.isSidebarShown,
-userId: projectReducer.userId
+  projects: projectReducer.projects,
+  isSidebarShown: projectReducer.isSidebarShown,
+  userId: projectReducer.userId
 })
 
 export default connect(mapStateToProps, { showSidebar })(SideBar)

@@ -28,9 +28,10 @@ class TasksContainer extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
+    const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
     const { getSingleProject, fetchTasks } = this.props
-    const { projectId } = this.props.urlParams
 
+<<<<<<< HEAD
     console.log({urlParams: this.props.urlParams})
 
     // const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
@@ -51,6 +52,13 @@ class TasksContainer extends Component {
     }
 
     return true
+=======
+    if (hasSelectedProject) {
+      getSingleProject(hasSelectedProject)
+      fetchTasks(hasSelectedProject)
+    }
+
+>>>>>>> 1f3290325d1b33182bd940865c79983ae126df68
   }
 
   componentWillUnmount() {
@@ -86,7 +94,7 @@ class TasksContainer extends Component {
     const isThereAnActiveTask = activeTask !== undefined
 
     return (
-      <div className={`home-container tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
+      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
         {
           window.innerWidth < 400 &&
           <div onClick={showSidebar} className="hamburger-icon-sidebar">
@@ -97,7 +105,7 @@ class TasksContainer extends Component {
         {
           projectTitle !== undefined
           ? <>
-            <div className="home-container-title" ref={this.tasksContainerTitle}>
+            <div className="tasks-container-title" ref={this.tasksContainerTitle}>
               <h1>{projectTitle}</h1>
               <p>{projectDescription}</p>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { withRouter, Route } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import * as actions from '../../actions'
 
 // Components
@@ -10,8 +10,6 @@ import TasksContainer from '../../components/TasksContainer'
 import AddProjectModal from '../../components/AddProjectModal'
 import TaskDetail from '../../components/TaskDetail'
 import VerificationModal from '../../components/VerificationModal'
-import Settings from '../../components/Settings'
-import SadFace from '../../assets/sad-face'
 
 // Styles
 import './Home.scss'
