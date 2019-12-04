@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTasks, getSingleProject, showSidebar } from '../../actions'
+import { fetchTasks, getSingleProject, showSidebar, fetchAccumulatedProjectTime } from '../../actions'
 
 // Components
 import FilterBar from '../FilterBar'
@@ -29,11 +29,12 @@ class TasksContainer extends Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
     const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
-    const { getSingleProject, fetchTasks } = this.props
+    const { getSingleProject, fetchTasks, fetchAccumulatedProjectTime } = this.props
 
     if (hasSelectedProject) {
       getSingleProject(hasSelectedProject)
       fetchTasks(hasSelectedProject)
+      fetchAccumulatedProjectTime(hasSelectedProject)
     }
 
   }
@@ -83,7 +84,8 @@ class TasksContainer extends Component {
       projectTitle,
       projectDescription,
       activeTask,
-      showSidebar
+      showSidebar,
+      accumulatedTime
     } = this.props
 
     const { isFilterBarSticky, filterStatus, searchQuery } = this.state
@@ -98,6 +100,8 @@ class TasksContainer extends Component {
             <img src={require('../../assets/icons/hamburger-icon.svg')} alt="icon to show sidebar" />
           </div>
         }
+
+        accumulatedTime: { accumulatedTime }
 
         {
           projectTitle !== undefined
@@ -149,7 +153,8 @@ TasksContainer.propTypes = {
 const mapStateToProps = ({ projectReducer }) => ({
   projectTitle: projectReducer.activeProject.projectTitle,
   projectDescription: projectReducer.activeProject.projectDescription,
-  activeTask: projectReducer.activeTask
+  activeTask: projectReducer.activeTask,
+  accumulatedTime: projectReducer.accumulatedTime
 })
 
-export default connect(mapStateToProps, { fetchTasks, getSingleProject, showSidebar })(TasksContainer)
+export default connect(mapStateToProps, { fetchTasks, getSingleProject, showSidebar, fetchAccumulatedProjectTime })(TasksContainer)

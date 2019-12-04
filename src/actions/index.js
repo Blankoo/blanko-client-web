@@ -44,7 +44,7 @@ export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/pr
     })
   })
 
-export function setAllTasks(k) {
+export function setAllTasks() {
   return (dispatch) => {
     http.get(`${config.apiUrl}/tasks`)
       .then(resolved => {
@@ -354,4 +354,16 @@ export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
         payload: resolved.data
       })
     })
+}
+
+export function fetchAccumulatedProjectTime(projectId) {
+  return dispatch => http.get(`${config.apiUrl}/timemeasurements/all/${projectId}/accumulated`)
+    .then((resolved) => {
+      console.log('fetchAccumulatedProjectTime...', resolved)
+      dispatch({
+        type: types.ACCUMULATED_PROJECT,
+        payload: resolved.data
+      })
+    })
+
 }
