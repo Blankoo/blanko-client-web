@@ -1,6 +1,8 @@
 $transitionDelay: 1200ms;
 
 .login {
+  background-color: #fbfbfb;
+
   .blanko {
     font-size: 32px;
     color: #7A848F;
@@ -25,7 +27,7 @@ $transitionDelay: 1200ms;
     margin-top: 170px;
     width: 282px;
     position: relative;
-    background: var(--white);
+    background: #fbfbfb;
   }
 
   input {
@@ -98,7 +100,7 @@ $transitionDelay: 1200ms;
     position: absolute;
     top: 0;
     transform: translateX(40vw);
-    transition: $transitionDelay ease-out;
+    transition: transform $transitionDelay ease-out;
     will-change: transform;
 
     &.login-success {

@@ -20,12 +20,14 @@ class TaskList extends React.Component {
       open: !props.deleted
     }
   }
+
   filterByQuery = (task) => {
-    const { title, subTitle, status } = task
+    const { title, subTitle } = task
     const { searchQuery } = this.props
 
     return (
-      title.toLowerCase().includes(searchQuery) || subTitle.toLowerCase().includes(searchQuery)
+      title.toLowerCase().includes(searchQuery) || 
+      subTitle.toLowerCase().includes(searchQuery)
     )
   }
 

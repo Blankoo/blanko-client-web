@@ -100,13 +100,16 @@ export const addProject = projectData => dispatch => http.post(`${config.apiUrl}
     })
   })
 
-export const getSingleProject = id => dispatch => http.get(`${config.apiUrl}/projects/${id}`)
-  .then((resolved) => {
-    dispatch({
-      type: types.SET_PROJECT_DATA,
-      payload: resolved.data
+export const getSingleProject = id => {
+  console.log('getSingleProject... ', id)
+  return dispatch => http.get(`${config.apiUrl}/projects/${id}`)
+    .then((resolved) => {
+      dispatch({
+        type: types.SET_PROJECT_DATA,
+        payload: resolved.data
+      })
     })
-  })
+}
 
 export const addTask = (taskData, activeProjectId) => dispatch => http.post(`${config.apiUrl}/projects/add/${activeProjectId}`, taskData)
   .then((resolved) => {

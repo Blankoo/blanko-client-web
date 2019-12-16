@@ -28,39 +28,33 @@ class TasksContainer extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-    const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
-    const { getSingleProject, fetchTasks, fetchAccumulatedProjectTime } = this.props
+    const { getSingleProject, fetchTasks } = this.props
+    const { projectId } = this.props.urlParams
 
-    if (hasSelectedProject) {
-      getSingleProject(hasSelectedProject)
-      fetchTasks(hasSelectedProject)
-      fetchAccumulatedProjectTime(hasSelectedProject)
+    console.log({urlParams: this.props.urlParams})
+
+    // const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
+    // if (hasSelectedProject) {
+      getSingleProject(projectId)
+      fetchTasks(projectId)
+    // }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getSingleProject, fetchTasks } = this.props
+
+    console.log({urlParams: this.props.urlParams})
+
+    if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
+      getSingleProject(this.props.urlParams.projectId)
+      fetchTasks(this.props.urlParams.projectId)
     }
 
+    return true
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  handleScroll = () => {
-    // const scrollOffset = this.tasksContainerTitle.current.clientHeight
-    // const outerHeights = 64
-    // const totalNodeOffset = scrollOffset + outerHeights
-
-    // if (window.scrollY < totalNodeOffset) {
-    //   this.setState({
-    //     isFilterBarSticky: false
-    //   }, () => {
-    //     document.body.style.paddingTop = 0
-    //   })
-    // } else if (window.scrollY > totalNodeOffset) {
-    //   this.setState({
-    //     isFilterBarSticky: true
-    //   }, () => {
-    //     document.body.style.paddingTop = outerHeights + 'px'
-    //   })
-    // }
   }
 
   handleTaskSearch = (e) => {
@@ -93,7 +87,7 @@ class TasksContainer extends Component {
     const isThereAnActiveTask = activeTask !== undefined
 
     return (
-      <div className={`tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
+      <div className={`home-container tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
         {
           window.innerWidth < 400 &&
           <div onClick={showSidebar} className="hamburger-icon-sidebar">
@@ -106,7 +100,7 @@ class TasksContainer extends Component {
         {
           projectTitle !== undefined
           ? <>
-            <div className="tasks-container-title" ref={this.tasksContainerTitle}>
+            <div className="home-container-title" ref={this.tasksContainerTitle}>
               <h1>{projectTitle}</h1>
               <p>{projectDescription}</p>
             </div>
@@ -132,10 +126,9 @@ class TasksContainer extends Component {
               filterStatus={filterStatus}
               deleted
             />
+
             </>
-          : <div className="sadface-container">
-            <SadFace/>
-          </div>
+          : <div>Project does not exist...</div>
         }
       </div>
     )
