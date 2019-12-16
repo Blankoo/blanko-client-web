@@ -101,15 +101,17 @@ class TasksContainer extends Component {
         }
 
         {
-          secondsToHourMinuteSecond(accumulatedTime / 1000)
-        }
-
-        {
           projectTitle !== undefined
           ? <>
-            <div className="home-container-title" ref={this.tasksContainerTitle}>
-              <h1>{projectTitle}</h1>
-              <p>{projectDescription}</p>
+            <div className="tasks-container-title" ref={this.tasksContainerTitle}>
+              <div>
+                <h1>{projectTitle}</h1>
+                <p>{projectDescription}</p>
+              </div>
+
+              <div className="formatted-time">
+                  {secondsToHourMinuteSecond(accumulatedTime / 1000)}
+              </div>
             </div>
 
             <FilterBar
