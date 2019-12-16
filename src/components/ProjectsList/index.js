@@ -8,24 +8,23 @@ import {
   deleteProject,
   updateProject,
   toggleModal,
-  setAllTasks
+  setAllTasks,
+  fetchAccumulatedProjectTime
 } from '../../actions'
 
 // Components
 import ProjectKebabMenu from './ProjectKebabMenu'
-
-import { DELETE_PROJECT } from '../../contstants/actionTypes'
-
 
 // Styles
 import './ProjectsList.scss'
 
 class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
-    const { fetchTasks, setSelectedProject } = this.props
+    const { fetchTasks, setSelectedProject, fetchAccumulatedProjectTime } = this.props
 
     fetchTasks(project._id)
     setSelectedProject(project)
+    fetchAccumulatedProjectTime(project._id)
   }
 
   render() {
@@ -84,8 +83,7 @@ class ProjectsList extends React.PureComponent {
                     {...{
                       toggleModal,
                       updateProject,
-                      projectId: project._id,
-                      DELETE_PROJECT
+                      projectId: project._id
                     }}
                   />
                 </li>
@@ -127,5 +125,6 @@ export default connect(mapStateToProps, {
   deleteProject,
   updateProject,
   toggleModal,
-  setAllTasks
+  setAllTasks,
+  fetchAccumulatedProjectTime
 })(ProjectsList)
