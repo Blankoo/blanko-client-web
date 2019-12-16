@@ -32,6 +32,7 @@ class TasksContainer extends Component {
     const { getSingleProject, fetchTasks, fetchAccumulatedProjectTime } = this.props
 
     if (hasSelectedProject) {
+      console.log('did mount hasSelectedProject...', hasSelectedProject)
       getSingleProject(hasSelectedProject)
       fetchTasks(hasSelectedProject)
       fetchAccumulatedProjectTime(hasSelectedProject)

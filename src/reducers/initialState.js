@@ -10,5 +10,5 @@ export default {
   isVerificationShown: false,
   activeTask: undefined,
   isSidebarShown: false,
-  accumulatedTime: 0
+  accumulatedTime: undefined
 }
