@@ -4,6 +4,7 @@ import './Retainer.scss'
 function Retainer(props) {
   const { accumulatedTime } = props
   return (
+    (accumulatedTime > 0) &&
     <div className="retainer-container">
       <div>
         { (accumulatedTime !== undefined) && time.secondsToHourMinuteSecond(accumulatedTime / 1000) }
