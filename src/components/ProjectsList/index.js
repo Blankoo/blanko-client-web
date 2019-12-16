@@ -9,24 +9,28 @@ import {
   deleteProject,
   updateProject,
   toggleModal,
-  setAllTasks
+  setAllTasks,
+  fetchAccumulatedProjectTime
 } from '../../actions'
 
 // Components
 import ProjectKebabMenu from './ProjectKebabMenu'
-
-import { DELETE_PROJECT } from '../../contstants/actionTypes'
-
 
 // Styles
 import './ProjectsList.scss'
 
 class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
-    const { fetchTasks, setSelectedProject } = this.props
-    // this.props.history.push(`/p/${project._id}`)
-    // fetchTasks(project._id)
-    // setSelectedProject(project)
+    const {
+      fetchTasks,
+      setSelectedProject,
+      fetchAccumulatedProjectTime
+    } = this.props
+
+    this.props.history.push(`/p/${project._id}`)
+    fetchTasks(project._id)
+    setSelectedProject(project)
+    fetchAccumulatedProjectTime(project._id)
   }
 
   render() {
@@ -44,58 +48,46 @@ class ProjectsList extends React.PureComponent {
 
     return (
       projects !== undefined && (
-
         <div className={`projects-list ${className}`}>
-        {/* {
-          isFavorite &&
-            <button
-              className={`button tertiary lg full-width inbox-btn ${activeProjectId === 'all' ? 'active' : ''}`}
-              type="button"
-              onClick={setAllTasks}
-            >
-              All
-            </button>
-        } */}
 
-        <div className="projects-list-title">
-          <div className="label">{ label }</div>
-          {
-            !isFavorite && (
-              <span className="add-project" onClick={toggleAddProjectModal}>
-                <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
-              </span>
-            )
-          }
-        </div>
-        <ul>
-        {
-          projects
-            .filter(project => project.favorite === isFavorite)
-            .map((project, idx) => {
-              const { projectTitle } = project
-
-              return (
-                <li
-                  key={idx}
-                  className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
-                >
-                  {/* <span onClick={() => this.selectProject(project)} >{ projectTitle }</span> */}
-                  <Link to={`/home/p/${project._id}`}>{projectTitle}</Link>
-
-                  <ProjectKebabMenu
-                    {...{
-                      toggleModal,
-                      updateProject,
-                      projectId: project._id,
-                      DELETE_PROJECT
-                    }}
-                  />
-                </li>
+          <div className="projects-list-title">
+            <div className="label">{ label }</div>
+            {
+              !isFavorite && (
+                <span className="add-project" onClick={toggleAddProjectModal}>
+                  <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
+                </span>
               )
-            })
-        }
-        </ul>
-      </div>
+            }
+          </div>
+          <ul>
+          {
+            projects
+              .filter(project => project.favorite === isFavorite)
+              .map((project, idx) => {
+                const { projectTitle } = project
+
+                return (
+                  <li
+                    key={idx}
+                    className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
+                  >
+                    <Link to={`/home/p/${project._id}`}>{projectTitle}</Link>
+
+                    <ProjectKebabMenu
+                      {...{
+                        toggleModal,
+                        updateProject,
+                        projectId: project._id,
+                        favorite: project.favorite
+                      }}
+                    />
+                  </li>
+                )
+              })
+          }
+          </ul>
+        </div>
       )
     )
   }
@@ -129,5 +121,6 @@ export default connect(mapStateToProps, {
   deleteProject,
   updateProject,
   toggleModal,
-  setAllTasks
+  setAllTasks,
+  fetchAccumulatedProjectTime
 })(ProjectsList)

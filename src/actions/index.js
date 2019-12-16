@@ -44,7 +44,7 @@ export const fetchTasks = projectID => dispatch => http.get(`${config.apiUrl}/pr
     })
   })
 
-export function setAllTasks(k) {
+export function setAllTasks() {
   return (dispatch) => {
     http.get(`${config.apiUrl}/tasks`)
       .then(resolved => {
@@ -194,9 +194,9 @@ export const startTimeMeasurement = (taskId, startMesObj) => {
   }
 }
 
-export function stopTimeMeasurement(taskId, measurementId, endMesObj) {
-  if(taskId !== undefined) {
-    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${taskId}/${measurementId}`, endMesObj)
+export function stopTimeMeasurement(projectId, measurementId, endMesObj) {
+  if (projectId !== undefined) {
+    return dispatch => http.put(`${config.apiUrl}/timemeasurements/update/${projectId}/${measurementId}`, endMesObj)
       .then(resolved => {
         dispatch({
           type: types.STOP_MES,
@@ -233,11 +233,11 @@ export function deleteProject(projectId) {
     const activeProjectId = getState().projectReducer.activeProject._id || projectId
     return http.delete(`${config.apiUrl}/projects/${activeProjectId}`)
       .then(() => {
-        dispatch({
+        window.localStorage.removeItem('PROJ_ID')
+        return dispatch({
           type: types.DELETE_PROJECT,
           payload: { id: activeProjectId }
         })
-        window.localStorage.removeItem('PROJ_ID')
       })
   }
 }
@@ -262,20 +262,14 @@ export function renewTasksArray(newTask) {
 
 export function updateProject(projectId, updateObject) {
   return (dispatch, getState) => {
-    if (updateObject === undefined) {
-      const currentFavStatus = getState().projectReducer.activeProject.favorite
-      updateObject = {
-        favorite: !currentFavStatus
-      }
-    }
-
     const oldProjects = getState().projectReducer.projects
     const newProjects = oldProjects.map((project) => {
       if (project._id === projectId) {
         const updatedproject = {
           ...project,
-          favorite: !project.favorite
+          ...updateObject
         }
+
         return updatedproject
       }
       return project
@@ -354,6 +348,17 @@ export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
     .then((resolved) => {
       dispatch({
         type: types.NEW_MES,
+        payload: resolved.data
+      })
+    })
+}
+
+export function fetchAccumulatedProjectTime(projectId) {
+  return dispatch => http.get(`${config.apiUrl}/timemeasurements/all/${projectId}/accumulated`)
+    .then((resolved) => {
+      console.log('fetchAccumulatedProjectTime...', resolved)
+      dispatch({
+        type: types.ACCUMULATED_PROJECT,
         payload: resolved.data
       })
     })

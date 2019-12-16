@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import './ProjectKebabMenu.scss'
+import { DELETE_PROJECT } from '../../contstants/actionTypes'
 
 
 function ProjectKebabMenu(props) {
-  const { toggleModal, updateProject, projectId, DELETE_PROJECT } = props
+  const { toggleModal, updateProject, projectId, favorite } = props
   const [isShown, setIsShown] = useState(false)
   let container
 
@@ -32,7 +33,7 @@ function ProjectKebabMenu(props) {
         unmountOnExit
       >
         <div className="project-kebab-menu-content" onClick={() => setIsShown(false)}>
-          <div onClick={() => updateProject(projectId) }>Favorite</div>
+          <div onClick={() => updateProject(projectId, { favorite: !favorite }) }>Favorite</div>
           <div className="delete" onClick={() => toggleModal('isVerificationShown', true, DELETE_PROJECT) }>Delete</div>
         </div>
       </CSSTransition>
