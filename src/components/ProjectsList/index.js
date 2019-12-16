@@ -21,18 +21,16 @@ import './ProjectsList.scss'
 
 class ProjectsList extends React.PureComponent {
   selectProject = (project) => {
-// <<<<<<< feature/retainers
-//    const { fetchTasks, setSelectedProject, fetchAccumulatedProjectTime } = this.props
+    const {
+      fetchTasks,
+      setSelectedProject,
+      fetchAccumulatedProjectTime
+    } = this.props
 
-  //  fetchTasks(project._id)
-    //setSelectedProject(project)
-    //fetchAccumulatedProjectTime(project._id)
-  // =======
-    const { fetchTasks, setSelectedProject } = this.props
-    // this.props.history.push(`/p/${project._id}`)
-    // fetchTasks(project._id)
-    // setSelectedProject(project)
-// >>>>>>> master
+    this.props.history.push(`/p/${project._id}`)
+    fetchTasks(project._id)
+    setSelectedProject(project)
+    fetchAccumulatedProjectTime(project._id)
   }
 
   render() {

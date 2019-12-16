@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTasks, getSingleProject, showSidebar, fetchAccumulatedProjectTime } from '../../actions'
+import {
+  fetchTasks,
+  getSingleProject,
+  showSidebar,
+  fetchAccumulatedProjectTime
+} from '../../actions'
 
 // Components
 import FilterBar from '../FilterBar'
 import TaskList from './TaskList'
-import SadFace from '../../assets/sad-face'
+import { time } from '../../utils'
 
 // Styles
 import './TasksContainer.scss'
 
+const { secondsToHourMinuteSecond, totalInSeconds } = time
 class TasksContainer extends Component {
   constructor(props) {
     super(props)
@@ -28,29 +34,28 @@ class TasksContainer extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-    const { getSingleProject, fetchTasks } = this.props
+    const {
+      getSingleProject,
+      fetchTasks,
+      fetchAccumulatedProjectTime
+    } = this.props
     const { projectId } = this.props.urlParams
 
-    console.log({urlParams: this.props.urlParams})
-
-    // const hasSelectedProject = window.localStorage.getItem('PROJ_ID')
-    // if (hasSelectedProject) {
-      getSingleProject(projectId)
-      fetchTasks(projectId)
-    // }
+    getSingleProject(projectId)
+    fetchTasks(projectId)
+    fetchAccumulatedProjectTime(projectId)
   }
 
   componentDidUpdate(prevProps) {
-    const { getSingleProject, fetchTasks } = this.props
-
-    console.log({urlParams: this.props.urlParams})
-
+    const { getSingleProject, fetchTasks, fetchAccumulatedProjectTime } = this.props
     if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
-      getSingleProject(this.props.urlParams.projectId)
-      fetchTasks(this.props.urlParams.projectId)
+      const projectId = this.props.urlParams.projectId;
+      getSingleProject(projectId)
+      fetchTasks(projectId)
+      fetchAccumulatedProjectTime(projectId)
+      return true
     }
-
-    return true
+    return false;
   }
 
   componentWillUnmount() {
@@ -95,7 +100,9 @@ class TasksContainer extends Component {
           </div>
         }
 
-        accumulatedTime: { accumulatedTime }
+        {
+          secondsToHourMinuteSecond(accumulatedTime / 1000)
+        }
 
         {
           projectTitle !== undefined
