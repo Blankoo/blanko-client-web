@@ -362,5 +362,4 @@ export function fetchAccumulatedProjectTime(projectId) {
         payload: resolved.data
       })
     })
-
 }
