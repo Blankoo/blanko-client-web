@@ -94,7 +94,7 @@
     "prefer-spread": 1,
     "prefer-arrow-callback": 2,
     "prefer-const": 1,
-    "react/prop-types": 2,
+    "react/prop-types": 0,
     "react/boolean-prop-naming": [
       "warn",
       {
