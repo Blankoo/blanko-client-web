@@ -66,9 +66,14 @@
       right: 32px;
       width: 24px;
     }
+    
+      &-title {
+        display: block;
+      }
   }
 
-  @media screen and (min-width: 400px) {
+  // @media screen and (min-width: 400px) and (max-width: 800px) {
+  @media screen and (min-width: 800px) {
     &.task-active {
       margin-right: calc(var(--task-detail-width) + 32px);
     }

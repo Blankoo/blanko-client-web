@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: space-between;
   color: var(--text-color-secondary);
+
+  .date {
+    flex: 1;
+  }
 }
 
 .time-measurements {

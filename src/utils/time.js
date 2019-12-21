@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function secondsToHourMinuteSecond(totalSeconds) {
   const hour = Math.floor(totalSeconds / 3600)
   const minute = Math.floor(totalSeconds % 3600 / 60)
@@ -16,3 +17,4 @@ export function totalInSeconds(endTime, startTime) {
 
 export const hoursToSeconds = hours => hours * (60 * 60)
 export const minutesToSeconds = minutes => minutes * 60
+export const getFormattedDate = date => date.toISOString().slice(0, 10)
