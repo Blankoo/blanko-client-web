@@ -24,8 +24,7 @@
   "globals": {},
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb"
+    "plugin:react/recommended"
   ],
   "rules": {
     "jsx-a11y/no-autofocus": "off",
