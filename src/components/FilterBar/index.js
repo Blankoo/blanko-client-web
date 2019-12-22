@@ -1,61 +1,80 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { time } from '../../utils'
+import { fetchTasks } from '../../actions'
 
 // Components
-import Button from '../Button'
 import Input from '../Input'
 
 // Styles
 import './FilterBar.scss'
 
+const { getFormattedDate } = time
+
 function FilterBar(props) {
-  const {
-    isSticky,
-    handleTaskSearch,
-    handleTaskStatusFilter,
-    filterStatus
-  } = props
+    const {
+        isSticky,
+        handleTaskSearch,
+        project,
+        fetchTasks
+    } = props
 
-  const filterButtons = [
-    {
-      text: 'To do',
-      value: 'TODO',
-    },
-    {
-      text: 'Done',
-      value: 'DONE',
-    },
-    {
-      text: 'All',
-      value: 'ALL',
+    const [startDate, setStartDate] = useState(getFormattedDate(new Date(project.createdAt)))
+    const [endDate, setEndDate] = useState(undefined)
+
+    useEffect(() => {
+        const filter = {
+            startDate: new Date(startDate).getTime(),
+            endDate: new Date(endDate).getTime()
+        }
+
+        if (endDate !== undefined) {
+            fetchTasks(project._id, filter)
+        }
+    }, [startDate, endDate, project])
+
+    function getDate(e) {
+        if (e.target.id === 'startDate') {
+            setStartDate(e.target.value)
+        } else if (e.target.id === 'endDate') {
+            setEndDate(e.target.value)
+        }
     }
-  ]
 
-  return (
-    <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
-      {/* {
-        filterButtons.map(({ text, value }, idx) => (
-          <Button
-            text={text}
-            size="md"
-            value={value}
-            variant={value === filterStatus ? 'primary' : 'secondary'}
-            onClick={handleTaskStatusFilter}
-            key={idx}
-          />
-        ))
-      } */}
+    return (
+        <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
+            {
+                ['startDate', 'endDate'].map((inputType) => (
+                    <Input
+                        label={inputType}
+                        key={inputType}
+                        id={inputType}
+                        type="date"
+                        onChange={getDate}
+                        defaultValue={
+                            inputType === 'startDate' ? getFormattedDate(new Date(project.createdAt)) : ''
+                        }
+                    />
+                ))
+            }
 
-      { window.innerWidth > 400 && <Input placeholder="Search" icon="glass" onChange={handleTaskSearch} /> }
-    </div>
-  )
+            {window.innerWidth > 400 && <Input label="Search" icon="glass" onChange={handleTaskSearch} />}
+        </div>
+    )
 }
 
 FilterBar.propTypes = {
-  isSticky: PropTypes.bool,
-  handleTaskSearch: PropTypes.func,
-  handleTaskStatusFilter: PropTypes.func,
-  filterStatus: PropTypes.string
+    isSticky: PropTypes.bool,
+    handleTaskSearch: PropTypes.func,
+    handleTaskStatusFilter: PropTypes.func,
+    filterStatus: PropTypes.string
 }
 
-export default FilterBar
+function mapStateToProps({ projectReducer }) {
+    return {
+        project: projectReducer.activeProject
+    }
+}
+
+export default connect(mapStateToProps, { fetchTasks })(FilterBar)

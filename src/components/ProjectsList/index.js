@@ -42,8 +42,7 @@ class ProjectsList extends React.PureComponent {
       isFavorite,
       activeProjectId,
       updateProject,
-      toggleModal,
-      setAllTasks
+      toggleModal
     } = this.props
 
     return (
@@ -63,7 +62,7 @@ class ProjectsList extends React.PureComponent {
           <ul>
           {
             projects
-              .filter(project => project.favorite === isFavorite)
+              .filter((project) => project.favorite === isFavorite)
               .map((project, idx) => {
                 const { projectTitle } = project
 
@@ -72,7 +71,7 @@ class ProjectsList extends React.PureComponent {
                     key={idx}
                     className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                   >
-                    <Link to={`/home/p/${project._id}`}>{projectTitle}</Link>
+                    <Link to={`/home/${project._id}`}>{projectTitle}</Link>
 
                     <ProjectKebabMenu
                       {...{

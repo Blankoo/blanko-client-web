@@ -17,48 +17,47 @@ import SadFace from '../../assets/sad-face'
 import './Home.scss'
 
 class Home extends Component {
-  componentDidMount() {
-    const { fetchProjects } = this.props
-    fetchProjects()
-  }
+    componentDidMount() {
+        const { fetchProjects } = this.props
+        fetchProjects()
+    }
 
-  render() {
-    const {
-      activeProject,
-      deleteProject,
-    } = this.props
+    render() {
+        const {
+            activeProject,
+            deleteProject,
+        } = this.props
 
-    return (
-      <div className="home">
-        <Sidebar />
+        return (
+            <div className="home">
+                <Sidebar />
 
-        {/* home routes for view */}
-        <Route exact path="/home/p/:projectId/" render={props => <TasksContainer urlParams={props.match.params} />}/>
-        <Route exact path="/home/settings" render={props => <Settings />} />
-        <Route exact path="/home" render={props => (
-          <div className="home-container sadface-container">
-            <SadFace/>
-          </div>
-        )} />
+                {/* home routes for view */}
+                <Route exact path="/home/:projectId/" render={(props) => <TasksContainer urlParams={props.match.params} />} />
+                <Route exact path="/home/settings" render={() => <Settings />} />
+                <Route exact path="/home" render={() => (
+                    <div className="home-container sadface-container">
+                        <SadFace />
+                    </div>
+                )}
+                />
 
-        <TaskDetail />
-        <AddProjectModal/>
+                <TaskDetail />
+                <AddProjectModal />
 
-        { activeProject !== undefined && <VerificationModal title="Are you sure?" handler={() => deleteProject(activeProject._id)}/> }
-      </div>
-    )
-  }
+                {activeProject !== undefined && <VerificationModal title="Are you sure?" handler={() => deleteProject(activeProject._id)} />}
+            </div>
+        )
+    }
 }
 
 Home.propTypes = {
-  fetchProjects: PropTypes.func,
-  toggleAddProjectModal: PropTypes.func,
-  addProject: PropTypes.func
+    fetchProjects: PropTypes.func
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  activeProject: projectReducer.activeProject,
-  activeTask: projectReducer.activeTask
+    activeProject: projectReducer.activeProject,
+    activeTask: projectReducer.activeTask
 })
 
 export default withRouter(connect(mapStateToProps, actions)(Home))

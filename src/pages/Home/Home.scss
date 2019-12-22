@@ -4,22 +4,22 @@
 }
 
 .home-container {
-    margin-left: var(--sidebar-width);
-    flex: 2;
-    background-color: var(--white);
-    transition: margin ease-in-out .2s;
+  margin-left: var(--sidebar-width);
+  flex: 2;
+  background-color: var(--white);
+  transition: margin ease-in-out .2s;
 
-    &-title {
-      margin-bottom: 32px;
+  &-title {
+    margin-bottom: 32px;
 
-      h1 {
-        margin-bottom: 16px;
-      }
-
-      p {
-        max-width: 600px;
-      }
+    h1 {
+      margin-bottom: 16px;
     }
+
+    p {
+      max-width: 600px;
+    }
+  }
 }
 
 .sadface-container {

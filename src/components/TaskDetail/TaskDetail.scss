@@ -1,123 +1,123 @@
 .task-detail {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  background: var(--strong-white);
-  box-shadow: var(--box-shadow) !important;
-  border-radius: 8px;
-  margin: 32px 32px 32px 0;
-  padding: 40px 24px 16px 24px;
-  min-width: var(--task-detail-width);
-  height: calc(100vh - 64px);
-  transition: transform 200ms;
-  position: fixed;
-  right: 0;
-  overflow-y: auto;
-  z-index: 6;
-  max-width: 440px;
-
-  &.closed {
-    transform: translateX(99%);    
-  } 
-
-  .close-button {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-  }
-
-  .close {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    user-select: none;
-    cursor: pointer;
     display: flex;
-  }
+    flex: 1;
+    flex-direction: column;
+    background: var(--strong-white);
+    box-shadow: var(--box-shadow) !important;
+    border-radius: 8px;
+    margin: 32px 32px 32px 0;
+    padding: 40px 24px 16px 24px;
+    min-width: var(--task-detail-width);
+    height: calc(100vh - 64px);
+    transition: transform 200ms;
+    position: fixed;
+    right: 0;
+    overflow-y: auto;
+    z-index: 6;
+    max-width: 440px;
 
-  &-top {
-    .title {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-  }
-
-  @media screen and (min-width: 400px) and (max-width: 800px) {
-    display: none;
-  }
-  
-  @media screen and (max-width: 400px) {
-    padding: 24px;
-    width: 100%;
-    height: 100vh;
-    margin:0;
-    min-width: inherit;
-  
     &.closed {
-      transform: translateX(110%);
+        transform: translateX(99%);
+    }
+
+    .close-button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
     }
 
     .close {
-      transform: scale(1.5);
-      top: 32px;
-      right: 24px;
-    }
-  }
-  
-  &-main-container {
-    flex: 1;
-  }
-
-  &-bottom {
-    margin-top: 16px;
-    button:first-child {
-      margin-right: 8px;
-    }
-  }
-
-  .task-description {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-
-    .button {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        user-select: none;
+        cursor: pointer;
+        display: flex;
     }
 
-    .label {
-      margin-bottom: 8px;
+    &-top {
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 16px;
+        }
     }
 
-    textarea {
-      resize: none;
-      display: inline-flex;
-      flex: 1;
-      border: none;
-      border-radius: 4px;
-      background: var(--white-second);
-      font-weight: 600;
-      font-size: 12px;
-      color: var(--text-color-secondary);
-      outline: none;
-      width: 100%;
-      padding: 8px;
+    @media screen and (min-width: 400px) and (max-width: 800px) {
+        display: none;
     }
-  }
+
+    @media screen and (max-width: 400px) {
+        padding: 24px;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        min-width: inherit;
+
+        &.closed {
+            transform: translateX(110%);
+        }
+
+        .close {
+            transform: scale(1.5);
+            top: 32px;
+            right: 24px;
+        }
+    }
+
+    &-main-container {
+        flex: 1;
+    }
+
+    &-bottom {
+        margin-top: 16px;
+
+        button:first-child {
+            margin-right: 8px;
+        }
+    }
+
+    .task-description {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .label {
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            resize: none;
+            display: inline-flex;
+            flex: 1;
+            border: none;
+            border-radius: 4px;
+            background: var(--white-second);
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-color-secondary);
+            outline: none;
+            width: 100%;
+            padding: 8px;
+        }
+    }
 
 }
 
 .fade-enter {
-  opacity: 0;
-  top: 8px;
+    opacity: 0;
+    top: 8px;
 }
 
 .fade-enter.fade-enter-active {
-  opacity: 1;
-  top: 0px;
-  // transition: 220ms ease-in;
+    opacity: 1;
+    top: 0px;
+    // transition: 220ms ease-in;
 }
-
