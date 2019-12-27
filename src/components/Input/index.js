@@ -1,53 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 // Styles
 import './Input.scss'
 
-function Input(props) {
+function useInput(props = {}) {
     const {
         icon,
         placeholder,
         type,
         label,
-        onChange,
         id,
         defaultValue
     } = props
+    const [value, setValue] = useState(defaultValue)
 
-    return (
-        <div className="input">
+    const inputField = <div className="input">
+        {
+            label && <label htmlFor={id} className="label">{label}</label>
+        }
+
+        <div className="input-wrapper">
             {
-                label && <label htmlFor={id} className="label">{label}</label>
+                icon && (
+                    <span className="icon">
+                        <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
+                    </span>
+                )
             }
 
-            <div className="input-wrapper">
-                {
-                    icon && (
-                        <span className="icon">
-                            <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
-                        </span>
-                    )
-                }
-
-                <input
-                    name={id}
-                    id={id}
-                    type={type}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    defaultValue={defaultValue}
-                />
-            </div>
+            <input
+                value={value}
+                name={id}
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                onChange={(e) => setValue(e.target.value)}
+            />
         </div>
-    )
+    </div>
+
+    return [value, inputField, setValue]
 }
 
-Input.defaultProps = {
+useInput.defaultProps = {
     type: 'text'
 }
 
-Input.propTypes = {
+useInput.propTypes = {
     icon: PropTypes.string,
     placeholder: PropTypes.string,
     type: PropTypes.string,
@@ -56,4 +56,4 @@ Input.propTypes = {
     id: PropTypes.string
 }
 
-export default Input
+export default useInput

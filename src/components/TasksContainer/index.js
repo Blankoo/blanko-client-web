@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useDebugValue } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
@@ -35,21 +35,35 @@ class TasksContainer extends Component {
     componentDidMount() {
         console.log('task container mounted...')
         window.addEventListener('scroll', this.handleScroll)
+        const { projectId } = this.props.urlParams
+        this.updateProject(projectId)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
+            const projectId = this.props.urlParams.projectId
+            this.updateProject(projectId)
+            return true
+        }
+
+        return false
+    }
+
+    updateProject(projectId) {
         const {
             getSingleProject,
             fetchTasks,
             fetchAccumulatedProjectTime
         } = this.props
-        const { projectId } = this.props.urlParams
 
         getSingleProject(projectId)
             .then((project) => {
-                fetchTasks(projectId, {
+                fetchTasks(project._id, {
                     startDate: new Date(project.createdAt).getTime(),
                     endDate: new Date().getTime()
                 })
 
-                return projectId
+                return project._id
             })
             .then(fetchAccumulatedProjectTime)
             .catch((err) => {
@@ -57,29 +71,15 @@ class TasksContainer extends Component {
             })
     }
 
-    componentDidUpdate(prevProps) {
-        const { getSingleProject, fetchTasks, fetchAccumulatedProjectTime } = this.props
-        if (this.props.urlParams.projectId !== prevProps.urlParams.projectId) {
-            const projectId = this.props.urlParams.projectId
-            getSingleProject(projectId)
-            fetchTasks(projectId)
-            fetchAccumulatedProjectTime(projectId)
-            return true
-        }
-
-        return false
-    }
-
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll)
     }
 
-    handleTaskSearch = (e) => {
-        const query = e.target.value.toLowerCase()
-
-        this.setState({
-            searchQuery: query
-        })
+    handleTaskSearch = (searchQuery) => {
+        if (searchQuery !== undefined) {
+            console.log('search bla bla', { searchQuery })
+            this.setState({ searchQuery })
+        }
     }
 
     handleTaskStatusFilter = (e) => {

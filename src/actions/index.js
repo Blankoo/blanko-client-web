@@ -108,10 +108,11 @@ export const addProject = (projectData) => (dispatch) => http.post(`${config.api
         return resolved.data
     })
 
-export const getSingleProject = (id) => {
+export function getSingleProject(id) {
     console.log('getSingleProject... ', id)
     return (dispatch) => http.get(`${config.apiUrl}/projects/${id}`)
         .then((resolved) => {
+            console.log('single project data', resolved)
             dispatch({
                 type: types.SET_PROJECT_DATA,
                 payload: resolved.data

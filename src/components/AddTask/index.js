@@ -5,7 +5,8 @@ import { addTask } from '../../actions'
 
 // Components
 // import Button from '../Button'
-import Input from '../Input'
+// import Input from '../Input'
+import useInput from '../Input'
 
 // Styles
 import './AddTask.scss'
@@ -49,12 +50,12 @@ class AddTask extends React.Component {
 
     return (
       <div className="task-small add-task" onKeyUp={e => e.key === 'Enter' && this.addLocalTask()}>
-        <Input
+        {/* <Input
           type="text"
           id="title"
           value={title}
           onChange={this.setInputState}
-        />
+        /> */}
       </div>
     )
   }

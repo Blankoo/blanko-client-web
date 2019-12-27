@@ -5,7 +5,7 @@ import { time } from '../../utils'
 import { fetchTasks } from '../../actions'
 
 // Components
-import Input from '../Input'
+import useInput from '../Input'
 
 // Styles
 import './FilterBar.scss'
@@ -20,46 +20,38 @@ function FilterBar(props) {
         fetchTasks
     } = props
 
-    const [startDate, setStartDate] = useState(getFormattedDate(new Date(project.createdAt)))
-    const [endDate, setEndDate] = useState(undefined)
+    // const [startDate, setStartDate] = useState(getFormattedDate(new Date(project.createdAt)))
+    // const [endDate, setEndDate] = useState(undefined)
+    const [startDate, startDateField, setStartDateValue] = useInput({ type: 'date', label: 'Start date' })
+    const [endDate, endDateField] = useInput({ type: 'date', label: 'End date' })
+    const [searchInput, searchInputField] = useInput({ label: 'Search'})
+
+    useEffect(() => {
+        handleTaskSearch(searchInput)
+    }, [searchInput])
+
+    useEffect(() => {
+        const initStartDateValue = getFormattedDate(new Date(project.createdAt))
+        setStartDateValue(initStartDateValue)
+    }, [project])
 
     useEffect(() => {
         const filter = {
             startDate: new Date(startDate).getTime(),
             endDate: new Date(endDate).getTime()
         }
+        console.log('filter bar updated...', project.projectTitle, filter)
 
         if (endDate !== undefined) {
             fetchTasks(project._id, filter)
         }
-    }, [startDate, endDate, project])
-
-    function getDate(e) {
-        if (e.target.id === 'startDate') {
-            setStartDate(e.target.value)
-        } else if (e.target.id === 'endDate') {
-            setEndDate(e.target.value)
-        }
-    }
+    }, [project, startDate, endDate])
 
     return (
         <div className={`filter-bar ${isSticky ? 'sticky' : ''}`}>
-            {
-                ['startDate', 'endDate'].map((inputType) => (
-                    <Input
-                        label={inputType}
-                        key={inputType}
-                        id={inputType}
-                        type="date"
-                        onChange={getDate}
-                        defaultValue={
-                            inputType === 'startDate' ? getFormattedDate(new Date(project.createdAt)) : ''
-                        }
-                    />
-                ))
-            }
-
-            {window.innerWidth > 400 && <Input label="Search" icon="glass" onChange={handleTaskSearch} />}
+            {startDateField}
+            {endDateField}
+            {window.innerWidth > 400 && searchInputField}
         </div>
     )
 }
