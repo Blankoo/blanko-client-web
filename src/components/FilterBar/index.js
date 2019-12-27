@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { time } from '../../utils'
@@ -20,10 +20,8 @@ function FilterBar(props) {
         fetchTasks
     } = props
 
-    // const [startDate, setStartDate] = useState(getFormattedDate(new Date(project.createdAt)))
-    // const [endDate, setEndDate] = useState(undefined)
     const [startDate, startDateField, setStartDateValue] = useInput({ type: 'date', label: 'Start date' })
-    const [endDate, endDateField] = useInput({ type: 'date', label: 'End date' })
+    const [endDate, endDateField, setEndDateValue] = useInput({ type: 'date', label: 'End date' })
     const [searchInput, searchInputField] = useInput({ label: 'Search'})
 
     useEffect(() => {
@@ -32,7 +30,9 @@ function FilterBar(props) {
 
     useEffect(() => {
         const initStartDateValue = getFormattedDate(new Date(project.createdAt))
+        const initEndDatevalue = getFormattedDate(new Date())
         setStartDateValue(initStartDateValue)
+        setEndDateValue(initEndDatevalue)
     }, [project])
 
     useEffect(() => {
@@ -40,11 +40,7 @@ function FilterBar(props) {
             startDate: new Date(startDate).getTime(),
             endDate: new Date(endDate).getTime()
         }
-        console.log('filter bar updated...', project.projectTitle, filter)
-
-        if (endDate !== undefined) {
-            fetchTasks(project._id, filter)
-        }
+        fetchTasks(project._id, filter)
     }, [project, startDate, endDate])
 
     return (
