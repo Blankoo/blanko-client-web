@@ -3,6 +3,7 @@ import {time} from '../../utils'
 import './Retainer.scss'
 function Retainer(props) {
   const { accumulatedTime } = props
+
   return (
     (accumulatedTime > 0) &&
     <div className="retainer-container">

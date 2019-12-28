@@ -1,59 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 // Styles
 import './Input.scss'
 
-function Input(props){
-  const {
-    icon,
-    placeholder,
-    type,
-    label,
-    onChange,
-    id,
-    value
-  } = props
+function useInput(props = {}) {
+    const {
+        icon,
+        placeholder,
+        type,
+        label,
+        id,
+        defaultValue
+    } = props
+    const [value, setValue] = useState(defaultValue)
 
-  return (
-    <div className="input">
-      {
-        label && <label htmlFor={id} className="label">{label}</label>
-      }
-
-      <div className="input-wrapper">
+    const inputField = <div className="input">
         {
-          icon && (
-            <span className="icon">
-              <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
-            </span>
-          )
+            label && <label htmlFor={id} className="label">{label}</label>
         }
 
-        <input
-          name={id}
-          id={id}
-          type={type}
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-        />
-      </div>
+        <div className="input-wrapper">
+            {
+                icon && (
+                    <span className="icon">
+                        <img src={require(`../../assets/icons/${icon}.svg`)} alt={icon} />
+                    </span>
+                )
+            }
+
+            <input
+                value={value}
+                name={id}
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                onChange={(e) => setValue(e.target.value)}
+            />
+        </div>
     </div>
-  )
+
+    return [value, inputField, setValue]
 }
 
-Input.defaultProps = {
-  type: 'text'
+useInput.defaultProps = {
+    type: 'text'
 }
 
-Input.propTypes = {
-  icon: PropTypes.string,
-  placeholder: PropTypes.string,
-  type: PropTypes.string,
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  id: PropTypes.string
+useInput.propTypes = {
+    icon: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    id: PropTypes.string
 }
 
-export default Input
+export default useInput

@@ -37,13 +37,11 @@ class ProjectsList extends React.PureComponent {
     const {
       projects,
       className,
-      toggleAddProjectModal,
       label,
       isFavorite,
       activeProjectId,
       updateProject,
-      toggleModal,
-      setAllTasks
+      toggleModal
     } = this.props
 
     return (
@@ -54,16 +52,16 @@ class ProjectsList extends React.PureComponent {
             <div className="label">{ label }</div>
             {
               !isFavorite && (
-                <span className="add-project" onClick={toggleAddProjectModal}>
+                <Link className="add-project" to="/project">
                   <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
-                </span>
+                </Link>
               )
             }
           </div>
           <ul>
           {
             projects
-              .filter(project => project.favorite === isFavorite)
+              .filter((project) => project.favorite === isFavorite)
               .map((project, idx) => {
                 const { projectTitle } = project
 
@@ -72,7 +70,7 @@ class ProjectsList extends React.PureComponent {
                     key={idx}
                     className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                   >
-                    <Link to={`/home/p/${project._id}`}>{projectTitle}</Link>
+                    <Link to={`/project/${project._id}`}>{projectTitle}</Link>
 
                     <ProjectKebabMenu
                       {...{

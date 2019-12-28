@@ -24,8 +24,7 @@
   "globals": {},
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb"
+    "plugin:react/recommended"
   ],
   "rules": {
     "jsx-a11y/no-autofocus": "off",
@@ -94,7 +93,7 @@
     "prefer-spread": 1,
     "prefer-arrow-callback": 2,
     "prefer-const": 1,
-    "react/prop-types": 2,
+    "react/prop-types": 0,
     "react/boolean-prop-naming": [
       "warn",
       {

@@ -16,33 +16,31 @@ const STORE = configureStore()
 STORE.subscribe(() => console.info(STORE.getState()))
 
 function isAuthenticated() {
-  const token = window.localStorage.getItem('USER_TOK')
-  const authenticated = STORE.getState().authenticationReducer.authenticated
+    const token = window.localStorage.getItem('USER_TOK')
+    const authenticated = STORE.getState().authenticationReducer.authenticated
 
-  return (token && authenticated)
+    return (token && authenticated)
 }
 
 const GuardedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (
-      isAuthenticated()
-      ? <Component {...props} />
-      : <Redirect to="/login" />
-    )}
-  >
-  </Route>
+    <Route
+        {...rest}
+        render={(props) => (
+            isAuthenticated()
+                ? <Component {...props} />
+                : <Redirect to="/login" />
+        )}
+    />
 )
 
 ReactDOM.render(
-  <Provider store={STORE}>
-    <BrowserRouter>
-      <>
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-        <GuardedRoute path="/home" component={Home} />
-        <Route exact path="/login" component={Login} />
-      </>
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={STORE}>
+        <BrowserRouter>
+            <>
+                <GuardedRoute path="/" component={Home} />
+                <Route exact path="/login" component={Login} />
+            </>
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
 )

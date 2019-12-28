@@ -14,14 +14,14 @@ function ProjectKebabMenu(props) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   })
 
-   const handleClickOutside = e => {
+   const handleClickOutside = (e) => {
     if (container && !container.contains(e.target)) {
       setIsShown(false)
     }
   }
 
   return (
-    <div className="project-kebab-menu" ref={n => container = n}>
+    <div className="project-kebab-menu" ref={(n) => container = n}>
       <div className="project-kebab-menu-trigger" onClick={() => setIsShown(!isShown)}>
         <img src={require('../../assets/icons/kebab-menu.svg')} alt="Kebab menu trigger" />
       </div>

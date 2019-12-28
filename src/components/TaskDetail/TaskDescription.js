@@ -5,7 +5,7 @@ import { updateTask } from '../../actions'
 import Button from '../Button'
 
 const INIT_ROW_HEIGHT = 5
-const autoExpandTextarea = areaNode => areaNode.current.value.split('\n').length + (INIT_ROW_HEIGHT - 1)
+const autoExpandTextarea = (areaNode) => areaNode.current.value.split('\n').length + (INIT_ROW_HEIGHT - 1)
 
 function TaskDescription(props) {
   const { updateTask, currentDescription, taskId } = props
@@ -16,9 +16,7 @@ function TaskDescription(props) {
   useEffect(() => {
     setDescription(currentDescription)
     setTimeout(() => {
-      setTextAreaRowAmount(
-        autoExpandTextarea(areaRef)
-      )
+      setTextAreaRowAmount(autoExpandTextarea(areaRef))
     }, 10)
   }, [currentDescription])
 
@@ -30,7 +28,7 @@ function TaskDescription(props) {
           value={description}
           rows={textAreaRowAmount}
           ref={areaRef}
-          onChange={e => {
+          onChange={(e) => {
             setDescription(e.target.value)
             setTextAreaRowAmount(autoExpandTextarea(areaRef))
           }}

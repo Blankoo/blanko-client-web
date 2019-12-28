@@ -65,6 +65,11 @@
   display: none;
 }
 
+::selection {
+  color: #F7FBFF;
+  background-color: #0052B0;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -85,7 +90,6 @@ body {
 
 .label {
   font-size: 10px;
-  user-select: none;
   color: var(--text-color-secondary);
   text-transform: uppercase;
   font-weight: bold;
@@ -97,7 +101,6 @@ h2 {
   font-size: 22px;
   color: var(--text-color-primary);
   letter-spacing: 0;
-  user-select: none;
   cursor: default;
 }
 

@@ -1,112 +1,117 @@
 .tasks-container {
-  margin-left: var(--sidebar-width);
-  margin-right: 32px;
-  flex: 2;
-  background-color: var(--white);
-  transition: margin ease-in-out .2s;
+    margin-left: var(--sidebar-width);
+    margin-right: 32px;
+    flex: 2;
+    background-color: var(--white);
+    transition: margin ease-in-out .2s;
 
-  .toggle-height {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    padding: 0 32px;
+    .toggle-height {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 0 32px;
 
-    &-trigger {
-      margin-right: 4px;
-      line-height: 0;
+        &-trigger {
+            margin-right: 4px;
+            line-height: 0;
+        }
+
+        .label {
+            margin-bottom: 0 !important;
+        }
     }
 
-    .label {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  &-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px;
-  }
-  
-  .task-list {
-    &-container {
-      margin: 24px 0 24px 0;
-      overflow: hidden;
-
-      .label {
-        margin-bottom: 12px;
-      }
+    &-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px;
     }
 
-    &.closed {
-      height: 0;
-    }
-  }
+    .task-list {
+        &-container {
+            margin: 24px 0 24px 0;
+            overflow: hidden;
 
-  .project-not-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;;
-    margin-top: 128px;
+            .label {
+                margin-bottom: 12px;
+            }
+        }
 
-    h4 {
-      margin-top: 24px;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
-    margin-right: 0;
-    margin-left: 0;
-    height: auto;
-
-
-    .hamburger-icon-sidebar {
-      position: absolute;
-      top: 40px;
-      right: 32px;
-      width: 24px;
-    }
-  }
-
-  @media screen and (min-width: 400px) {
-    &.task-active {
-      margin-right: calc(var(--task-detail-width) + 32px);
-    }
-  }
-
-  .tasks-list {
-    display: inline-flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 32px;
-
-    &.sticky {
-      margin-top: calc(64px + 32px);
+        &.closed {
+            height: 0;
+        }
     }
 
-    &.fade-enter {
-      opacity: 0;
+    .project-not-found {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        ;
+        margin-top: 128px;
+
+        h4 {
+            margin-top: 24px;
+        }
     }
 
-    &.fade-enter-active {
-      opacity: 1;
-      transition: opacity 2500ms ease-in-out;
+    @media screen and (max-width: 400px) {
+        margin-right: 0;
+        margin-left: 0;
+        height: auto;
+
+
+        .hamburger-icon-sidebar {
+            position: absolute;
+            top: 40px;
+            right: 32px;
+            width: 24px;
+        }
+
+        &-title {
+            display: block;
+        }
     }
 
-    &.fade-exit {
-      opacity: 1;
+    @media screen and (min-width: 800px) {
+        &.task-active {
+            margin-right: calc(var(--task-detail-width) + 32px);
+        }
     }
 
-    &.fade-exit-active {
-      opacity: 0;
-      transition:0ms;
-    }
-  }
+    .tasks-list {
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 32px;
 
-  .sadface-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
+        &.sticky {
+            margin-top: calc(64px + 32px);
+        }
+
+        &.fade-enter {
+            opacity: 0;
+        }
+
+        &.fade-enter-active {
+            opacity: 1;
+            transition: opacity 2500ms ease-in-out;
+        }
+
+        &.fade-exit {
+            opacity: 1;
+        }
+
+        &.fade-exit-active {
+            opacity: 0;
+            transition: 0ms;
+        }
+    }
+
+    .sadface-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
 }
