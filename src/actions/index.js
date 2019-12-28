@@ -273,7 +273,6 @@ export function deleteProject(projectId) {
                     payload: { id: activeProjectId }
                 })
 
-                console.log(resolved.data)
                 return resolved.data
             })
     }
