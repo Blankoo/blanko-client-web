@@ -50,21 +50,10 @@ class TasksContainer extends Component {
     }
 
     updateProject(projectId) {
-        const {
-            getSingleProject,
-            fetchTasks,
-            fetchAccumulatedProjectTime
-        } = this.props
+        const { getSingleProject, fetchAccumulatedProjectTime } = this.props
 
         getSingleProject(projectId)
-            .then((project) => {
-                fetchTasks(project._id, {
-                    startDate: new Date(project.createdAt).getTime(),
-                    endDate: new Date().getTime()
-                })
-
-                return project._id
-            })
+            .then((project) => project._id)
             .then(fetchAccumulatedProjectTime)
             .catch((err) => {
                 console.log(err)

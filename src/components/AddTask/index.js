@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTask } from '../../actions'
@@ -11,64 +11,40 @@ import useInput from '../Input'
 // Styles
 import './AddTask.scss'
 
-class AddTask extends React.Component {
-  constructor(props) {
-    super(props)
+function AddTask(props) {
+    const { activeProjectId, addTask, tasksLength } = props
+    const [title, titleField, setTitle] = useInput('')
 
-    this.state = {
-      title: '',
-      subTitle: '',
+    function addLocalTask() {
+        const newTask = {
+            title,
+            order: tasksLength
+        }
+
+        if (title.length > 1) {
+            addTask(newTask, activeProjectId)
+                .then(() => {
+                    console.log('task added')
+                    setTitle('')
+                })
+        }
     }
-  }
-
-  setInputState = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
-
-  addLocalTask = () => {
-    const { title } = this.state
-    const { activeProjectId, addTask, tasksLength } = this.props
-
-    const newTask = {
-      ...this.state,
-      order: tasksLength
-    }
-
-    if (title.length > 1) {
-      addTask(newTask, activeProjectId)
-      this.setState({
-        title: '',
-        subTitle: ''
-      })
-    }
-  }
-
-  render() {
-    const { title, subTitle } = this.state
 
     return (
-      <div className="task-small add-task" onKeyUp={e => e.key === 'Enter' && this.addLocalTask()}>
-        {/* <Input
-          type="text"
-          id="title"
-          value={title}
-          onChange={this.setInputState}
-        /> */}
-      </div>
+        <div className="task-small add-task" onKeyUp={(e) => e.key === 'Enter' && addLocalTask()}>
+            {titleField}
+        </div>
     )
-  }
 }
 
 AddTask.propTypes = {
-  activeProjectId: PropTypes.string,
-  addTask: PropTypes.func
+    activeProjectId: PropTypes.string,
+    addTask: PropTypes.func
 }
 
 const mapStateToProps = ({ projectReducer }) => ({
-  activeProjectId: projectReducer.activeProjectId,
-  tasksLength: projectReducer.tasks.length
+    activeProjectId: projectReducer.activeProjectId,
+    tasksLength: projectReducer.tasks.length
 })
 
 export default connect(mapStateToProps, { addTask })(AddTask)

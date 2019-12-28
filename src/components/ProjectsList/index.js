@@ -71,7 +71,7 @@ class ProjectsList extends React.PureComponent {
                     key={idx}
                     className={`projects-list-item ${project._id === activeProjectId ? 'active' : ''}`}
                   >
-                    <Link to={`/home/${project._id}`}>{projectTitle}</Link>
+                    <Link to={`/project/${project._id}`}>{projectTitle}</Link>
 
                     <ProjectKebabMenu
                       {...{

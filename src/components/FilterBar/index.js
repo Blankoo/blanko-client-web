@@ -22,7 +22,7 @@ function FilterBar(props) {
 
     const [startDate, startDateField, setStartDateValue] = useInput({ type: 'date', label: 'Start date' })
     const [endDate, endDateField, setEndDateValue] = useInput({ type: 'date', label: 'End date' })
-    const [searchInput, searchInputField] = useInput({ label: 'Search'})
+    const [searchInput, searchInputField] = useInput({ label: 'Search' })
 
     useEffect(() => {
         handleTaskSearch(searchInput)

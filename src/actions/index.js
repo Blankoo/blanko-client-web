@@ -37,18 +37,33 @@ export function fetchTasks(projectID, filter) {
     const { startDate, endDate } = filter
     console.log('_______fetch tasks...', filter)
 
-    return (dispatch) => http.get(`${config.apiUrl}/projects/${projectID}/tasks?startDate=${startDate}&endDate=${endDate}`)
-        .then((resolved) => {
-            console.log('fetch tasks resolved...', resolved)
+    return (dispatch) => {
+        if (isNaN(startDate)) {
+            console.log('start date is nan in action')
             dispatch({
-                type: types.FETCH_TASKS,
-                payload: {
-                    data: resolved.data
-                }
+                type: types.ERROR
             })
+        } else if (isNaN(endDate)) {
+            console.log('end date is nan in action')
+            dispatch({
+                type: types.ERROR
+            })
+        } else {
+            return http.get(`${config.apiUrl}/projects/${projectID}/tasks?startDate=${startDate}&endDate=${endDate}`)
+                .then((resolved) => {
+                    console.log('fetch tasks resolved...', resolved)
+                    dispatch({
+                        type: types.FETCH_TASKS,
+                        payload: {
+                            data: resolved.data
+                        }
+                    })
 
-            return resolved.data
-        })
+                    return resolved.data
+                })
+        }
+
+    }
 }
 export function setAllTasks() {
     return (dispatch) => {
@@ -122,7 +137,7 @@ export function getSingleProject(id) {
         })
 }
 
-export const addTask = (taskData, activeProjectId) => (dispatch) => http.post(`${config.apiUrl}/projects/add/${activeProjectId}`, taskData)
+export const addTask = (newTask, activeProjectId) => (dispatch) => http.post(`${config.apiUrl}/projects/add/${activeProjectId}`, newTask)
     .then((resolved) => {
         dispatch({
             type: types.ADD_TASK,
