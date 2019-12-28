@@ -37,7 +37,6 @@ class ProjectsList extends React.PureComponent {
     const {
       projects,
       className,
-      toggleAddProjectModal,
       label,
       isFavorite,
       activeProjectId,
@@ -53,9 +52,9 @@ class ProjectsList extends React.PureComponent {
             <div className="label">{ label }</div>
             {
               !isFavorite && (
-                <span className="add-project" onClick={toggleAddProjectModal}>
+                <Link className="add-project" to="/project">
                   <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
-                </span>
+                </Link>
               )
             }
           </div>
