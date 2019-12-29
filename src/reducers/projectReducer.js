@@ -9,7 +9,6 @@ export default function projectsReducer(state = initialState, action) {
         projects: action.payload
       }
     case types.SET_PROJECT_DATA:
-      window.localStorage.setItem('PROJ_ID', action.payload._id)
       return {
         ...state,
         activeProject: action.payload,

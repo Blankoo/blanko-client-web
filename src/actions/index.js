@@ -402,3 +402,29 @@ export function fetchAccumulatedProjectTime(projectId) {
             })
         })
 }
+
+export function sendForgotPasswordMail(username) {
+    return (dispatch) => {
+        http.post(`${config.apiUrl}/account/forgot`, { username })
+            .then((resolved) => {
+                console.log(resolved)
+
+                dispatch({
+                    type: types.SUCCESS
+                })
+            })
+    }
+}
+
+export function sendResetPassword(token, newPassWordValue) {
+    return (dispatch) => {
+        http.post(`${config.apiUrl}/account/reset/${token}`, { newPassWordValue })
+            .then((resolved) => {
+                console.log(resolved)
+
+                dispatch({
+                    type: types.SUCCESS
+                })
+            })
+    }
+}

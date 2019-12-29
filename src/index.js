@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 
-// import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Settings from './components/Settings'
+import Register from './pages/Register'
+import Reset from './pages/Reset'
 
 // Styles
 import './master.scss'
@@ -24,6 +24,7 @@ function isAuthenticated() {
 
 const GuardedRoute = ({ component: Component, ...rest }) => (
     <Route
+        exact
         {...rest}
         render={(props) => (
             isAuthenticated()
@@ -39,6 +40,8 @@ ReactDOM.render(
             <>
                 <GuardedRoute path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/reset-password/:token" component={Reset} />
             </>
         </BrowserRouter>
     </Provider>,

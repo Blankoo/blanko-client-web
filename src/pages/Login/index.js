@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-import { login, fetchProjects } from '../../actions'
+import { login, fetchProjects, sendForgotPasswordMail } from '../../actions'
 
 // Styles
 import './Login.scss'
@@ -64,9 +64,12 @@ class Login extends React.Component {
         }))
     }
 
-    // sendForgotUsernameMail = () => {
-    //   const { username } = this.state
-    // }
+    sendForgotPasswordMail = () => {
+        const { username } = this.state
+        console.log('sendForgotPasswordMail...', username)
+
+        this.props.sendForgotPasswordMail(username)
+    }
 
     render() {
         const {
@@ -114,9 +117,7 @@ class Login extends React.Component {
                                     <button
                                         type="submit" onClick={this.login}
                                         className="login-button"
-                                    >
-                                        Login
-                  </button>
+                                    >Login</button>
 
                                     <span className="links">
                                         <a href="https://noudadrichem.com" className="link small">Sign up</a>
@@ -124,9 +125,7 @@ class Login extends React.Component {
                                             className="link small"
                                             onClick={this.toggleForgotPassword}
                                             type="submit"
-                                        >
-                                            Forgot password
-                    </button>
+                                        >Forgot password</button>
                                     </span>
                                 </div>
                             ) : (
@@ -135,9 +134,7 @@ class Login extends React.Component {
                                             className="link move-to-left"
                                             onClick={this.toggleForgotPassword}
                                             type="submit"
-                                        >
-                                            ← Go back to login
-                  </button>
+                                        >← Go back to login</button>
 
                                         <p>Please provide the email your account is registerd with so we can send you a recovery email.</p>
 
@@ -151,12 +148,10 @@ class Login extends React.Component {
                                         />
 
                                         <button
-                                            onClick={this.sendForgotUsernameMail}
+                                            onClick={this.sendForgotPasswordMail}
                                             className="login-button"
                                             type="submit"
-                                        >
-                                            Send reset email
-                  </button>
+                                        >Send reset email</button>
                                     </div>
                                 )
                         }
@@ -175,13 +170,12 @@ class Login extends React.Component {
 Login.propTypes = {
     login: PropTypes.func,
     fetchProjects: PropTypes.func,
-    // history: PropTypes.shape()
 }
 
 const mapStateToProps = ({ authenticationReducer }) => ({
     authenticated: authenticationReducer.authenticated
 })
 
-const mapActionsToProps = { login, fetchProjects }
+const mapActionsToProps = { login, fetchProjects, sendForgotPasswordMail }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Login))
