@@ -33,6 +33,7 @@ class Home extends Component {
         return (
             <div className="home">
                 <Sidebar />
+
                 {
                     window.innerWidth < 400 &&
                     <div onClick={showSidebar} className="hamburger-icon-sidebar">
@@ -50,8 +51,7 @@ class Home extends Component {
                             <SadFace />
                         </div>
                     )
-                }
-                }
+                }}
                 />
 
                 <TaskDetail />
