@@ -4,7 +4,7 @@ import './Settings.scss'
 function Settings(props) {
   return (
     <div className="home-container settings-container">
-      Settings
+        <h1>Settings</h1>
     </div>
   )
 }

@@ -1,103 +1,107 @@
 .sidebar {
-  width: var(--sidebar-width);
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: var(--white);
-  box-shadow: inset 0 2px 40px 0 rgba(114,114,114,0.07);
-  padding-bottom: 32px;
-  padding: 0 48px;
-  display: flex;
-  flex-direction: column;
-  transition: 200ms;
-  z-index: 10;
-
-  @media screen and (min-width: 400px) and (max-width: 800px) {
-    padding-left: 0;
-  }
-
-  @media screen and (max-width: 400px) {
-    width: 95%;
+    width: var(--sidebar-width);
+    height: 100vh;
     position: fixed;
-    left:0;
-    top:0;
-    z-index: 10;
-    transform: translateX(-100%);
-
-    &.open {
-      transform: translateX(0%);
-    }
-
-    .close-sidebar {
-      position: fixed;
-      top: 40px;
-      right: 24px;
-      transform: scale(1.5);
-    }
-  }
-
-  .blanko,
-  .blanko-small {
-    font-size: 32px;
-    color: var(--text-color-primary);
-    letter-spacing: 0;
-    font-weight:700;
-    margin-top:32px;
-    user-select: none;
-    cursor: default;
-    margin-bottom: 48px;
-  }
-  
-  .blanko-small {
-    display: none;
-    font-size: 42px;
-    padding-left: 22px;
-
-    @media screen and (min-width: 400px) and (max-width: 800px) {
-      display: block;
-    }
-  }
-
-  .blanko {
-    @media screen and (min-width: 400px) and (max-width: 800px) {
-      display: none;
-    }
-  }
-  
-  .favorites {
-    margin-top:64px;
-  }
-  
-  .favorites .label,
-  .projectList .label {
-    padding-left:48px;
-  }
-  
-  .bottom-bar {
-    position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    width: 100%;
+    background: var(--white);
+    box-shadow: inset 0 2px 40px 0 rgba(114, 114, 114, 0.07);
+    padding-bottom: 32px;
+    padding: 0 48px;
     display: flex;
-    padding: 8px 12px;
-    justify-content: space-between;
+    flex-direction: column;
+    transition: 320ms ease-out;
+    z-index: 10;
 
-    .icon {
-      display: inline-flex;
-      width: 12px;
-
-      svg {
-        object-fit: cover;
-        transition: 200ms;
-      }
-
-      &.logout-icon {
-        &:hover svg g {
-          transition: 200ms ease;
-          fill: var(--red-danger);
-        }
-      }
+    @media screen and (min-width: 400px) and (max-width: 800px) {
+        padding-left: 0;
     }
-  }
+
+    @media screen and (max-width: 400px) {
+        width: 95%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        transform: translateX(-100%);
+
+        &.open {
+            transform: translateX(0%);
+        }
+
+        .close-sidebar {
+            position: fixed;
+            top: 40px;
+            right: 24px;
+            transform: scale(1.5);
+        }
+    }
+
+    .blanko,
+    .blanko-small {
+        font-size: 32px;
+        color: var(--text-color-primary);
+        letter-spacing: 0;
+        font-weight: 700;
+        margin-top: 32px;
+        user-select: none;
+        cursor: default;
+        margin-bottom: 48px;
+    }
+
+    .blanko-small {
+        display: none;
+        font-size: 42px;
+        padding-left: 22px;
+
+        @media screen and (min-width: 400px) and (max-width: 800px) {
+            display: block;
+        }
+    }
+
+    .blanko {
+        @media screen and (min-width: 400px) and (max-width: 800px) {
+            display: none;
+        }
+    }
+
+    .favorites {
+        margin-top: 64px;
+    }
+
+    .favorites .label,
+    .projectList .label {
+        padding-left: 48px;
+    }
+
+    .bottom-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        padding: 8px 12px;
+        justify-content: space-between;
+
+        .icon {
+            display: inline-flex;
+            width: 12px;
+
+            @media screen and (max-width: 400px) {
+                width: 16px;
+            }
+
+            svg {
+                object-fit: cover;
+                transition: 200ms;
+            }
+
+            &.logout-icon {
+                &:hover svg g {
+                    transition: 200ms ease;
+                    fill: var(--red-danger);
+                }
+            }
+        }
+    }
 }
