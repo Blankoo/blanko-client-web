@@ -27,22 +27,32 @@ class Home extends Component {
         const {
             activeProject,
             deleteProject,
+            showSidebar
         } = this.props
 
         return (
             <div className="home">
                 <Sidebar />
+                {
+                    window.innerWidth < 400 &&
+                    <div onClick={showSidebar} className="hamburger-icon-sidebar">
+                        <img src={require('../../assets/icons/hamburger-icon.svg')} alt="icon to show sidebar" />
+                    </div>
+                }
 
-                {/* home routes for view */}
                 <Route exact path="/settings" render={() => <Settings />} />
                 <Route exact path="/project" render={() => <AddProject />} />
                 <Route exact path="/project/:projectId/" render={(props) => <TasksContainer urlParams={props.match.params} />} />
-                {/* <Route exact path="/" render={() => (
-                    <div className="home-container sadface-container">
-                        <SadFace />
-                    </div>
-                )}
-                /> */}
+                <Route exact path="/" render={() => {
+                    showSidebar()
+                    return (
+                        <div className="home-container sadface-container">
+                            <SadFace />
+                        </div>
+                    )
+                }
+                }
+                />
 
                 <TaskDetail />
                 <AddProjectModal />
