@@ -1,30 +1,48 @@
 .home {
-  display: flex;
-  justify-content: space-between
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: 400px) {
+        margin-right: 0;
+        margin-left: 0;
+        height: auto;
+
+
+        .hamburger-icon-sidebar {
+            position: absolute;
+            top: 40px;
+            right: 32px;
+            width: 24px;
+        }
+
+        &-title {
+            display: block;
+        }
+    }
 }
 
 .home-container {
-  margin-left: var(--sidebar-width);
-  flex: 2;
-  background-color: var(--white);
-  transition: margin ease-in-out .2s;
+    margin-left: var(--sidebar-width);
+    flex: 2;
+    background-color: var(--white);
+    transition: margin ease-in-out .2s;
 
-  &-title {
-    margin-bottom: 32px;
+    &-title {
+        margin-bottom: 32px;
 
-    h1 {
-      margin-bottom: 16px;
+        h1 {
+            margin-bottom: 16px;
+        }
+
+        p {
+            max-width: 600px;
+        }
     }
-
-    p {
-      max-width: 600px;
-    }
-  }
 }
 
 .sadface-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

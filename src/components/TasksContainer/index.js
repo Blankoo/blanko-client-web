@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import {
     fetchTasks,
     getSingleProject,
-    showSidebar,
     fetchAccumulatedProjectTime
 } from '../../actions'
 
@@ -84,7 +83,6 @@ class TasksContainer extends Component {
             projectTitle,
             projectDescription,
             activeTask,
-            showSidebar,
             accumulatedTime
         } = this.props
 
@@ -94,13 +92,6 @@ class TasksContainer extends Component {
 
         return (
             <div className={`home-container tasks-container ${isThereAnActiveTask ? 'task-active' : ''}`} ref={this.tasksContainer}>
-                {
-                    window.innerWidth < 400 &&
-                    <div onClick={showSidebar} className="hamburger-icon-sidebar">
-                        <img src={require('../../assets/icons/hamburger-icon.svg')} alt="icon to show sidebar" />
-                    </div>
-                }
-
                 {
                     projectTitle !== undefined
                         ? <>
@@ -159,4 +150,4 @@ const mapStateToProps = ({ projectReducer }) => ({
     accumulatedTime: projectReducer.accumulatedTime
 })
 
-export default connect(mapStateToProps, { fetchTasks, getSingleProject, showSidebar, fetchAccumulatedProjectTime })(TasksContainer)
+export default connect(mapStateToProps, { fetchTasks, getSingleProject, fetchAccumulatedProjectTime })(TasksContainer)
