@@ -24,7 +24,6 @@ function isAuthenticated() {
 
 const GuardedRoute = ({ component: Component, ...rest }) => (
     <Route
-        exact
         {...rest}
         render={(props) => (
             isAuthenticated()
@@ -38,7 +37,7 @@ ReactDOM.render(
     <Provider store={STORE}>
         <BrowserRouter>
             <>
-                <GuardedRoute path="/" component={Home} />
+                <GuardedRoute path="/home" component={Home} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/reset-password/:token" component={Reset} />

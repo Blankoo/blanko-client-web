@@ -1,20 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { sendResetPassword } from '../../actions'
 import useInput from '../../components/Input'
 import Button from '../../components/Button'
+import Loading from '../../components/Loading'
 
 function Reset(props) {
     const { token } = props.match.params
-    const [passwordValue, passwordField] = useInput({ label: 'New password'})
-    const [makeSure, makeSureField] = useInput({ label: 'Verify password' })
+    const [isLoading, setIsLoading] = useState(false)
+    const [passwordValue, passwordField] = useInput({ label: 'New password', type: 'password' })
+    const [makeSure, makeSureField] = useInput({ label: 'Verify password', type: 'password' })
 
     function verify() {
         if(passwordValue === makeSure) {
-            return props.sendResetPassword(token, passwordValue)
+            setIsLoading(true)
+            props.sendResetPassword(token, passwordValue)
+                .then((result) => {
+                    if(result.success) {
+                        setIsLoading(false)
+                    }
+                })
         }
-
-        console.log('Not the same...')
     }
 
     return (
@@ -27,6 +33,8 @@ function Reset(props) {
                 onClick={verify}
                 text="Reset"
             />
+
+            { isLoading && <Loading />}
         </div>
     )
 }

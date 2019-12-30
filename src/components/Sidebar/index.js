@@ -24,7 +24,7 @@ function SideBar(props) {
     }
 
     function goToSettings() {
-        history.push('`/settings`')
+        history.push('/home/settings')
         if (window.innerWidth < 400) {
             showSidebar()
         }

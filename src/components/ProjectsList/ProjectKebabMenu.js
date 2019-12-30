@@ -5,40 +5,42 @@ import { DELETE_PROJECT } from '../../contstants/actionTypes'
 
 
 function ProjectKebabMenu(props) {
-  const { toggleModal, updateProject, projectId, favorite } = props
-  const [isShown, setIsShown] = useState(false)
-  let container
+    const { toggleModal, updateProject, projectId, favorite } = props
+    const [isShown, setIsShown] = useState(false)
+    let container
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  })
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    })
 
-   const handleClickOutside = (e) => {
-    if (container && !container.contains(e.target)) {
-      setIsShown(false)
+    const handleClickOutside = (e) => {
+        if (container && !container.contains(e.target)) {
+            setIsShown(false)
+        }
     }
-  }
 
-  return (
-    <div className="project-kebab-menu" ref={(n) => container = n}>
-      <div className="project-kebab-menu-trigger" onClick={() => setIsShown(!isShown)}>
-        <img src={require('../../assets/icons/kebab-menu.svg')} alt="Kebab menu trigger" />
-      </div>
+    return (
+        <div className="project-kebab-menu" ref={(n) => container = n}>
+            <div className="project-kebab-menu-trigger" onClick={() => setIsShown(!isShown)}>
+                <img src={require('../../assets/icons/kebab-menu.svg')} alt="Kebab menu trigger" />
+            </div>
 
-      <CSSTransition
-        in={isShown}
-        timeout={200}
-        classNames="fadeInUp"
-        unmountOnExit
-      >
-        <div className="project-kebab-menu-content" onClick={() => setIsShown(false)}>
-          <div onClick={() => updateProject(projectId, { favorite: !favorite }) }>Favorite</div>
-          <div className="delete" onClick={() => toggleModal('isVerificationShown', true, DELETE_PROJECT) }>Delete</div>
+            <CSSTransition
+                in={isShown}
+                timeout={200}
+                classNames="fadeInUp"
+                unmountOnExit
+            >
+                <div className="project-kebab-menu-content" onClick={() => setIsShown(false)}>
+                    <div onClick={() => updateProject(projectId, { favorite: !favorite })}>{
+                        favorite ? 'unfavorite' : 'favorite'
+                    }</div>
+                    <div className="delete" onClick={() => toggleModal('isVerificationShown', true, DELETE_PROJECT)}>Delete</div>
+                </div>
+            </CSSTransition>
         </div>
-      </CSSTransition>
-    </div>
-  )
+    )
 }
 
 export default ProjectKebabMenu

@@ -22,7 +22,7 @@ import './ProjectsList.scss'
 
 class ProjectsList extends React.Component {
     goToProject = (projectId) => {
-        this.props.history.push(`/project/${projectId}`)
+        this.props.history.push(`/home/project/${projectId}`)
         if (window.innerWidth < 400) {
             this.props.showSidebar()
         }
@@ -47,7 +47,7 @@ class ProjectsList extends React.Component {
                         <div className="label">{label}</div>
                         {
                             !isFavorite && (
-                                <Link className="add-project" to="/project">
+                                <Link className="add-project" to="/home/add-project">
                                     <img src={require('../../assets/icons/plus.svg')} alt="Add project" />
                                 </Link>
                             )

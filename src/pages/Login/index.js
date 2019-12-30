@@ -36,7 +36,7 @@ class Login extends React.Component {
                         window.localStorage.setItem('USER_TOK', payload.token)
                         setTimeout(() => {
                             fetchProjects()
-                            this.props.history.push('/')
+                            this.props.history.push('/home')
                         }, 1100)
                     } else {
                         this.setState({
@@ -54,7 +54,7 @@ class Login extends React.Component {
         }
     }
 
-    onType = (e) => {
+    setInputValue = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 

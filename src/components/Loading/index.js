@@ -1,14 +1,15 @@
 import React from 'react'
 import './loading.scss'
 
-function Loading() {
-  return (
-    <div class="loading">
-      <div class="circle"></div>
-      <div class="circle two"></div>
-      <div class="circle three"></div>
-    </div>
-  )
+function Loading(props) {
+    const { small } = props
+    return (
+        <div className={`loading ${small ? 'small' : ''}`}>
+            <div className="circle"></div>
+            <div className="circle two"></div>
+            <div className="circle three"></div>
+        </div>
+    )
 }
 
 export default Loading

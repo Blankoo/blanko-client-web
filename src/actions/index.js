@@ -418,13 +418,13 @@ export function sendForgotPasswordMail(username) {
 
 export function sendResetPassword(token, newPassWordValue) {
     return (dispatch) => {
-        http.post(`${config.apiUrl}/account/reset/${token}`, { newPassWordValue })
+        return http.post(`${config.apiUrl}/account/reset/${token}`, { newPassWordValue })
             .then((resolved) => {
-                console.log(resolved)
-
                 dispatch({
                     type: types.SUCCESS
                 })
+
+                return resolved.data
             })
     }
 }
