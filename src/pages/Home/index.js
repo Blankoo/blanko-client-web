@@ -7,7 +7,6 @@ import * as actions from '../../actions'
 // Components
 import Sidebar from '../../components/Sidebar'
 import TasksContainer from '../../components/TasksContainer'
-import AddProjectModal from '../../components/AddProjectModal'
 import TaskDetail from '../../components/TaskDetail'
 import VerificationModal from '../../components/VerificationModal'
 import Settings from '../../components/Settings'
@@ -41,10 +40,10 @@ class Home extends Component {
                     </div>
                 }
 
-                <Route exact path="/settings" render={() => <Settings />} />
-                <Route exact path="/project" render={() => <AddProject />} />
-                <Route exact path="/project/:projectId/" render={(props) => <TasksContainer urlParams={props.match.params} />} />
-                <Route exact path="/" render={() => {
+                <Route exact path="/home/settings" render={() => <Settings />} />
+                <Route exact path="/home/add-project" render={() => <AddProject />} />
+                <Route exact path="/home/project/:projectId/" render={(props) => <TasksContainer urlParams={props.match.params} />} />
+                <Route exact path="/home" render={() => {
                     showSidebar()
                     return (
                         <div className="home-container sadface-container">
@@ -55,7 +54,6 @@ class Home extends Component {
                 />
 
                 <TaskDetail />
-                <AddProjectModal />
 
                 {activeProject !== undefined && <VerificationModal title="Are you sure?" handler={() => deleteProject(activeProject._id)} />}
             </div>

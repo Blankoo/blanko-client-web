@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import useInput from '../Input'
@@ -6,11 +6,18 @@ import Button from '../Button'
 import { addProject } from '../../actions'
 
 import './AddProject.scss'
+import { withRouter } from 'react-router'
 
 function AddProject(props) {
-    const { addProject } = props
     const [projectTitle, projectTitleField] = useInput({ placeholder: 'Project title...'})
     const [projectDescription, projectDescriptionField] = useInput({ placeholder: 'Project description...'})
+
+    function addProject() {
+        props.addProject({ projectTitle, projectDescription })
+            .then((project) => {
+                props.history.push(`/home/project/${project._id}`)
+            })
+    }
 
     return (
         <div className="home-container add-project-container">
@@ -31,7 +38,7 @@ function AddProject(props) {
             </div>
 
             <Button
-                onClick={() => addProject({ projectTitle, projectDescription })}
+                onClick={() => addProject()}
                 variant="primary"
                 text="Add"
                 size="md"
@@ -40,4 +47,4 @@ function AddProject(props) {
     )
 }
 
-export default connect(undefined, { addProject })(AddProject)
+export default withRouter(connect(undefined, { addProject })(AddProject))

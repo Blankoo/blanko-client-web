@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 
-// import Error from './containers/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Settings from './components/Settings'
+import Register from './pages/Register'
+import Reset from './pages/Reset'
 
 // Styles
 import './master.scss'
@@ -37,8 +37,11 @@ ReactDOM.render(
     <Provider store={STORE}>
         <BrowserRouter>
             <>
-                <GuardedRoute path="/" component={Home} />
+                <GuardedRoute path="/home" component={Home} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/reset-password/:token" component={Reset} />
+                <Route exact path="/" render={() => <Redirect to="/login" />} />
             </>
         </BrowserRouter>
     </Provider>,

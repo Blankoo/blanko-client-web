@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import { showSidebar } from '../../actions'
 
@@ -24,7 +24,7 @@ function SideBar(props) {
     }
 
     function goToSettings() {
-        history.push('`/settings`')
+        history.push('/home/settings')
         if (window.innerWidth < 400) {
             showSidebar()
         }

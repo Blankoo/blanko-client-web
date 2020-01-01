@@ -113,21 +113,21 @@ export function dispatchAction(actionName, payload) {
     }
 }
 
-export const addProject = (projectData) => (dispatch) => http.post(`${config.apiUrl}/projects/add/`, projectData)
-    .then((resolved) => {
-        dispatch({
-            type: types.ADD_PROJECT,
-            payload: resolved.data
-        })
+export function addProject(projectData) {
+    return (dispatch) => http.post(`${config.apiUrl}/projects/add/`, projectData)
+        .then((resolved) => {
+            dispatch({
+                type: types.ADD_PROJECT,
+                payload: resolved.data
+            })
 
-        return resolved.data
-    })
+            return resolved.data
+        })
+}
 
 export function getSingleProject(id) {
-    console.log('getSingleProject... ', id)
     return (dispatch) => http.get(`${config.apiUrl}/projects/${id}`)
         .then((resolved) => {
-            console.log('single project data', resolved)
             dispatch({
                 type: types.SET_PROJECT_DATA,
                 payload: resolved.data
@@ -234,6 +234,8 @@ export function stopTimeMeasurement(projectId, measurementId, endMesObj) {
                     type: types.STOP_MES,
                     payload: resolved.data
                 })
+
+                return resolved.data
             })
     }
 }
@@ -377,18 +379,23 @@ function persistNewListOrder(body) {
         .catch((err) => console.error({ err }))
 }
 
-export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
+export function addNewTimeMeasurement(totalTimeInSeconds, taskId, projectId) {
     const newMesBody = {
+        projectId,
         total: totalTimeInSeconds,
-        isFinished: true
+        isFinished: true,
+        endTime: new Date().getTime()
     }
 
     return (dispatch) => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, newMesBody)
         .then((resolved) => {
+            console.log('add new mes resolved...', resolved)
             dispatch({
                 type: types.NEW_MES,
                 payload: resolved.data
             })
+
+            return resolved.data
         })
 }
 
@@ -401,4 +408,30 @@ export function fetchAccumulatedProjectTime(projectId) {
                 payload: resolved.data
             })
         })
+}
+
+export function sendForgotPasswordMail(username) {
+    return (dispatch) => {
+        http.post(`${config.apiUrl}/account/forgot`, { username })
+            .then((resolved) => {
+                console.log(resolved)
+
+                dispatch({
+                    type: types.SUCCESS
+                })
+            })
+    }
+}
+
+export function sendResetPassword(token, newPassWordValue) {
+    return (dispatch) => {
+        return http.post(`${config.apiUrl}/account/reset/${token}`, { newPassWordValue })
+            .then((resolved) => {
+                dispatch({
+                    type: types.SUCCESS
+                })
+
+                return resolved.data
+            })
+    }
 }

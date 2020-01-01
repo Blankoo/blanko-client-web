@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import { toggleModal, dispatchAction } from '../../actions'
 
@@ -26,6 +27,9 @@ function VerificationModal(props) {
             onClick={() => {
               toggleModal('isVerificationShown', false)
               dispatchAction(modalAction)
+              if (modalAction === 'DELETE_PROJECT') {
+                  props.history.push('/home')
+              }
             }}
             variant="danger"
             text="I'm sure"
@@ -43,4 +47,4 @@ const mapStateToProps = ({ projectReducer }) => ({
   modalAction: projectReducer.modalAction
 })
 
-export default connect(mapStateToProps, { toggleModal, dispatchAction })(VerificationModal)
+export default withRouter(connect(mapStateToProps, { toggleModal, dispatchAction })(VerificationModal))
