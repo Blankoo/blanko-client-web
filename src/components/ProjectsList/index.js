@@ -57,6 +57,7 @@ class ProjectsList extends React.Component {
                         {
                             projects
                                 .filter((project) => project.favorite === isFavorite)
+                                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                                 .map((project, idx) => {
                                     const { projectTitle } = project
 

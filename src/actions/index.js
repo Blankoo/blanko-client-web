@@ -113,21 +113,21 @@ export function dispatchAction(actionName, payload) {
     }
 }
 
-export const addProject = (projectData) => (dispatch) => http.post(`${config.apiUrl}/projects/add/`, projectData)
-    .then((resolved) => {
-        dispatch({
-            type: types.ADD_PROJECT,
-            payload: resolved.data
-        })
+export function addProject(projectData) {
+    return (dispatch) => http.post(`${config.apiUrl}/projects/add/`, projectData)
+        .then((resolved) => {
+            dispatch({
+                type: types.ADD_PROJECT,
+                payload: resolved.data
+            })
 
-        return resolved.data
-    })
+            return resolved.data
+        })
+}
 
 export function getSingleProject(id) {
-    console.log('getSingleProject... ', id)
     return (dispatch) => http.get(`${config.apiUrl}/projects/${id}`)
         .then((resolved) => {
-            console.log('single project data', resolved)
             dispatch({
                 type: types.SET_PROJECT_DATA,
                 payload: resolved.data
@@ -385,10 +385,13 @@ export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
 
     return (dispatch) => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, newMesBody)
         .then((resolved) => {
+            console.log('add new mes resolved...', resolved)
             dispatch({
                 type: types.NEW_MES,
                 payload: resolved.data
             })
+
+            return resolved.data
         })
 }
 

@@ -54,7 +54,7 @@ class Login extends React.Component {
         }
     }
 
-    setInputValue = (e) => {
+    onType = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 

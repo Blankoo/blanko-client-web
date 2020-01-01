@@ -44,7 +44,7 @@ AddTask.propTypes = {
 
 const mapStateToProps = ({ projectReducer }) => ({
     activeProjectId: projectReducer.activeProjectId,
-    tasksLength: projectReducer.tasks.length
+    tasksLength: projectReducer.tasks.length || 0
 })
 
 export default connect(mapStateToProps, { addTask })(AddTask)

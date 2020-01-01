@@ -41,6 +41,7 @@ ReactDOM.render(
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/reset-password/:token" component={Reset} />
+                <Route exact path="/" render={() => <Redirect to="/login" />} />
             </>
         </BrowserRouter>
     </Provider>,
