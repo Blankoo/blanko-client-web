@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import useInput from '../Input'
 import Button from '../Button'
@@ -8,25 +8,31 @@ import { time } from './../../utils'
 const { hoursToSeconds, minutesToSeconds } = time
 
 function NewMeasurement(props) {
-    const { addNewTimeMeasurement, taskId, toggleIsAddNewMeasurementShown } = props
-    const [minutes, setMinutes] = useState(0)
-    const [hours, setHours] = useState(0)
+    const { addNewTimeMeasurement, toggleIsAddNewMeasurementShown } = props
     const container = useRef()
 
-    const [hourInput, hourInputField] = useInput({ type: 'number' })
-    const [minuteInput, minuteInputField] = useInput({ type: 'number' })
+    const [hourInput, hourInputField] = useInput({ type: 'number', placeholder: 'hour' })
+    const [minuteInput, minuteInputField] = useInput({ type: 'number', placeholder: 'minute' })
 
-    const totalSeconds = (hoursToSeconds(hours > 0 ? hours : 0) + minutesToSeconds(minutes)) * 1000
+    const totalSeconds = (hoursToSeconds(hourInput > 0 ? hourInput : 0) + minutesToSeconds(minuteInput)) * 1000
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
     })
 
-    const handleClickOutside = (e) => {
+    function handleClickOutside(e) {
         if (container && !container.current.contains(e.target)) {
             toggleIsAddNewMeasurementShown()
         }
+    }
+
+    function addMeasurement() {
+        const { taskId, projectId } = props
+        addNewTimeMeasurement(totalSeconds, taskId, projectId)
+            .then(() => {
+                toggleIsAddNewMeasurementShown()
+            })
     }
 
     return (
@@ -38,10 +44,7 @@ function NewMeasurement(props) {
                 </span>
                 {minuteInputField}
 
-                <Button text="Add" onClick={() => {
-                    addNewTimeMeasurement(totalSeconds, taskId)
-                    toggleIsAddNewMeasurementShown()
-                }} />
+                <Button text="Add" onClick={addMeasurement} />
             </div>
         </div>
     )
@@ -49,7 +52,8 @@ function NewMeasurement(props) {
 
 function mapStateToProps({ projectReducer }) {
     return {
-        taskId: projectReducer.activeTask._id
+        taskId: projectReducer.activeTask._id,
+        projectId: projectReducer.activeTask.projectId,
     }
 }
 

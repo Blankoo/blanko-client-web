@@ -5,7 +5,8 @@ import './timeMeasuringStyle.scss'
 
 import {
     startTimeMeasurement,
-    stopTimeMeasurement
+    stopTimeMeasurement,
+    fetchAccumulatedProjectTime
 } from '../../actions'
 
 import SingleMeasurement from './SingleMeasurement'
@@ -63,6 +64,10 @@ class TimeMeasuring extends React.Component {
                 isFinished: true
             }
             this.props.stopTimeMeasurement(projectId, this.props.activeMeasurementId, putMeasurement)
+                .then((result) => {
+                    console.log(result)
+                    this.props.fetchAccumulatedProjectTime(projectId)
+                })
             clearInterval(this.interval)
         })
     }
@@ -70,7 +75,9 @@ class TimeMeasuring extends React.Component {
     toggleIsAddNewMeasurementShown = () => {
         this.setState(({ isAddNewMeasurementShown }) => ({
             isAddNewMeasurementShown: !isAddNewMeasurementShown
-        }))
+        }), () => {
+            this.props.fetchAccumulatedProjectTime(this.props.activeProjectId)
+        })
     }
 
     render() {
@@ -106,9 +113,7 @@ class TimeMeasuring extends React.Component {
                     }
                     <div className="numbers mono">
                         {
-                            secondsToHourMinuteSecond(
-                                totalInSeconds(currenTime, startTime)
-                            )
+                            secondsToHourMinuteSecond(totalInSeconds(currenTime, startTime))
                         }
                     </div>
                 </div>
@@ -124,8 +129,8 @@ class TimeMeasuring extends React.Component {
                             <span className="label">All measurements:</span>
                             {
                                 measurements
-                                    .filter(m => m.isFinished)
-                                    .map((measurement, idx) => <SingleMeasurement {...measurement} key={idx} />)
+                                    .filter((m) => m.isFinished)
+                                    .map((measurement) => <SingleMeasurement {...measurement} key={measurement._id} />)
                             }
                         </div>
                     </>
@@ -141,8 +146,7 @@ function mapStateToProps({ projectReducer }) {
         activeProjectId: projectReducer.activeProject._id,
         measurements: projectReducer.measurements,
         activeMeasurementId: projectReducer.activeMeasurementId,
-        activeProjectId: projectReducer.activeProject._id
     }
 }
 
-export default connect(mapStateToProps, { startTimeMeasurement, stopTimeMeasurement })(TimeMeasuring)
+export default connect(mapStateToProps, { startTimeMeasurement, stopTimeMeasurement, fetchAccumulatedProjectTime })(TimeMeasuring)

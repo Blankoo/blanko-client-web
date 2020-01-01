@@ -234,6 +234,10 @@ export function stopTimeMeasurement(projectId, measurementId, endMesObj) {
                     type: types.STOP_MES,
                     payload: resolved.data
                 })
+
+                fetchAccumulatedProjectTime(projectId)
+
+                return resolved.data
             })
     }
 }
@@ -377,10 +381,12 @@ function persistNewListOrder(body) {
         .catch((err) => console.error({ err }))
 }
 
-export function addNewTimeMeasurement(totalTimeInSeconds, taskId) {
+export function addNewTimeMeasurement(totalTimeInSeconds, taskId, projectId) {
     const newMesBody = {
+        projectId,
         total: totalTimeInSeconds,
-        isFinished: true
+        isFinished: true,
+        endTime: new Date().getTime()
     }
 
     return (dispatch) => http.post(`${config.apiUrl}/timemeasurements/new/${taskId}`, newMesBody)
