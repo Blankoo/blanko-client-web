@@ -235,8 +235,6 @@ export function stopTimeMeasurement(projectId, measurementId, endMesObj) {
                     payload: resolved.data
                 })
 
-                fetchAccumulatedProjectTime(projectId)
-
                 return resolved.data
             })
     }

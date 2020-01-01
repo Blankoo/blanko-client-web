@@ -23,10 +23,15 @@ class TimeMeasuring extends React.Component {
         currenTime: null,
         startTime: null,
         endTime: null,
-        isAddNewMeasurementShown: false
+        isAddNewMeasurementShown: false,
+        totalMeasuredTime: 0
     }
 
     currenTime = () => new Date().getTime()
+
+    componentDidMount() {
+        this.setTotalMeasuredTime()
+    }
 
     startMeasurement = (taskId) => {
         this.setState({
@@ -48,12 +53,15 @@ class TimeMeasuring extends React.Component {
         })
         this.interval = setInterval(() => {
             this.setState({
-                currenTime: this.currenTime()
+                currenTime: this.currenTime(),
+            }, () => {
+                this.setTotalMeasuredTime()
             })
         }, 500)
     }
 
     stopMeasurement = (projectId) => {
+        clearInterval(this.interval)
         this.setState({
             isMeasuring: false,
             startTime: this.currenTime(),
@@ -64,11 +72,10 @@ class TimeMeasuring extends React.Component {
                 isFinished: true
             }
             this.props.stopTimeMeasurement(projectId, this.props.activeMeasurementId, putMeasurement)
-                .then((result) => {
-                    console.log(result)
+                .then(() => {
                     this.props.fetchAccumulatedProjectTime(projectId)
+                    this.setTotalMeasuredTime()
                 })
-            clearInterval(this.interval)
         })
     }
 
@@ -80,10 +87,18 @@ class TimeMeasuring extends React.Component {
         })
     }
 
+    setTotalMeasuredTime = () => {
+        const totalMeasured = this.props.measurements.filter((m) => m.isFinished).reduce((zero, { total }) => zero + total, 0)
+        const currentTotal = this.state.currenTime - this.state.startTime
+
+        this.setState({
+            totalMeasuredTime: totalMeasured + currentTotal
+        })
+    }
+
     render() {
         const { activeTaskId, activeProjectId, measurements } = this.props
         const { startTime, currenTime, isMeasuring, isAddNewMeasurementShown } = this.state
-        const totalMeasuredTime = measurements.filter((m) => m.isFinished).reduce((zero, { total }) => zero + total, 0)
 
         return (
             <div className="time-measurements">
@@ -121,8 +136,8 @@ class TimeMeasuring extends React.Component {
                 {measurements.length > 0 &&
                     <>
                         <div className="total-measured mono">
-                            <span className="label">Total measured time:</span>
-                            <span className="mono">{totalMeasuredTime !== isNaN && secondsToHourMinuteSecond(totalMeasuredTime / 1000)}</span>
+                            <span className="label">Total measured task time:</span>
+                            <span className="mono">{secondsToHourMinuteSecond(this.state.totalMeasuredTime / 1000)}</span>
                         </div>
 
                         <div>
@@ -130,6 +145,7 @@ class TimeMeasuring extends React.Component {
                             {
                                 measurements
                                     .filter((m) => m.isFinished)
+                                    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
                                     .map((measurement) => <SingleMeasurement {...measurement} key={measurement._id} />)
                             }
                         </div>
